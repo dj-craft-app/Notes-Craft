@@ -19,6 +19,9 @@ log = { workspace = true }
 # Markdown parsing
 pulldown-cmark = { workspace = true }
 
+# Syntax highlighting
+syntect = { workspace = true }
+
 [dev-dependencies]
 anyhow = { workspace = true }
 
