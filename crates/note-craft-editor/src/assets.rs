@@ -213,7 +213,8 @@ impl AssetMetadata {
             .unwrap_or("")
             .to_lowercase();
 
-        format!("{}_{}", &hash[..16], ext)
+        let hash_prefix = if hash.len() >= 16 { &hash[..16] } else { &hash };
+        format!("{}_{}", hash_prefix, ext)
     }
 }
 
