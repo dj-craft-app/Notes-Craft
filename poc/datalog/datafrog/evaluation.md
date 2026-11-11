@@ -42,6 +42,8 @@
 | **Nombre de contributors** | [À VÉRIFIER] | GitHub |
 | **Dernière release** | [À VÉRIFIER] | GitHub |
 | **Téléchargements crates.io** | [À VÉRIFIER] | crates.io |
+| **URL crates.io** | https://crates.io/crates/datafrog | crates.io |
+| **URL GitHub** | https://github.com/rust-lang-nursery/datafrog | GitHub |
 
 ### 1.3 Installation
 
@@ -281,11 +283,13 @@ Pour le benchmark, nous allons implémenter manuellement les requêtes de test.
 
 ### 5.3 Jeux de données
 
-| Jeu | Nœuds | Relations | Taille (MB) | Format |
-|-----|-------|-----------|-------------|--------|
-| **Petit** | 100 | 500 | [À VÉRIFIER] | Vec<(NodeId, Tag)> |
-| **Moyen** | 1,000 | 5,000 | [À VÉRIFIER] | Vec<(NodeId, Tag)> |
-| **Grand** | 10,000 | 50,000 | [À VÉRIFIER] | Vec<(NodeId, Tag)> |
+| Jeu | Nœuds | Relations | Taille (MB) | Format | Source |
+|-----|-------|-----------|-------------|--------|--------|
+| **Petit** | 100 | 500 | [À VÉRIFIER] | Vec<(NodeId, Tag)> | src/main.rs |
+| **Moyen** | 1,000 | 5,000 | [À VÉRIFIER] | Vec<(NodeId, Tag)> | [À VÉRIFIER] |
+| **Grand** | 10,000 | 50,000 | [À VÉRIFIER] | Vec<(NodeId, Tag)> | [À VÉRIFIER] |
+
+**Note:** Les jeux de données sont générés de manière déterministe dans le code source.
 
 ### 5.4 Implémentation des benchmarks
 
@@ -293,14 +297,14 @@ Voir [benchmark.rs](./benchmark/benchmark.rs) pour le code des benchmarks.
 
 ### 5.5 Résultats des benchmarks
 
-#### 5.5.1 Requêtes simples
+#### 5.5.1 Requêtes simples (implémentation naive)
 
-| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes |
-|---------|-------------|-----------|-----------|-----------|-------|
-| **1.1** | Par tag | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **1.2** | Liens directs | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **1.3** | Par type | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **Moyenne** | | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | |
+| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes | Source |
+|---------|-------------|-----------|-----------|-----------|-------|--------|
+| **1.1** | Par tag | 6.541µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 1 |
+| **1.2** | Liens directs | 400.833µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 2 |
+| **1.3** | Par type | 3.791µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 4 |
+| **Moyenne** | | **137.055µs** | **[À VÉRIFIER]** | **[À VÉRIFIER]** | | |
 
 #### 5.5.2 Requêtes moyennes
 
@@ -313,23 +317,26 @@ Voir [benchmark.rs](./benchmark/benchmark.rs) pour le code des benchmarks.
 
 #### 5.5.3 Requêtes complexes
 
-| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes |
-|---------|-------------|-----------|-----------|-----------|-------|
-| **3.1** | Liens indirects | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **3.2** | OR complexe | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | N/A (pas de OR natif) |
-| **3.3** | Top 5 tags | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | N/A (pas d'agrégation) |
-| **Moyenne** | | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | |
+| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes | Source |
+|---------|-------------|-----------|-----------|-----------|-------|--------|
+| **3.1** | Liens indirects (algo naif) | 25.5µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 3 |
+| **3.1** | Liens indirects (datafrog) | 99.292µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 5 |
+| **3.2** | OR complexe | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] | N/A (pas de OR natif) | |
+| **3.3** | Top 5 tags | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] | N/A (pas d'agrégation) | |
+| **Moyenne** | | **[À VÉRIFIER]** | **[À VÉRIFIER]** | **[À VÉRIFIER]** | | |
+
+**Observation importante:** La requête récursive avec datafrog (99.3µs) est plus lente que l'algorithme naif (25.5µs) pour ce petit jeu de données. Cela peut être dû au overhead de datafrog ou à la simplicité du cas de test. Des benchmarks sur des jeux plus grands sont nécessaires.
 
 #### 5.5.4 Benchmarks spécifiques
 
-| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes |
-|---------|-------------|-----------|-----------|-----------|-------|
-| **5.1** | Simple | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **5.2** | Jointure | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **5.3** | Récursive | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **5.4** | Agrégation | N/A | N/A | N/A | Pas supporté |
-| **5.5** | Complexe | [À VÉRIFIER] ms | [À VÉRIFIER] ms | [À VÉRIFIER] ms | |
-| **Moyenne** | | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | **[À VÉRIFIER] ms** | |
+| Requête | Description | Jeu Petit | Jeu Moyen | Jeu Grand | Notes | Source |
+|---------|-------------|-----------|-----------|-----------|-------|--------|
+| **5.1** | Simple | 6.541µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 1 |
+| **5.2** | Jointure | 400.833µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 2 |
+| **5.3** | Récursive | 99.292µs | [À VÉRIFIER] | [À VÉRIFIER] | | src/main.rs:Test 5 |
+| **5.4** | Agrégation | N/A | N/A | N/A | Pas supporté nativement | |
+| **5.5** | Complexe | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] | | |
+| **Moyenne** | | **168.888µs** | **[À VÉRIFIER]** | **[À VÉRIFIER]** | | |
 
 ### 5.6 Consommation mémoire
 
@@ -357,18 +364,45 @@ Voir [benchmark.rs](./benchmark/benchmark.rs) pour le code des benchmarks.
 
 ✅ **100% Rust** - Pas de FFI, intégration native
 ✅ **Léger** - 0 dépendances externes
-✅ **Maintenu par rust-lang** - Excellente maintenance
+✅ **Maintenu par rust-lang-nursery** - Excellente maintenance
 ✅ **Performant** - Conçu pour l'efficacité
 ✅ **Embeddable** - Conçu pour être embarqué
-✅ **Concepts Datalog** - Support des fondamentaux
+✅ **Concepts Datalog** - Support des fondamentaux (variables, règles, jointures, récursion)
+✅ **PoC fonctionnel** - Nous avons validé que datafrog fonctionne pour des requêtes de base
 
 ### 6.2 Inconvénients de datafrog
 
 ❌ **Pas de syntaxe Datalog textuelle** - API Rust uniquement
 ❌ **Pas de parser** - Nécessite d'implémenter un parser Logseq → datafrog
-❌ **Fonctionnalités limitées** - Pas d'agrégations, tri, limite
+❌ **Fonctionnalités limitées** - Pas d'agrégations, tri, limite natifs
 ❌ **Adaptation nécessaire** - L'application doit être adaptée ou un wrapper créé
 ❌ **Documentation limitée** - Peu d'exemples avancés
+❌ **Overhead visible** - Plus lent que l'algo naif pour petits jeux de données (99.3µs vs 25.5µs)
+
+### 6.3 Résultats des benchmarks préliminaires
+
+**Environnement:** 
+- Système: [À VÉRIFIER]
+- CPU: [À VÉRIFIER]
+- RAM: [À VÉRIFIER]
+- Rust: 1.70+
+
+**Données de test:** 100 nœuds, 500 liens, 199 tags
+
+| Métrique | Valeur | Comparaison |
+|----------|--------|-------------|
+| Requête simple (par tag) | 6.541µs | Rapide |
+| Jointure (liens + tags) | 400.833µs | Lent (algo naif) |
+| Récursif (algo naif) | 25.5µs | Rapide |
+| Récursif (datafrog) | 99.292µs | 4x plus lent que naif |
+
+**Analyse:**
+- Les requêtes simples sont très rapides
+- Les jointures sont lentes avec l'implémentation naive
+- datafrog a un overhead pour les petits jeux de données
+- **→ À tester avec des jeux plus grands (1K, 10K nœuds)**
+
+**Hypothèse:** datafrog sera plus performant sur des jeux de données plus grands où l'overhead est amorti.
 
 ### 6.3 Comparaison avec les critères de Note Craft
 
@@ -422,12 +456,15 @@ datafrog pourrait être sélectionné SI :
 
 ## 8. PROCHAINES ÉTAPES
 
+- [x] Créer un exemple de base avec datafrog ✅ (src/main.rs)
+- [x] Exécuter les benchmarks préliminaires ✅ (100 nœuds)
 - [ ] Terminer l'analyse de maturité
-- [ ] Implémenter un exemple de base avec datafrog
 - [ ] Créer un prototype de parser Logseq → datafrog
-- [ ] Exécuter les benchmarks de performance
+- [ ] Exécuter les benchmarks de performance sur jeux moyens/grands
 - [ ] Évaluer la faisabilité de l'intégration complète
 - [ ] Comparer avec Soufflé et Custom
+- [ ] Évaluer Soufflé (FFI Rust/C++)
+- [ ] Prototyper le moteur Custom
 
 ---
 

@@ -145,7 +145,13 @@ Pour chaque candidat, effectuer :
 
 ### 6.1 Livrables
 
-- [ ] `poc/datalog/crepe/evaluation.md` - Rapport d'évaluation crepe
+- [x] `poc/datalog/ADR-001-candidats-datalog.md` - ADR pour le changement de candidat
+- [x] `poc/datalog/README.md` - Ce document
+- [x] `poc/datalog/benchmark/common/queries.datalog` - Requêtes de test
+- [x] `poc/datalog/crepe/README.md` - Documentation de l'indisponibilité de crepe
+- [x] `poc/datalog/crepe/evaluation.md` - Template d'évaluation
+- [x] `poc/datalog/datafrog/` - PoC datafrog avec code fonctionnel
+- [x] `poc/datalog/datafrog/evaluation.md` - Évaluation de datafrog (en cours)
 - [ ] `poc/datalog/souffle/evaluation.md` - Rapport d'évaluation Soufflé
 - [ ] `poc/datalog/custom/evaluation.md` - Rapport d'évaluation custom
 - [ ] `poc/datalog/custom/src/lib.rs` - Prototype d'implémentation custom
@@ -155,8 +161,19 @@ Pour chaque candidat, effectuer :
 
 ### 6.2 Métriques
 
-| Métrique | Valeur cible | Crépe | Soufflé | Custom |
-|----------|---------------|-------|---------|--------|
+**Résultats préliminaires (datafrog - 100 nœuds):**
+
+| Métrique | Valeur | Statut | Notes |
+|----------|--------|--------|-------|
+| Requêtes simples (par tag) | 6.541µs | ✅ Très rapide | |
+| Jointure (liens + tags) | 400.833µs | ⚠️ Lent (algo naif) | À optimiser |
+| Récursif (algo naif) | 25.5µs | ✅ Rapide | |
+| Récursif (datafrog) | 99.292µs | ⚠️ Overhead visible | À tester sur jeux plus grands |
+
+**Métriques cibles (à valider):**
+
+| Métrique | Valeur cible | datafrog | Soufflé | Custom |
+|----------|---------------|---------|---------|--------|
 | Requêtes simples (1K nœuds) | < 10ms | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] |
 | Requêtes complexes (1K nœuds) | < 100ms | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] |
 | Requêtes récursives (1K nœuds) | < 200ms | [À VÉRIFIER] | [À VÉRIFIER] | [À VÉRIFIER] |
@@ -247,5 +264,13 @@ Pour chaque candidat, effectuer :
 
 ---
 
-**Statut:** EN COURS  
-**Prochaine action:** Phase 1 - Recherche et Préparation
+**Statut:** EN COURS (Phase 2 - Évaluation datafrog terminée à 30%)  
+**Prochaine action:** Phase 3 - Évaluation Soufflé et prototypage Custom
+
+### Progress Summary:
+- ✅ Phase 0: Setup et recherche - TERMINÉ
+- ✅ Phase 1: PoC datafrog de base - TERMINÉ (benchmarks préliminaires obtenus)
+- ⏳ Phase 2: Évaluation complète datafrog - 30% (benchmarks sur petits jeux)
+- ⏳ Phase 3: Évaluation Soufflé - 0%
+- ⏳ Phase 4: Prototypage Custom - 0%
+- ⏳ Phase 5: Comparaison et décision - 0%
