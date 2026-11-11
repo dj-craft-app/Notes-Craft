@@ -8,6 +8,7 @@
 
 pub mod assets;
 pub mod code_block;
+pub mod drag_drop;
 pub mod latex;
 pub mod markdown;
 
@@ -17,6 +18,12 @@ use note_craft_core::{Node, NodeId, TypeId};
 pub use assets::{Asset, AssetError, AssetManager, AssetMetadata, AssetType, DefaultAssetManager};
 pub use code_block::{
     copy_javascript, generate_css, CodeBlock, CodeBlockMetadata, CodeBlockParser,
+};
+pub use drag_drop::{
+    generate_drag_drop_css, generate_drag_drop_js, generate_draggable_html,
+    generate_drop_zone_html, AssetDragDropCallback, BlockDragDropCallback, DragDropCallback,
+    DragDropEvent, DragDropManager, DragDropState, DraggableType, InsertPosition,
+    PageDragDropCallback,
 };
 pub use latex::{generate_katex_html, generate_latex_css, LatexExpression, LatexParser, LatexType};
 pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
