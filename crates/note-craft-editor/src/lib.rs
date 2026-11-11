@@ -7,6 +7,7 @@
 //! - Intégration avec le système de stockage
 
 pub mod code_block;
+pub mod latex;
 pub mod markdown;
 
 use note_craft_core::{Node, NodeId, TypeId};
@@ -15,6 +16,7 @@ use note_craft_core::{Node, NodeId, TypeId};
 pub use code_block::{
     copy_javascript, generate_css, CodeBlock, CodeBlockMetadata, CodeBlockParser,
 };
+pub use latex::{generate_katex_html, generate_latex_css, LatexExpression, LatexParser, LatexType};
 pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
