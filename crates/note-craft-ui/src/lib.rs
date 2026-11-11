@@ -11,6 +11,7 @@ use note_craft_core::Node;
 
 pub mod block_ui;
 pub mod command_palette;
+pub mod outliner;
 pub mod page_ui;
 pub mod sidebar;
 pub mod slint;
@@ -24,6 +25,10 @@ pub use block_ui::{
 pub use command_palette::{
     Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
     CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use outliner::{
+    OutlineItem, OutlineIterator, OutlinePath, OutlinerBuilder, OutlinerConfig, OutlinerEvent,
+    OutlinerManager, OutlinerState, TraversalOrder,
 };
 pub use page_ui::{
     PageConfig, PageLayoutMode, PageRenderInfo, PageSidebarItemBuilder, PageUiEvent, PageUiManager,
