@@ -9,11 +9,16 @@
 
 use note_craft_core::Node;
 
+pub mod block_ui;
 pub mod sidebar;
 pub mod slint;
 pub mod webview;
 
 // Ré-export des types principaux
+pub use block_ui::{
+    BlockRenderInfo, BlockStyleConfig, BlockUiEvent, BlockUiManager, BlockUiManagerBuilder,
+    BlockUiState,
+};
 pub use sidebar::{
     default_sidebar_sections, SidebarConfig, SidebarEvent, SidebarItem, SidebarItemBuilder,
     SidebarSection, SidebarService, SidebarState,

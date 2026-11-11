@@ -236,9 +236,7 @@ impl SidebarState {
         Self {
             items: Arc::new(std::sync::Mutex::new(Vec::new())),
             selected_item_id: Arc::new(std::sync::Mutex::new(None)),
-            expanded_directories: Arc::new(std::sync::Mutex::new(
-                std::collections::HashSet::new(),
-            )),
+            expanded_directories: Arc::new(std::sync::Mutex::new(std::collections::HashSet::new())),
             search_query: Arc::new(std::sync::Mutex::new(String::new())),
             filter: Arc::new(std::sync::Mutex::new(None)),
             is_visible: Arc::new(std::sync::Mutex::new(true)),
@@ -251,9 +249,7 @@ impl SidebarState {
         Self {
             items: Arc::new(std::sync::Mutex::new(items)),
             selected_item_id: Arc::new(std::sync::Mutex::new(None)),
-            expanded_directories: Arc::new(std::sync::Mutex::new(
-                std::collections::HashSet::new(),
-            )),
+            expanded_directories: Arc::new(std::sync::Mutex::new(std::collections::HashSet::new())),
             search_query: Arc::new(std::sync::Mutex::new(String::new())),
             filter: Arc::new(std::sync::Mutex::new(None)),
             is_visible: Arc::new(std::sync::Mutex::new(true)),
@@ -266,10 +262,10 @@ impl SidebarState {
         let item_id = item_id.into();
         let mut selected = self.selected_item_id.lock().unwrap();
         let mut items = self.items.lock().unwrap();
-        
+
         // Deselect all
         Self::deselect_all(&mut items);
-        
+
         // Select target
         *selected = Some(item_id.clone());
         Self::set_item_selected(&mut items, &item_id, true);
@@ -300,7 +296,7 @@ impl SidebarState {
     pub fn toggle_directory(&self, directory_id: impl Into<String>) {
         let directory_id = directory_id.into();
         let mut expanded = self.expanded_directories.lock().unwrap();
-        
+
         if expanded.contains(&directory_id) {
             expanded.remove(&directory_id);
         } else {
@@ -316,7 +312,10 @@ impl SidebarState {
     }
 
     /// Collects all directory IDs
-    fn collect_directory_ids(items: &Vec<SidebarItem>, set: &mut std::collections::HashSet<String>) {
+    fn collect_directory_ids(
+        items: &Vec<SidebarItem>,
+        set: &mut std::collections::HashSet<String>,
+    ) {
         for item in items {
             if item.is_directory {
                 set.insert(item.id.clone());
@@ -466,18 +465,18 @@ impl SidebarService {
     /// Navigates to a specific path
     pub fn navigate_to(&self, path: PathBuf) -> Vec<SidebarEvent> {
         let mut events = Vec::new();
-        
+
         let items = self.state.get_items();
         if let Some(item_id) = Self::find_item_id_by_path(&items, &path) {
             if let Some(current_id) = self.state.get_selected_item_id() {
                 events.push(SidebarEvent::ItemSelected(current_id));
             }
-            
+
             self.state.select_item(item_id.clone());
             events.push(SidebarEvent::ItemSelected(item_id));
             events.push(SidebarEvent::Navigate(path));
         }
-        
+
         events
     }
 }
@@ -496,7 +495,11 @@ impl SidebarItemBuilder {
     }
 
     /// Creates a new builder for a directory
-    pub fn directory(id: impl Into<String>, name: impl Into<String>, path: impl Into<PathBuf>) -> Self {
+    pub fn directory(
+        id: impl Into<String>,
+        name: impl Into<String>,
+        path: impl Into<PathBuf>,
+    ) -> Self {
         Self {
             item: SidebarItem::directory(id, name, path),
         }
@@ -573,7 +576,7 @@ mod tests {
     #[test]
     fn test_sidebar_item_creation() {
         let item = SidebarItem::file("1", "Test File", PathBuf::from("/test/file.md"));
-        
+
         assert_eq!(item.id, "1");
         assert_eq!(item.name, "Test File");
         assert_eq!(item.path, PathBuf::from("/test/file.md"));
@@ -584,16 +587,16 @@ mod tests {
     #[test]
     fn test_sidebar_item_directory() {
         let item = SidebarItem::directory("1", "Test Dir", PathBuf::from("/test"));
-        
+
         assert!(item.is_directory);
     }
 
     #[test]
     fn test_sidebar_item_with_child() {
         let child = SidebarItem::file("2", "Child", PathBuf::from("/test/child.md"));
-        let parent = SidebarItem::directory("1", "Parent", PathBuf::from("/test"))
-            .with_child(child);
-        
+        let parent =
+            SidebarItem::directory("1", "Parent", PathBuf::from("/test")).with_child(child);
+
         assert_eq!(parent.children.len(), 1);
         assert_eq!(parent.children[0].id, "2");
     }
@@ -604,24 +607,22 @@ mod tests {
             SidebarItem::file("1", "File 1", PathBuf::from("/file1.md")),
             SidebarItem::file("2", "File 2", PathBuf::from("/file2.md")),
         ];
-        
+
         let state = SidebarState::with_items(items);
         state.select_item("2");
-        
+
         assert_eq!(state.get_selected_item_id(), Some("2".to_string()));
     }
 
     #[test]
     fn test_sidebar_state_toggle_directory() {
-        let items = vec![
-            SidebarItem::directory("1", "Dir 1", PathBuf::from("/dir1")),
-        ];
-        
+        let items = vec![SidebarItem::directory("1", "Dir 1", PathBuf::from("/dir1"))];
+
         let state = SidebarState::with_items(items);
-        
+
         state.toggle_directory("1");
         assert!(state.get_expanded_directories().contains("1"));
-        
+
         state.toggle_directory("1");
         assert!(!state.get_expanded_directories().contains("1"));
     }
@@ -629,12 +630,12 @@ mod tests {
     #[test]
     fn test_sidebar_state_visibility() {
         let state = SidebarState::new();
-        
+
         assert!(state.get_visibility());
-        
+
         state.set_visible(false);
         assert!(!state.get_visibility());
-        
+
         state.toggle_visibility();
         assert!(state.get_visibility());
     }
@@ -642,7 +643,7 @@ mod tests {
     #[test]
     fn test_sidebar_config_dark_theme() {
         let config = SidebarConfig::dark_theme();
-        
+
         assert_eq!(config.background_color, "#282828");
         assert_eq!(config.text_color, "#dadada");
     }
@@ -650,7 +651,7 @@ mod tests {
     #[test]
     fn test_sidebar_config_light_theme() {
         let config = SidebarConfig::light_theme();
-        
+
         assert_eq!(config.background_color, "#ffffff");
         assert_eq!(config.text_color, "#333333");
     }
@@ -658,43 +659,41 @@ mod tests {
     #[test]
     fn test_sidebar_service_navigate_to() {
         let mut service = SidebarService::with_defaults();
-        
+
         let items = vec![
             SidebarItem::file("1", "File 1", PathBuf::from("/file1.md")),
             SidebarItem::file("2", "File 2", PathBuf::from("/file2.md")),
         ];
-        
+
         // Replace state with items
         service.state = SidebarState::with_items(items);
-        
+
         let events = service.navigate_to(PathBuf::from("/file2.md"));
-        
+
         assert_eq!(service.state.get_selected_item_id(), Some("2".to_string()));
         assert!(!events.is_empty());
     }
 
     #[test]
     fn test_sidebar_service_handle_event() {
-        let items = vec![
-            SidebarItem::file("1", "File 1", PathBuf::from("/file1.md")),
-        ];
-        
+        let items = vec![SidebarItem::file("1", "File 1", PathBuf::from("/file1.md"))];
+
         // Create a new service with items
-        let service = SidebarService::new(SidebarConfig::default());
-        let mut service = SidebarService {
+        let config = SidebarConfig::default();
+        let service = SidebarService {
             state: SidebarState::with_items(items),
-            config: service.config.clone(),
+            config,
         };
-        
+
         service.handle_event(SidebarEvent::ItemSelected("1".to_string()));
-        
+
         assert_eq!(service.state.get_selected_item_id(), Some("1".to_string()));
     }
 
     #[test]
     fn test_default_sidebar_sections() {
         let sections = default_sidebar_sections();
-        
+
         assert!(sections.contains(&SidebarSection::Explorer));
         assert!(sections.contains(&SidebarSection::Recent));
         assert!(sections.contains(&SidebarSection::Favorites));
@@ -707,7 +706,7 @@ mod tests {
             .icon("file-icon")
             .selected(true)
             .build();
-        
+
         assert_eq!(item.id, "1");
         assert_eq!(item.icon, Some("file-icon".to_string()));
         assert!(item.is_selected);
@@ -717,18 +716,18 @@ mod tests {
     fn test_sidebar_item_with_children() {
         let child1 = SidebarItem::file("2", "Child 1", PathBuf::from("/dir/child1.md"));
         let child2 = SidebarItem::file("3", "Child 2", PathBuf::from("/dir/child2.md"));
-        
+
         let parent = SidebarItem::directory("1", "Parent", PathBuf::from("/dir"))
             .with_child(child1)
             .with_child(child2);
-        
+
         assert_eq!(parent.children.len(), 2);
     }
 
     #[test]
     fn test_sidebar_state_set_section() {
         let state = SidebarState::new();
-        
+
         state.set_section(SidebarSection::Tags);
         assert!(matches!(state.get_section(), SidebarSection::Tags));
     }
@@ -739,10 +738,10 @@ mod tests {
             SidebarItem::directory("1", "Dir 1", PathBuf::from("/dir1")),
             SidebarItem::directory("2", "Dir 2", PathBuf::from("/dir2")),
         ];
-        
+
         let state = SidebarState::with_items(items);
         state.expand_all();
-        
+
         let expanded = state.get_expanded_directories();
         assert_eq!(expanded.len(), 2);
         assert!(expanded.contains("1"));
@@ -755,12 +754,12 @@ mod tests {
             SidebarItem::directory("1", "Dir 1", PathBuf::from("/dir1")),
             SidebarItem::directory("2", "Dir 2", PathBuf::from("/dir2")),
         ];
-        
+
         let state = SidebarState::with_items(items);
-        
+
         state.expand_all();
         assert_eq!(state.get_expanded_directories().len(), 2);
-        
+
         state.collapse_all();
         assert!(state.get_expanded_directories().is_empty());
     }
