@@ -1,21 +1,30 @@
 //! Note Craft Editor - Composant d'édition Markdown
 //!
 //! Ce module fournit:
-//! - Parsing Markdown de base
+//! - Parsing Markdown complet avec pulldown-cmark
+//! - Edition en temps réel avec preview
 //! - Gestion des blocs et pages
 //! - Intégration avec le système de stockage
 
+pub mod markdown;
+
 use note_craft_core::{Node, NodeId, TypeId};
+
+// Ré-export des types principaux
+pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
 ///
-/// Note: Cette implémentation est simplifiée pour la Phase 0.
-/// Une implémentation complète avec pulldown-cmark viendra plus tard.
+/// **Note:** Cette fonction est conservée pour la compatibilité ascendante.
+/// Pour une implémentation complète, utiliser `MarkdownEditor`.
 pub fn parse_markdown(content: &str) -> Vec<Node> {
+    let mut editor = MarkdownEditor::new();
+    editor.set_content(content.to_string());
+
+    // Pour l'instant, créons un nœud par paragraphe (comme avant)
     let mut nodes = Vec::new();
     let mut current_node_id = 1u64;
 
-    // Split par doubles sauts de ligne pour séparer les paragraphes
     for paragraph in content.split("\n\n") {
         if paragraph.trim().is_empty() {
             continue;
@@ -35,7 +44,7 @@ pub fn parse_markdown(content: &str) -> Vec<Node> {
     nodes
 }
 
-/// Tests de base
+/// Tests de base pour la compatibilité ascendante
 #[cfg(test)]
 mod tests {
     use super::*;
