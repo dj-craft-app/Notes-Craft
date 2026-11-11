@@ -22,6 +22,9 @@ pulldown-cmark = { workspace = true }
 # Syntax highlighting
 syntect = { workspace = true }
 
+# Base64 encoding
+base64 = { workspace = true }
+
 [dev-dependencies]
 anyhow = { workspace = true }
 
