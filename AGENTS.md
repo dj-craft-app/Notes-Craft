@@ -121,6 +121,21 @@ Une tâche est terminée quand TOUS ces points sont vrais :
 - [ ] L'issue GitHub correspondante est fermée avec un lien vers la PR.
 - [ ] Aucun fichier hors du périmètre de la tâche n'a été modifié.
 
+## 7.5. Politique de Revue à Deux Niveaux
+
+### REVUE AUTO (au sein d'une phase)
+Si CI verte ET auto-note TRÈS BIEN ET l'issue ne touche aucune décision réservée
+(AGENTS.md section « ce qui exige le propriétaire »), tu merge toi-même la PR et
+tu continues. La trace = CI + auto-note dans la PR ; le propriétaire relit en flux,
+et un revert est toujours possible (c'est le rôle des petits commits).
+
+### REVUE HUMAINE OBLIGATOIRE
+À CHAQUE FIN DE PHASE (jalon), sur toute ADR, toute décision réservée, tout ce
+qui touche docs/verification ou docs/history. Forme : issue "jalon: phase X terminée"
+avec le résumé prouvé de la phase, les critères d'acceptation cochés un par un,
+et l'ordre de marche vers la phase suivante. Tu passes ensuite à la phase suivante
+SANS attendre la réponse : le jalon se valide en async.
+
 ## 8. Étiquette de l'agent
 
 - Cite tes preuves (commande + sortie, fichier:ligne). Un rapport sans preuve
