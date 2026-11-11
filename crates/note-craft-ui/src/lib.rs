@@ -10,8 +10,13 @@
 use note_craft_core::Node;
 
 pub mod block_ui;
+pub mod command_palette;
+pub mod keyboard;
+pub mod outliner;
+pub mod page_ui;
 pub mod sidebar;
 pub mod slint;
+pub mod theme;
 pub mod webview;
 
 // Ré-export des types principaux
@@ -19,13 +24,34 @@ pub use block_ui::{
     BlockRenderInfo, BlockStyleConfig, BlockUiEvent, BlockUiManager, BlockUiManagerBuilder,
     BlockUiState,
 };
+pub use command_palette::{
+    Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
+    CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use keyboard::{
+    create_default_editor_shortcuts, create_default_global_shortcuts,
+    create_default_sidebar_shortcuts, Key, Modifiers, Shortcut, ShortcutBinding, ShortcutContext,
+    ShortcutEvent, ShortcutManager, ShortcutManagerBuilder,
+};
+pub use outliner::{
+    OutlineItem, OutlineIterator, OutlinePath, OutlinerBuilder, OutlinerConfig, OutlinerEvent,
+    OutlinerManager, OutlinerState, TraversalOrder,
+};
+pub use page_ui::{
+    PageConfig, PageLayoutMode, PageRenderInfo, PageSidebarItemBuilder, PageUiEvent, PageUiManager,
+    PageUiManagerBuilder, PageUiState, PageViewMode,
+};
 pub use sidebar::{
     default_sidebar_sections, SidebarConfig, SidebarEvent, SidebarItem, SidebarItemBuilder,
     SidebarSection, SidebarService, SidebarState,
 };
 pub use slint::{
-    theme, utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
+    utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
     ThemeColorsBuilder,
+};
+pub use theme::{
+    ButtonTheme, DialogTheme, EditorTheme, InputTheme, SidebarTheme, Theme, ThemeComponentColors,
+    ThemeConfig, ThemeEvent, ThemeManager, ThemeManagerBuilder, ThemeVariant, UiThemeColors,
 };
 pub use webview::{
     DefaultWebViewHandler, JsMessage, RustMessage, WebViewConfig, WebViewError,
