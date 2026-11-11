@@ -1,0 +1,26 @@
+[package]
+name = "note-craft-plugins"
+version = "0.1.0"
+edition = "2021"
+authors = ["Note Craft Team"]
+description = "Plugin system for Note Craft using WASM"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["note-craft", "plugins", "wasm"]
+categories = ["api-bindings", "wasm"]
+
+[dependencies]
+# Workspace dependencies
+note-craft-core = { path = "../note-craft-core" }
+serde = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+# WASM runtime
+wasmtime = { workspace = true }
+
+[dev-dependencies]
+anyhow = { workspace = true }
+
+[features]
+default = []

@@ -1,0 +1,26 @@
+[package]
+name = "note-craft-ui"
+version = "0.1.0"
+edition = "2021"
+authors = ["Note Craft Team"]
+description = "UI components for Note Craft using Slint"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["note-craft", "ui", "slint"]
+categories = ["gui", "visualization"]
+
+[dependencies]
+# Workspace dependencies
+note-craft-core = { path = "../note-craft-core" }
+serde = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+# UI
+slint = { workspace = true }
+
+[dev-dependencies]
+anyhow = { workspace = true }
+
+[features]
+default = []
