@@ -2,11 +2,20 @@
 //!
 //! Ce module fournit:
 //! - Structure de base pour l'UI
+//! - Intégration WebView avec wry
 //! - Intégration future avec Slint
 //!
-//! Note: Phase 0 - Stub minimal pour compilation
+//! Note: Phase 2 - WebView integration added
 
 use note_craft_core::Node;
+
+pub mod webview;
+
+// Ré-export des types principaux
+pub use webview::{
+    DefaultWebViewHandler, JsMessage, RustMessage, WebViewConfig, WebViewError,
+    WebViewEventHandler, WebViewManager, WebViewManagerBuilder, WebViewPool,
+};
 
 /// Initialise l'application UI
 pub fn init_ui() -> Result<(), Box<dyn std::error::Error>> {
@@ -15,16 +24,41 @@ pub fn init_ui() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 /// Structure principale de l'UI
-pub struct AppUi;
+pub struct AppUi {
+    /// Gestionnaire de WebView
+    webview_manager: Option<webview::WebViewManager>,
+}
 
 impl AppUi {
     pub fn new() -> Self {
-        AppUi
+        Self {
+            webview_manager: None,
+        }
     }
 
     /// Affiche un nœud (stub pour compilation)
-    pub fn display_node(&self, _node: &Node) {
-        // À implémenter avec Slint
+    pub fn display_node(&mut self, node: &Node) -> Result<(), webview::WebViewError> {
+        if let Some(manager) = &mut self.webview_manager {
+            manager.display_node(node)
+        } else {
+            Ok(())
+        }
+    }
+
+    /// Initialise la WebView
+    pub fn initialize_webview(
+        &mut self,
+        config: webview::WebViewConfig,
+    ) -> Result<(), webview::WebViewError> {
+        let mut manager = webview::WebViewManager::new(config);
+        manager.initialize()?;
+        self.webview_manager = Some(manager);
+        Ok(())
+    }
+
+    /// Retourne le gestionnaire de WebView
+    pub fn webview_manager(&mut self) -> Option<&mut webview::WebViewManager> {
+        self.webview_manager.as_mut()
     }
 }
 

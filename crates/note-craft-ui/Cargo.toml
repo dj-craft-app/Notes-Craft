@@ -12,9 +12,14 @@ categories = ["gui", "visualization"]
 [dependencies]
 # Workspace dependencies
 note-craft-core = { path = "../note-craft-core" }
+note-craft-editor = { path = "../note-craft-editor" }
 serde = { workspace = true }
+serde_json = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }
+
+# WebView
+wry = { workspace = true }
 
 # UI (will be added in Phase 3)
 # slint = { workspace = true }
