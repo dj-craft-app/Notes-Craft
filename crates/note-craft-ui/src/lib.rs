@@ -9,6 +9,7 @@
 
 use note_craft_core::Node;
 
+pub mod asset_gallery;
 pub mod block_ui;
 pub mod command_palette;
 pub mod graph_view;
@@ -22,6 +23,11 @@ pub mod theme;
 pub mod webview;
 
 // Ré-export des types principaux
+pub use asset_gallery::{
+    AssetGallery, AssetId, AssetMetadata, AssetType, GalleryAsset, GalleryConfig, GalleryEvent,
+    GalleryFilter, GalleryLayout, GallerySection, GallerySectionType, GallerySortOrder, GridConfig,
+    MasonryConfig, ThumbnailSize,
+};
 pub use block_ui::{
     BlockRenderInfo, BlockStyleConfig, BlockUiEvent, BlockUiManager, BlockUiManagerBuilder,
     BlockUiState,
