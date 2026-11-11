@@ -40,8 +40,7 @@ jobs:
             
       - name: Format check
         run: |
-          cargo fmt --check --manifest-path Cargo.toml || true
-          for crate in note-craft-core note-craft-data note-craft-parser note-craft-engine note-craft-markdown; do
+          for crate in note-craft-core note-craft-editor note-craft-plugins note-craft-query note-craft-storage; do
             (cd crates/$crate && cargo fmt --check) || exit 1
           done
         
