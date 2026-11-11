@@ -11,6 +11,7 @@ pub mod code_block;
 pub mod drag_drop;
 pub mod latex;
 pub mod markdown;
+pub mod paste;
 
 use note_craft_core::{Node, NodeId, TypeId};
 
@@ -27,6 +28,7 @@ pub use drag_drop::{
 };
 pub use latex::{generate_katex_html, generate_latex_css, LatexExpression, LatexParser, LatexType};
 pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
+pub use paste::{html_paste, PasteContent, PasteError, PasteManager, PasteResult, PasteType};
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
 ///
