@@ -21,6 +21,14 @@ pub use block::{Block, BlockContent, BlockId, BlockSystem, BlockType, TextFormat
 pub mod page;
 pub use page::{Page, PageId, PageMetadata, PageSystem, PageType};
 
+// State Management (Phase 1 - Étape 1.4)
+pub mod state;
+pub use state::{
+    AppState, BlockState, EntityType, GraphDisplayMode, GraphState, HistoryAction,
+    HistoryActionType, HistoryId, PageState, StateEvent, StateEventListener, StateManager,
+    StateSnapshot,
+};
+
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
 // ============================================================================
