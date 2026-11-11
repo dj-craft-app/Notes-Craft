@@ -45,10 +45,10 @@ jobs:
           done
         
       - name: Clippy check
-        run: cargo clippy --all-targets --exclude note-craft-ui -- -D warnings
+        run: cargo clippy --workspace --all-targets --exclude note-craft-ui -- -D warnings
         
       - name: Build
-        run: cargo build --verbose --exclude note-craft-ui
+        run: cargo build --workspace --verbose --exclude note-craft-ui
         
       - name: Run tests
-        run: cargo test --verbose --exclude note-craft-ui
+        run: cargo test --workspace --verbose --exclude note-craft-ui
