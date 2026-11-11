@@ -136,6 +136,11 @@ avec le résumé prouvé de la phase, les critères d'acceptation cochés un par
 et l'ordre de marche vers la phase suivante. Tu passes ensuite à la phase suivante
 SANS attendre la réponse : le jalon se valide en async.
 
+**RÈGLE EXPLICITE:** Toute modification de ce fichier (AGENTS.md) **exige une revue
+humaine obligatoire** et **jamais d'auto-merge**, même si la CI est verte et la
+note est TRÈS BIEN. Ce fichier est le contrat de travail du projet ; son intégrité
+prime sur toute politique d'autonomie.
+
 ## 8. Étiquette de l'agent
 
 - Cite tes preuves (commande + sortie, fichier:ligne). Un rapport sans preuve
