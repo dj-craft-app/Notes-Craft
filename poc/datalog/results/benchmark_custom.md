@@ -1,146 +1,239 @@
-# Résultats Benchmark: Custom (SQLite)
+# Résultats Benchmark: Custom (SQLite) (CORRIGÉ - Symétrie de Mesure)
 
-> **Date:** 2026-11-11  
+> **Date:** 2026-11-11 (corrigé)  
 > **Auteur:** Agent autonome  
 > **Candidat:** Custom SQLite (rusqlite v0.31, MIT)  
-> **Issue:** #4 - PoC: Moteur Datalog (Phase 0.13)  
+> **Issue:** #4, #8  
 > **ADR:** ADR-002-criteres-decision.md  
-> **Statut:** Résultats préliminaires
+> **Statut:** Résultats corrigés - setup EXCLU
+
+---
+
+## ⚠️ CORRECTION IMPORTANTE
+
+**Version précédente (0b122d0):** Le setup (création DB + insertion) était INCLUS dans la mesure  
+**Version actuelle:** Le setup est EXCLU, seule l'exécution de la requête SQL est mesurée  
+
+**Impact:** Amélioration massive (150ms → 175µs pour la transitivité !)
+
+**Voir:** [METHODOLOGIE.md](./METHODOLOGIE.md) pour détails
 
 ---
 
 ## 🖥️ Environnement de test
 
-**Même environnement que crepe et datafrog:**
+**Identique à datafrog et crepe:**
 - Système: macOS (Apple Silicon)
 - CPU: Apple M1 Pro
 - RAM: 16GB
 - Rust: 1.85.0
+- SQLite: bundled via rusqlite
 
 ---
 
-## 📊 Résultats par Requête
+## 📊 Résultats par Requête (NOUVEAUX - Setup EXCLU)
 
 ### Jeu Petit (100 nœuds, 500 liens)
 
-| Requête | Médiane | Écart-type | Minimum | Maximum | Débit |
-|---------|---------|------------|---------|---------|--------|
-| Par tag | 1.2916 ms | ±? | 1.2902 ms | 1.2931 ms | 77.420 Kelem/s |
-| Par lien | 1.3869 ms | ±? | 1.3851 ms | 1.3890 ms | 360.51 Kelem/s |
-| Transitivité | [À COMPLÉTER] | ±? | [À COMPLÉTER] | [À COMPLÉTER] | [À COMPLÉTER] |
-| Par type | [À COMPLÉTER] | ±? | [À COMPLÉTER] | [À COMPLÉTER] | [À COMPLÉTER] |
+| Requête | Médiane | Minimum | Maximum |
+|---------|---------|---------|---------|
+| Par tag | **4.8808 µs** | 4.8384 µs | 4.9365 µs |
+| Par lien | **93.675 µs** | [à compléter] | [à compléter] |
+| Transitivité | **46.973 µs** | 46.736 µs | 47.331 µs |
+| Par type | **94.123 µs** | 93.675 µs | 94.740 µs |
 
 ---
 
 ### Jeu Moyen (1 000 nœuds, 5 000 liens)
 
-| Requête | Médiane | Écart-type | Minimum | Maximum | Débit |
-|---------|---------|------------|---------|---------|--------|
-| Par tag | 13.672 ms | ±? | 13.645 ms | 13.705 ms | 73.141 Kelem/s |
-| Par lien | 14.862 ms | ±? | 14.782 ms | 14.959 ms | 336.43 Kelem/s |
-| Transitivité | [À COMPLÉTER] | ±? | [À COMPLÉTER] | [À COMPLÉTER] | [À COMPLÉTER] |
-| Par type | [À COMPLÉTER] | ±? | [À COMPLÉTER] | [À COMPLÉTER] | [À COMPLÉTER] |
+| Requête | Médiane | Minimum | Maximum |
+|---------|---------|---------|---------|
+| Par tag | **1.0630 ms** | [à compléter] | [à compléter] |
+| Par lien | **1.0729 ms** | [à compléter] | [à compléter] |
+| Transitivité | [à compléter] | [à compléter] | [à compléter] |
+| Par type | [à compléter] | [à compléter] | [à compléter] |
 
 ---
 
 ### Jeu Grand (10 000 nœuds, 50 000 liens)
 
-| Requête | Médiane | Écart-type | Minimum | Maximum | Débit |
-|---------|---------|------------|---------|---------|--------|
-| Par tag | **139.97 ms** | ±? | 139.85 ms | 140.12 ms | 71.441 Kelem/s |
-| Par lien | **152.82 ms** | ±? | 152.61 ms | 153.05 ms | 327.18 Kelem/s |
-| Transitivité | **150.48 ms** | ±? | 148.03 ms | 153.29 ms | 66.454 Kelem/s |
-| Par type | **146.08 ms** | ±? | 145.46 ms | 146.83 ms | 68.455 Kelem/s |
-
-**Commande:** `cargo bench --bench benchmark`
-
-**⚠️ ATTENTION:** Les requêtes sont plus rapides que crepe mais **beaucoup plus lentes que datafrog**.
-**Cible roadmap:** Requête complexe < 100ms sur 10K nœuds → **NON ATTEINT** (150.48 ms)
+| Requête | Médiane | Minimum | Maximum |
+|---------|---------|---------|---------|
+| Par tag | **490.11 µs** | 486.37 µs | 495.70 µs |
+| Par lien | **12.672 ms** | 12.609 ms | 12.761 ms |
+| Transitivité | **175.58 µs** | 175.36 µs | 175.80 µs |
+| Par type | **324.08 µs** | 321.54 µs | 327.59 µs |
 
 ---
 
-## 📈 Comparaison des tailles
+## 📈 Comparaison des Tailles (NOUVEAUX RÉSULTATS)
 
-| Jeu | Nœuds | Requête Transitive (médiane) | Requête Par Tag (médiane) |
-|-----|-------|-----------------------------|--------------------------|
-| Petit | 100 | [À COMPLÉTER] | 1.2916 ms |
-| Moyen | 1 000 | [À COMPLÉTER] | 13.672 ms |
-| Grand | 10 000 | **150.48 ms** | **139.97 ms** |
-
----
-
-## 🔍 Analyse
-
-**Custom (SQLite) est un compromis intéressant :**
-
-### Points forts ✅
-- **Plus rapide que crepe:** ~25% plus rapide sur la transitivité (150ms vs 202ms)
-- **100% Rust:** Utilise rusqlite (wrapper Rust autour de SQLite)
-- **License permissive:** MIT
-- **Maturity:** SQLite est un projet mature et stable
-
-### Points faibles ❌
-- **Plus lent que datafrog:** 274x plus lent sur la transitivité (150ms vs 548µs)
-- **Ne rencontre pas la cible roadmap:** 150ms > 100ms pour requête complexe sur 10K nœuds
-- **Overhead SQLite:** Initialisation de la base de données et exécution SQL
-
-### Scalabilité
-La scalabilité semble raisonnable (linéaire ou légèrement super-linéaire) mais pas aussi bonne que datafrog.
+| Jeu | Nœuds | Transitivité | Par tag | Par lien | Par type |
+|-----|-------|--------------|---------|----------|----------|
+| Petit | 100 | 46.973 µs | 4.8808 µs | ~93.675 µs | 94.123 µs |
+| Moyen | 1 000 | [à compléter] | 1.0630 ms | ~1.0729 ms | [à compléter] |
+| Grand | 10 000 | **175.58 µs** | **490.11 µs** | **12.672 ms** | **324.08 µs** |
 
 ---
 
-## 📊 Comparaison avec les autres candidats (Jeu Grand - 10K nœuds)
+## 🎯 Comparaison avec datafrog (Jeu Grand - 10K nœuds)
 
-| Requête | crepe | Custom | datafrog | Ratio (Custom/datafrog) |
-|---------|-------|--------|----------|-------------------------|
-| Par tag | 203.00 ms | **139.97 ms** | **21.006 µs** | **6 663x plus lent** |
-| Par lien | 202.57 ms | **152.82 ms** | **2.0010 ms** | **76x plus lent** |
-| Transitivité | 202.53 ms | **150.48 ms** | **548.75 µs** | **274x plus lent** |
-| Par type | 191.72 ms | **146.08 ms** | **12.027 µs** | **12 144x plus lent** |
+### Requête par Requête
 
-**Conclusion:** Custom est **274 à 12 000x plus lent que datafrog** sur 10K nœuds.
+| Requête | Custom | datafrog | Ratio (Custom/datafrog) | Statut |
+|---------|--------|----------|-------------------------|--------|
+| **Transitivité** | **175.58 µs** | 537.56 µs | **0.326x (3x plus rapide !)** | ✅ Meilleure performance |
+| Par tag | 490.11 µs | **16.848 µs** | **29x plus lent** | ❌ ÉLIMINÉ (>2x) |
+| Par lien | 12.672 ms | **985.85 µs** | **12.9x plus lent** | ❌ ÉLIMINÉ (>2x) |
+| Par type | 324.08 µs | **9.3252 µs** | **34.8x plus lent** | ❌ ÉLIMINÉ (>2x) |
 
----
-
-## 📋 Application des Critères d'Élimination (ADR-002 Section 4)
-
-| Critère | Valeur | Statut |
-|---------|--------|--------|
-| **Performance** | 150.48 ms (transitivité, 10K nœuds) | ❌ **ÉLIMINÉ** (>2x écart vs datafrog) |
-| **Intégration Rust** | 100% Rust (via rusqlite) | ✅ **PASS** |
-| **Maintenance** | [À VÉRIFIER - SQLite: très actif] | ⚠️ À VÉRIFIER |
-| **License** | MIT (permissive) | ✅ **PASS** |
-
-**→ Custom est ÉLIMINÉ par le critère de performance** (150ms > 100ms cible, et >2x écart vs datafrog)
+**→ Custom est éliminé car 3 des 4 requêtes ont un écart > 2x**
 
 ---
 
-## 📚 Implémentation
+## 🏆 Analyse
 
-- **Approche:** Utilisation de SQLite avec CTE (Common Table Expression) pour les requêtes récursives
-- **Avantages:** Simple à implémenter, SQL standard, persistance possible
-- **Inconvénients:** Overhead SQL, moins optimisé que les solutions natives
+### Point Fort: Transitivité
+
+Custom (SQLite) est **3x plus rapide que datafrog** sur la requête de transitivité !
+
+**Raison probable:**
+- SQLite utilise des algorithmes de jointure optimisés (hash joins, etc.)
+- La requête récursive avec CTE (Common Table Expression) est très efficace
+- datafrog utilise un algorithme itératif en mémoire qui peut être moins optimisé pour ce cas spécifique
+
+### Points Faibles: Autres Requêtes
+
+Custom est **beaucoup plus lent** que datafrog sur les requêtes simples:
+- Par tag: 29x plus lent
+- Par lien: 12.9x plus lent
+- Par type: 34.8x plus lent
+
+**Raison probable:**
+- SQLite a un overhead pour chaque requête (parsing, planning, exécution)
+- datafrog utilise des itérations simples sur des Vec<...> sans overhead
+- Pour les requêtes simples, l'overhead SQLite domine
 
 ---
 
-## 🏆 Positionnement
+## 📋 Application des Critères d'Élimination (ADR-002 Section 4.1)
 
-**Classement des 3 candidats testés:**
+**Critère:** Écart > 2x par rapport au meilleur sur le jeu Grand (10K nœuds) **pour au moins une requête**
 
-1. **🥇 datafrog** - 548.75 µs (transitivité 10K) ✅ **VALIDÉ**
-2. **🥈 Custom (SQLite)** - 150.48 ms (transitivité 10K) ❌ **ÉLIMINÉ**
-3. **🥉 crepe** - 202.53 ms (transitivité 10K) ❌ **ÉLIMINÉ**
+| Candidat | Transitivité | Par tag | Par lien | Par type | Statut |
+|----------|--------------|---------|----------|----------|--------|
+| datafrog | 537.56 µs | **16.848 µs** | **985.85 µs** | **9.3252 µs** | ✅ VALIDÉ |
+| **Custom** | **175.58 µs** | 490.11 µs | 12.672 ms | 324.08 µs | ❌ **ÉLIMINÉ** (3/4 > 2x) |
+
+**→ Custom est éliminé par le critère de performance**
 
 ---
 
-## 📚 Fichiers sources
+## 📊 Critères Appliqués (ADR-002)
 
-- **Code:** `poc/datalog/custom/src/lib.rs`
-- **Benchmark:** `poc/datalog/custom/benches/benchmark.rs`
+| Critère | Valeur | Statut | Preuve |
+|---------|--------|--------|--------|
+| **Performance** | 175.58 µs (transitivité) mais 29x sur par tag | ❌ **ÉLIMINÉ** | 3/4 requêtes > 2x |
+| **Intégration Rust** | 100% Rust (via rusqlite) | ✅ **PASS** | Pas de FFI |
+| **Maintenance** | SQLite: très actif, rusqlite: v0.31 | ✅ **PASS** | Mature |
+| **License** | MIT (rusqlite) + SQLite (Public Domain) | ✅ **PASS** | Permissive |
+
+---
+
+## 📊 Métriques Clés pour ADR-002 Section 5
+
+### Performance (40%)
+
+**Score normalisé =** `(meilleur_temps / temps_candidat)` pour chaque requête
+
+| Requête | Custom | Meilleur (datafrog) | Score |
+|---------|--------|---------------------|-------|
+| Transitivité | 175.58 µs | 537.56 µs | 537.56/175.58 = **3.06** (max 1.0) |
+| Par tag | 490.11 µs | 16.848 µs | 16.848/490.11 = **0.034** |
+| Par lien | 12.672 ms | 985.85 µs | 985.85/12672 = **0.078** |
+| Par type | 324.08 µs | 9.3252 µs | 9.3252/324.08 = **0.029** |
+
+**Score performance:** Moyenne = (3.06 + 0.034 + 0.078 + 0.029) / 4 = **0.80** (clampé à 1.0 max)
+
+**Attention:** Le score pour la transitivité dépasse 1.0 car Custom est plus rapide. 
+Selon ADR-002, le score normalisé = `(meilleur_temps / temps_candidat)`.
+Si Custom est plus rapide, alors `(datafrog / custom) > 1.0`.
+
+**Correction:** Le score doit être clampé à 1.0 maximum.
+
+| Requête | Score normalisé (clampé à 1.0) |
+|---------|---------------------------------|
+| Transitivité | min(537.56/175.58, 1.0) = **1.0** |
+| Par tag | 16.848/490.11 = **0.034** |
+| Par lien | 985.85/12672 = **0.078** |
+| Par type | 9.3252/324.08 = **0.029** |
+
+**Score performance:** (1.0 + 0.034 + 0.078 + 0.029) / 4 = **0.285**
+**Score pondéré:** 0.285 × 0.40 = **0.114**
+
+### Intégration Rust (30%)
+
+**Niveau:** Natif (100% Rust via rusqlite)
+**Score:** 1.0
+**Score pondéré:** 1.0 × 0.30 = **0.30**
+
+### Maintenance (20%)
+
+**Données:**
+- SQLite: projet très mature, maintenu activement
+- rusqlite: v0.31, dernière release récente
+
+**Niveau:** Très actif / Mature
+**Score:** 1.0
+**Score pondéré:** 1.0 × 0.20 = **0.20**
+
+### Ergonomie (10%)
+
+**Évaluation:**
+- API Rust idiomatique via rusqlite
+- Requêtes SQL standard, faciles à écrire
+- Nécessite une adaptation pour la syntaxe Datalog de Note Craft
+
+**Niveau:** Bon
+**Score:** 0.8
+**Score pondéré:** 0.8 × 0.10 = **0.08**
+
+### **Score Final: 0.114 + 0.30 + 0.20 + 0.08 = 0.694**
+
+**Classement:** **PASSABLE (0.694/1.0)**
+
+---
+
+## 🏆 Conclusion
+
+**Custom (SQLite) est un candidat intéressant mais éliminé par la performance:**
+
+✅ **Points forts:**
+- 3x plus rapide que datafrog sur la transitivité
+- 100% Rust, intégration facile
+- License permissive
+- Maturité du projet (SQLite)
+
+❌ **Points faibles:**
+- 12.9x à 29x plus lent que datafrog sur les requêtes simples
+- **Éliminé par le critère de performance** (3/4 requêtes > 2x écart)
+
+**Recommandation:**
+Custom pourrait être utile si Note Craft nécessite principalement des requêtes de transitivité.
+Mais comme la roadmap exige des performances sur TOUTES les requêtes, datafrog reste le meilleur choix.
+
+---
+
+## 📚 Fichiers Sources
+
+- **Code:** `poc/datalog/custom/benches/benchmark.rs`
 - **Cargo.toml:** `poc/datalog/custom/Cargo.toml`
 - **ADR:** `poc/datalog/ADR-002-criteres-decision.md`
-- **Issue:** #4, #7
+- **Méthodologie:** `poc/datalog/results/METHODOLOGIE.md`
+- **Issues:** #4, #8
 
 ---
 
-**Statut:** ❌ ÉLIMINÉ PAR PERFORMANCE
+**Statut:** ✅ RÉSULTATS CORRIGÉS
+**Version:** 2 (corrigée pour symétrie de mesure)
+**Note:** Éliminé par le critère de performance malgré une excellente performance sur la transitivité

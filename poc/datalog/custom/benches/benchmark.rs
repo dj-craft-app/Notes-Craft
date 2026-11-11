@@ -1,18 +1,25 @@
 //! Benchmarks pour Custom (SQLite) avec criterion.rs
 //!
-//! Ces benchmarks mesurent les performances de SQLite sur les 4 requêtes
-//! définies dans ADR-002-criteres-decision.md pour les 3 jeux de données
-//! (100, 1000, 10000 nœuds).
+//! Ces benchmarks mesurent **STRICTEMENT** l'exécution des requêtes SQL
+//! sur une base de données déjà chargée, selon ADR-002-criteres-decision.md Section 2.
+//!
+//! IMPORTANT: Le setup (création DB + insertion données) est EXCLU de la mesure.
+//! Seule l'exécution de la requête SQL et l'extraction du résultat sont chronométrées.
+//!
+//! Méthodologie:
+//! - Setup: Créer la DB + insérer toutes les données - EXCLU
+//! - Benchmark: Exécuter la requête SQL + extraction - INCLUS
 //!
 //! Exécution: cargo bench --bench benchmark
 //!
 //! Auteur: Agent autonome
-//! Date: 2026-11-11
+//! Date: 2026-11-11 (corrigé pour symétrie de mesure)
 
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
-use custom_poc::{DatalogDb, generate_test_data};
+use custom_poc::{DatalogDb, generate_test_data, NodeId};
 
 /// Benchmark pour la requête "par tag" (query 1)
+/// MESURE: find_nodes_by_tag() UNIQUEMENT (DB déjà chargée)
 fn bench_query_by_tag(c: &mut Criterion) {
     let mut group = c.benchmark_group("query_by_tag");
     
@@ -21,19 +28,20 @@ fn bench_query_by_tag(c: &mut Criterion) {
         (1_000, 5_000, "medium"),
         (10_000, 50_000, "large"),
     ] {
+        // SETUP: Générer les données et créer la DB - EXCLU de la mesure
         let (nodes, tags, links, node_types) = generate_test_data(*node_count, *link_count);
+        let mut db = DatalogDb::new_in_memory().unwrap();
+        db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
+                       &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
         
         group.throughput(Throughput::Elements(*node_count as u64));
         
         group.bench_with_input(
             BenchmarkId::new("custom_sqlite", size_name),
-            &(*node_count, *link_count),
-            |b, _| {
+            &db,
+            |b, db| {
+                // MESURE: Exécution de la requête UNIQUEMENT
                 b.iter(|| {
-                    let mut db = DatalogDb::new_in_memory().unwrap();
-                    db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
-                                   &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
-                    
                     let result = db.find_nodes_by_tag("important").unwrap();
                     black_box(result.len());
                 });
@@ -45,6 +53,7 @@ fn bench_query_by_tag(c: &mut Criterion) {
 }
 
 /// Benchmark pour la requête "par lien" (query 2)
+/// MESURE: find_nodes_linked_to_tagged() UNIQUEMENT (DB déjà chargée)
 fn bench_query_by_link(c: &mut Criterion) {
     let mut group = c.benchmark_group("query_by_link");
     
@@ -54,18 +63,17 @@ fn bench_query_by_link(c: &mut Criterion) {
         (10_000, 50_000, "large"),
     ] {
         let (nodes, tags, links, node_types) = generate_test_data(*node_count, *link_count);
+        let mut db = DatalogDb::new_in_memory().unwrap();
+        db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
+                       &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
         
         group.throughput(Throughput::Elements(*link_count as u64));
         
         group.bench_with_input(
             BenchmarkId::new("custom_sqlite", size_name),
-            &(*node_count, *link_count),
-            |b, _| {
+            &db,
+            |b, db| {
                 b.iter(|| {
-                    let mut db = DatalogDb::new_in_memory().unwrap();
-                    db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
-                                   &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
-                    
                     let result = db.find_nodes_linked_to_tagged("important").unwrap();
                     black_box(result.len());
                 });
@@ -77,6 +85,7 @@ fn bench_query_by_link(c: &mut Criterion) {
 }
 
 /// Benchmark pour la requête de transitivité (query 3)
+/// MESURE: find_reachable_nodes() UNIQUEMENT (DB déjà chargée)
 fn bench_query_transitive(c: &mut Criterion) {
     let mut group = c.benchmark_group("query_transitive");
     
@@ -86,18 +95,17 @@ fn bench_query_transitive(c: &mut Criterion) {
         (10_000, 50_000, "large"),
     ] {
         let (nodes, tags, links, node_types) = generate_test_data(*node_count, *link_count);
+        let mut db = DatalogDb::new_in_memory().unwrap();
+        db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
+                       &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
         
         group.throughput(Throughput::Elements(*node_count as u64));
         
         group.bench_with_input(
             BenchmarkId::new("custom_sqlite", size_name),
-            &(*node_count, *link_count),
-            |b, _| {
+            &db,
+            |b, db| {
                 b.iter(|| {
-                    let mut db = DatalogDb::new_in_memory().unwrap();
-                    db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
-                                   &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
-                    
                     let result = db.find_reachable_nodes(1).unwrap();
                     black_box(result.len());
                 });
@@ -109,6 +117,7 @@ fn bench_query_transitive(c: &mut Criterion) {
 }
 
 /// Benchmark pour la requête "par type" (query 4)
+/// MESURE: find_nodes_by_type() UNIQUEMENT (DB déjà chargée)
 fn bench_query_by_type(c: &mut Criterion) {
     let mut group = c.benchmark_group("query_by_type");
     
@@ -118,18 +127,17 @@ fn bench_query_by_type(c: &mut Criterion) {
         (10_000, 50_000, "large"),
     ] {
         let (nodes, tags, links, node_types) = generate_test_data(*node_count, *link_count);
+        let mut db = DatalogDb::new_in_memory().unwrap();
+        db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
+                       &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
         
         group.throughput(Throughput::Elements(*node_count as u64));
         
         group.bench_with_input(
             BenchmarkId::new("custom_sqlite", size_name),
-            &(*node_count, *link_count),
-            |b, _| {
+            &db,
+            |b, db| {
                 b.iter(|| {
-                    let mut db = DatalogDb::new_in_memory().unwrap();
-                    db.insert_batch(&nodes, &tags.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>(), 
-                                   &links, &node_types.iter().map(|(n, t)| (*n, t.as_str())).collect::<Vec<_>>()).unwrap();
-                    
                     let result = db.find_nodes_by_type("page").unwrap();
                     black_box(result.len());
                 });

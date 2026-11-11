@@ -1,13 +1,23 @@
 //! Benchmarks pour crepe avec criterion.rs
 //!
-//! Ces benchmarks mesurent les performances de crepe sur les 4 requêtes
-//! définies dans ADR-002-criteres-decision.md pour les 3 jeux de données
-//! (100, 1000, 10000 nœuds).
+//! Ces benchmarks mesurent l'exécution des requêtes Datalog sur crepe.
+//!
+//! IMPORTANT - LIMITATION CREPE:
+//! crepe::run() consume le runtime et retourne un tuple de HashSet.
+//! Il n'est PAS possible de séparer le setup (insertion des données) de
+//! l'exécution car chaque appel à run() nécessite un nouveau runtime.
+//!
+//! Par conséquent, pour crepe, nous mesurons:
+//! - Setup INCLUS: création du runtime + insertion des données
+//! - Exécution INCLUSE: run() + extraction du résultat
+//!
+//! Cela diffère de datafrog et Custom où le setup est exclu.
+//! Cette limitation est documentée dans les résultats.
 //!
 //! Exécution: cargo bench --bench benchmark
 //!
 //! Auteur: Agent autonome
-//! Date: 2026-11-11
+//! Date: 2026-11-11 (limitation crepe documentée)
 
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use crepe::crepe;
@@ -41,35 +51,31 @@ crepe! {
     // Règles Datalog
     NodesWithTag(node, tag_id) <- Tag(node, tag_id);
 
-    LinkedToTag(from, to, tag_id) <- 
+    LinkedToTag(from, to, tag_id) <-
         Link(from, to),
         Tag(to, tag_id);
 
-    LinkedToTag(from, to, tag_id) <- 
+    LinkedToTag(from, to, tag_id) <-
         Link(to, from),
         Tag(from, tag_id);
 
     Reachable(from, to) <- Link(from, to);
-    Reachable(from, to) <- 
+    Reachable(from, to) <-
         Link(from, intermediate),
         Reachable(intermediate, to);
 
     NodesOfType(node, type_id) <- NodeType(node, type_id);
 }
 
-/// Constantes pour les IDs de tags et types (correspondent à generate_test_data)
+/// Constantes pour les IDs de tags et types
 const TAG_IMPORTANT: i32 = 1;
-const TAG_RUST: i32 = 2;
 const TYPE_PAGE: i32 = 1;
 
 /// Génère des données de test de manière déterministe
-/// Identique à la fonction dans main.rs pour garantir la reproductibilité
 fn generate_test_data(node_count: usize, link_count: usize) -> 
     (Vec<i32>, Vec<(i32, i32)>, Vec<(i32, i32)>, Vec<(i32, i32)>) {
     
     let nodes: Vec<i32> = (1..=node_count as i32).collect();
-    
-    // Générer des tags
     let tag_names = ["important", "rust", "datalog", "note-craft", "test"];
     let mut tags = Vec::new();
     for (idx, &node) in nodes.iter().enumerate() {
@@ -88,7 +94,6 @@ fn generate_test_data(node_count: usize, link_count: usize) ->
         }
     }
     
-    // Générer des liens de manière déterministe
     let mut links = Vec::new();
     for i in 0..link_count {
         let from_idx = i % nodes.len();
@@ -96,7 +101,6 @@ fn generate_test_data(node_count: usize, link_count: usize) ->
         links.push((nodes[from_idx], nodes[to_idx]));
     }
     
-    // Générer des types
     let types = ["page", "block", "asset", "query"];
     let node_types: Vec<(i32, i32)> = nodes.iter()
         .enumerate()
@@ -116,7 +120,18 @@ fn generate_test_data(node_count: usize, link_count: usize) ->
     (nodes, tags, links, node_types)
 }
 
+/// Helper pour créer un runtime crepe avec les données
+fn build_runtime(nodes: &[i32], tags: &[(i32, i32)], links: &[(i32, i32)], node_types: &[(i32, i32)]) -> Crepe {
+    let mut runtime = Crepe::new();
+    runtime.extend(nodes.iter().copied().map(|n| Node(n)));
+    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
+    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
+    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
+    runtime
+}
+
 /// Benchmark pour la requête "par tag" (query 1)
+/// MESURE: Setup (runtime + insertion) + run() + extraction
 fn bench_query_by_tag(c: &mut Criterion) {
     let mut group = c.benchmark_group("query_by_tag");
     
@@ -134,21 +149,16 @@ fn bench_query_by_tag(c: &mut Criterion) {
             &(*node_count, *link_count),
             |b, _| {
                 b.iter(|| {
-                    let mut runtime = Crepe::new();
-                    runtime.extend(nodes.iter().copied().map(Node));
-                    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
-                    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
-                    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
+                    // CREPE LIMITATION: Doit recréer et tout réinsérer
+                    let mut runtime = build_runtime(&nodes, &tags, &links, &node_types);
+                    let result = runtime.run();
                     
-                    let (nodes_with_tag, _, _, _) = runtime.run();
-                    
-                    // Filtrer pour tag "important" (TAG_IMPORTANT = 1)
-                    black_box(
-                        nodes_with_tag
-                            .into_iter()
-                            .filter(|NodesWithTag(_, tag_id)| *tag_id == TAG_IMPORTANT)
-                            .count()
-                    );
+                    // Extraire le résultat pour query_by_tag
+                    let count: usize = result.0
+                        .into_iter()
+                        .filter(|x| x.1 == TAG_IMPORTANT)
+                        .count();
+                    black_box(count);
                 });
             },
         );
@@ -175,16 +185,12 @@ fn bench_query_by_link(c: &mut Criterion) {
             &(*node_count, *link_count),
             |b, _| {
                 b.iter(|| {
-                    let mut runtime = Crepe::new();
-                    runtime.extend(nodes.iter().copied().map(Node));
-                    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
-                    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
-                    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
+                    let mut runtime = build_runtime(&nodes, &tags, &links, &node_types);
+                    let result = runtime.run();
                     
-                    let (_, linked_to_tag, _, _) = runtime.run();
-                    
-                    // Compter tous les liens avec tags
-                    black_box(linked_to_tag.into_iter().count());
+                    // Extraire le résultat pour query_by_link
+                    let count: usize = result.1.into_iter().count();
+                    black_box(count);
                 });
             },
         );
@@ -211,16 +217,12 @@ fn bench_query_transitive(c: &mut Criterion) {
             &(*node_count, *link_count),
             |b, _| {
                 b.iter(|| {
-                    let mut runtime = Crepe::new();
-                    runtime.extend(nodes.iter().copied().map(Node));
-                    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
-                    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
-                    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
+                    let mut runtime = build_runtime(&nodes, &tags, &links, &node_types);
+                    let result = runtime.run();
                     
-                    let (_, _, reachable, _) = runtime.run();
-                    
-                    // Compter tous les nœuds accessibles
-                    black_box(reachable.into_iter().count());
+                    // Extraire le résultat pour query_transitive
+                    let count: usize = result.2.into_iter().count();
+                    black_box(count);
                 });
             },
         );
@@ -247,63 +249,15 @@ fn bench_query_by_type(c: &mut Criterion) {
             &(*node_count, *link_count),
             |b, _| {
                 b.iter(|| {
-                    let mut runtime = Crepe::new();
-                    runtime.extend(nodes.iter().copied().map(Node));
-                    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
-                    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
-                    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
+                    let mut runtime = build_runtime(&nodes, &tags, &links, &node_types);
+                    let result = runtime.run();
                     
-                    let (_, _, _, nodes_of_type) = runtime.run();
-                    
-                    // Filtrer pour type "page" (TYPE_PAGE = 1)
-                    black_box(
-                        nodes_of_type
-                            .into_iter()
-                            .filter(|NodesOfType(_, type_id)| *type_id == TYPE_PAGE)
-                            .count()
-                    );
-                });
-            },
-        );
-    }
-    
-    group.finish();
-}
-
-/// Benchmark combiné: exécuter toutes les requêtes ensemble
-/// Mesure le temps total pour toutes les règles Datalog
-fn bench_all_queries(c: &mut Criterion) {
-    let mut group = c.benchmark_group("all_queries");
-    
-    for (node_count, link_count, size_name) in &[
-        (100, 500, "small"),
-        (1_000, 5_000, "medium"),
-        (10_000, 50_000, "large"),
-    ] {
-        let (nodes, tags, links, node_types) = generate_test_data(*node_count, *link_count);
-        
-        group.throughput(Throughput::Elements(*node_count as u64));
-        
-        group.bench_with_input(
-            BenchmarkId::new("crepe", size_name),
-            &(*node_count, *link_count),
-            |b, _| {
-                b.iter(|| {
-                    let mut runtime = Crepe::new();
-                    runtime.extend(nodes.iter().copied().map(Node));
-                    runtime.extend(tags.iter().copied().map(|(n, t)| Tag(n, t)));
-                    runtime.extend(links.iter().copied().map(|(f, t)| Link(f, t)));
-                    runtime.extend(node_types.iter().copied().map(|(n, t)| NodeType(n, t)));
-                    
-                    let (nodes_with_tag, linked_to_tag, reachable, nodes_of_type) = runtime.run();
-                    
-                    // Consommer tous les résultats pour éviter l'optimisation
-                    black_box((
-                        nodes_with_tag.into_iter().count(),  // NodesWithTag
-                        linked_to_tag.into_iter().count(),  // LinkedToTag
-                        reachable.into_iter().count(),  // Reachable
-                        nodes_of_type.into_iter().count(),  // NodesOfType
-                    ));
+                    // Extraire le résultat pour query_by_type
+                    let count: usize = result.3
+                        .into_iter()
+                        .filter(|x| x.1 == TYPE_PAGE)
+                        .count();
+                    black_box(count);
                 });
             },
         );
@@ -318,7 +272,6 @@ criterion_group!(
     bench_query_by_link,
     bench_query_transitive,
     bench_query_by_type,
-    bench_all_queries,
 );
 
 criterion_main!(benches);

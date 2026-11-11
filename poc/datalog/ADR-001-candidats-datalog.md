@@ -32,17 +32,40 @@ $ curl -s "https://api.github.com/repos/ekzhang/crepe"
 |-----------|--------|--------|
 | **Nom** | crepe | crates.io/crates/crepe |
 | **Version** | 0.2.0 | crates.io/crates/crepe |
-| **Description** | Datalog in Rust as a procedural macro | crates.io/crates/crepe |
-| **Licence** | MIT OR Apache-2.0 | crates.io/crates/crepe |
+| **Description** | Datalog compiler embedded in Rust as a procedural macro | crates.io/crates/crepe |
+| **Licence** | Apache-2.0 | GitHub API: ekzhang/crepe/license (2026-11-11) |
 | **Auteur** | ekzhang | crates.io/crates/crepe |
 | **Dépôt GitHub** | https://github.com/ekzhang/crepe | GitHub API |
-| **Étoiles GitHub** | 537 | GitHub API: ekzhang/crepe |
-| **Forks GitHub** | 22 | GitHub API: ekzhang/crepe |
-| **Dernier commit** | [À VÉRIFIER] | GitHub API: ekzhang/crepe |
+| **Étoiles GitHub** | 537 | GitHub API: ekzhang/crepe (2026-11-11) |
+| **Forks GitHub** | 22 | GitHub API: ekzhang/crepe (2026-11-11) |
+| **Dernier commit** | 2025-12-14T00:12:35Z | GitHub API: ekzhang/crepe (2026-11-11) |
+| **Dernière release** | v0.2.0 (2025-12-14T00:12:46Z) | GitHub API: ekzhang/crepe/releases/latest (2026-11-11) |
 
 **Conclusion:** 
 ✅ **crepe EXISTE et est un candidat VALIDE** pour le PoC.  
 ✅ **crepe doit être réintégré comme candidat à part entière** dans l'évaluation.
+
+---
+
+## 📋 COMPARAISON CREPE VS DATAFROG (Candidats à part entière)
+
+**Les deux sont maintenant des candidats valides et doivent être comparés.**
+
+| Critère | crepe | datafrog | Source |
+|---------|-------|----------|--------|
+| **Type** | Procedural macro (compile-time) | Engine (runtime) | Documentation |
+| **Version** | 0.2.0 | 2.0.1 | crates.io |
+| **Licence** | Apache-2.0 | Apache-2.0 | GitHub API |
+| **Étoiles GitHub** | 537 | 911 | GitHub API (2026-11-11) |
+| **Forks GitHub** | 22 | 48 | GitHub API (2026-11-11) |
+| **Dernier commit** | 2025-12-14 | 2026-10-28 | GitHub API (2026-11-11) |
+| **Dernière release** | v0.2.0 (2025-12-14) | v2.0.1 (2019-01-02) | GitHub API (2026-11-11) |
+| **Maintenance** | ~11 mois d'activité | 14 jours d'activité | GitHub API (2026-11-11) |
+
+**Analyse:**
+- **datafrog:** Dernier commit très récent (14 jours), mais dernière release ancienne (2019)
+- **crepe:** Dernier commit moins récent (~11 mois), mais dernière release récente (2025-12-14)
+- **Les deux sont maintenus activement** (critère ADR-002: > 24 mois sans activité = éliminé)
 
 ---
 
@@ -217,12 +240,13 @@ De plus, une recherche systématique a identifié **datafrog** comme candidat su
 | **crates.io** | https://crates.io/crates/crepe | crates.io |
 | **GitHub** | https://github.com/ekzhang/crepe | GitHub |
 | **Version** | 0.2.0 | crates.io/crates/crepe |
-| **Licence** | MIT OR Apache-2.0 | crates.io/crates/crepe |
+| **Licence** | Apache-2.0 | crates.io/crates/crepe |
 | **Description** | Datalog compiler embedded in Rust as a procedural macro | crates.io/crates/crepe |
 | **Auteur** | ekzhang | crates.io/crates/crepe |
 | **Étoiles GitHub** | 537 | GitHub API: ekzhang/crepe (2026-11-11) |
 | **Forks GitHub** | 22 | GitHub API: ekzhang/crepe (2026-11-11) |
-| **Dernier commit** | [À VÉRIFIER] | GitHub API: ekzhang/crepe |
+| **Dernier commit** | 2025-12-14T00:12:35Z | GitHub API: ekzhang/crepe (2026-11-11) |
+| **Dernière release** | v0.2.0 (2025-12-14T00:12:46Z) | GitHub API: ekzhang/crepe/releases/latest (2026-11-11) |
 | **MSRV** | [À VÉRIFIER] | Cargo.toml: ekzhang/crepe |
 | **Taille du crate** | [À VÉRIFIER] | crates.io/crates/crepe |
 | **Téléchargements** | [À VÉRIFIER] | crates.io/crates/crepe |
@@ -232,15 +256,16 @@ De plus, une recherche systématique a identifié **datafrog** comme candidat su
 | Propriété | Valeur | Source |
 |-----------|--------|--------|
 | **crates.io** | https://crates.io/crates/datafrog | crates.io |
-| **GitHub** | https://github.com/rust-lang-nursery/datafrog | GitHub |
-| **Version** | 2.0.1 | Cargo.toml: rust-lang-nursery/datafrog |
-| **Licence** | Apache-2.0/MIT | Cargo.toml: rust-lang-nursery/datafrog |
-| **Description** | Lightweight Datalog engine intended to be embedded in other Rust programs | Cargo.toml: rust-lang-nursery/datafrog |
-| **Auteurs** | Frank McSherry, The Rust Project Developers, Datafrog Developers | Cargo.toml: rust-lang-nursery/datafrog |
-| **Étoiles GitHub** | [À VÉRIFIER] | GitHub API: rust-lang-nursery/datafrog |
-| **Forks GitHub** | [À VÉRIFIER] | GitHub API: rust-lang-nursery/datafrog |
-| **Dernier commit** | [À VÉRIFIER] | GitHub API: rust-lang-nursery/datafrog |
-| **MSRV** | 2018 Edition | Cargo.toml: rust-lang-nursery/datafrog |
+| **GitHub** | https://github.com/rust-lang/datafrog | GitHub |
+| **Version** | 2.0.1 | Cargo.toml: rust-lang/datafrog |
+| **Licence** | Apache-2.0 | Cargo.toml: rust-lang/datafrog |
+| **Description** | A lightweight Datalog engine in Rust | GitHub: rust-lang/datafrog |
+| **Auteurs** | Frank McSherry, The Rust Project Developers, Datafrog Developers | Cargo.toml: rust-lang/datafrog |
+| **Étoiles GitHub** | 911 | GitHub API: rust-lang/datafrog (2026-11-11) |
+| **Forks GitHub** | 48 | GitHub API: rust-lang/datafrog (2026-11-11) |
+| **Dernier commit** | 2026-10-28T12:50:23Z | GitHub API: rust-lang/datafrog (2026-11-11) |
+| **Dernière release** | v2.0.1 (2019-01-02T19:37:30Z) | GitHub API: rust-lang/datafrog/tags (2026-11-11) |
+| **MSRV** | 2018 Edition | Cargo.toml: rust-lang/datafrog |
 | **Taille du crate** | [À VÉRIFIER] | crates.io/crates/datafrog |
 | **Téléchargements** | [À VÉRIFIER] | crates.io/crates/datafrog |
 
