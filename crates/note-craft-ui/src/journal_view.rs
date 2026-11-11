@@ -155,18 +155,13 @@ impl std::fmt::Display for JournalViewMode {
 }
 
 /// Sort order for journal entries
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum JournalSortOrder {
     /// Newest first (descending)
+    #[default]
     NewestFirst,
     /// Oldest first (ascending)
     OldestFirst,
-}
-
-impl Default for JournalSortOrder {
-    fn default() -> Self {
-        Self::NewestFirst
-    }
 }
 
 impl std::fmt::Display for JournalSortOrder {
@@ -264,9 +259,10 @@ impl JournalConfig {
 }
 
 /// Color scheme for journal entries
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub enum JournalColorScheme {
     /// Default color scheme
+    #[default]
     Default,
     /// Monochrome
     Monochrome,
@@ -276,12 +272,6 @@ pub enum JournalColorScheme {
     Dark,
     /// Custom colors
     Custom,
-}
-
-impl Default for JournalColorScheme {
-    fn default() -> Self {
-        Self::Default
-    }
 }
 
 impl std::fmt::Display for JournalColorScheme {
@@ -322,7 +312,7 @@ pub enum JournalEvent {
 }
 
 /// Filter for journal view
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct JournalFilter {
     /// Start date (inclusive)
     pub start_date: Option<String>,
@@ -332,17 +322,6 @@ pub struct JournalFilter {
     pub tags: Vec<String>,
     /// Text search query
     pub query: Option<String>,
-}
-
-impl Default for JournalFilter {
-    fn default() -> Self {
-        Self {
-            start_date: None,
-            end_date: None,
-            tags: Vec::new(),
-            query: None,
-        }
-    }
 }
 
 impl JournalFilter {
@@ -554,14 +533,12 @@ impl JournalView {
         let mut month_map: BTreeMap<String, Vec<(String, Vec<String>)>> = BTreeMap::new();
 
         for (date, note_ids) in date_map {
-            if self.filter.is_date_in_range(&date) {
-                if date.len() >= 7 {
-                    let month_key = &date[..7]; // YYYY-MM
-                    month_map
-                        .entry(month_key.to_string())
-                        .or_default()
-                        .push((date, note_ids));
-                }
+            if self.filter.is_date_in_range(&date) && date.len() >= 7 {
+                let month_key = &date[..7]; // YYYY-MM
+                month_map
+                    .entry(month_key.to_string())
+                    .or_default()
+                    .push((date, note_ids));
             }
         }
 
@@ -594,14 +571,12 @@ impl JournalView {
         let mut year_map: BTreeMap<String, Vec<(String, Vec<String>)>> = BTreeMap::new();
 
         for (date, note_ids) in date_map {
-            if self.filter.is_date_in_range(&date) {
-                if date.len() >= 4 {
-                    let year_key = &date[..4]; // YYYY
-                    year_map
-                        .entry(year_key.to_string())
-                        .or_default()
-                        .push((date, note_ids));
-                }
+            if self.filter.is_date_in_range(&date) && date.len() >= 4 {
+                let year_key = &date[..4]; // YYYY
+                year_map
+                    .entry(year_key.to_string())
+                    .or_default()
+                    .push((date, note_ids));
             }
         }
 
