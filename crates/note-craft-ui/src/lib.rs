@@ -11,6 +11,7 @@ use note_craft_core::Node;
 
 pub mod block_ui;
 pub mod command_palette;
+pub mod graph_view;
 pub mod keyboard;
 pub mod outliner;
 pub mod page_ui;
@@ -27,6 +28,9 @@ pub use block_ui::{
 pub use command_palette::{
     Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
     CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use graph_view::{
+    Graph, GraphEdge, GraphNode, GraphView, GraphViewConfig, GraphViewEvent, LayoutAlgorithm,
 };
 pub use keyboard::{
     create_default_editor_shortcuts, create_default_global_shortcuts,
