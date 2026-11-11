@@ -10,6 +10,7 @@
 use note_craft_core::Node;
 
 pub mod block_ui;
+pub mod page_ui;
 pub mod sidebar;
 pub mod slint;
 pub mod webview;
@@ -18,6 +19,10 @@ pub mod webview;
 pub use block_ui::{
     BlockRenderInfo, BlockStyleConfig, BlockUiEvent, BlockUiManager, BlockUiManagerBuilder,
     BlockUiState,
+};
+pub use page_ui::{
+    PageConfig, PageLayoutMode, PageRenderInfo, PageSidebarItemBuilder, PageUiEvent, PageUiManager,
+    PageUiManagerBuilder, PageUiState, PageViewMode,
 };
 pub use sidebar::{
     default_sidebar_sections, SidebarConfig, SidebarEvent, SidebarItem, SidebarItemBuilder,

@@ -3,8 +3,6 @@
 //! This module provides UI components for displaying and editing blocks in Note Craft.
 
 use note_craft_core::{Block, BlockId, BlockType};
-use std::path::PathBuf;
-use std::sync::Arc;
 
 /// Represents the visual state of a block in the UI
 #[derive(Debug, Clone, PartialEq)]
@@ -386,16 +384,9 @@ impl BlockRenderInfo {
 }
 
 /// Builder for creating block UI managers
+#[derive(Default)]
 pub struct BlockUiManagerBuilder {
     style: BlockStyleConfig,
-}
-
-impl Default for BlockUiManagerBuilder {
-    fn default() -> Self {
-        Self {
-            style: BlockStyleConfig::default(),
-        }
-    }
 }
 
 impl BlockUiManagerBuilder {

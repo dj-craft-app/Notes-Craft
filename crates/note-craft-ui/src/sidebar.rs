@@ -185,9 +185,10 @@ impl SidebarConfig {
 }
 
 /// Sidebar section type
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
 pub enum SidebarSection {
     /// File explorer / navigation
+    #[default]
     Explorer,
     /// Recent files
     Recent,
@@ -197,12 +198,6 @@ pub enum SidebarSection {
     Tags,
     /// Search
     Search,
-}
-
-impl Default for SidebarSection {
-    fn default() -> Self {
-        SidebarSection::Explorer
-    }
 }
 
 /// State of the sidebar - using Arc for thread-safe sharing
@@ -272,7 +267,7 @@ impl SidebarState {
     }
 
     /// Deselects all items
-    fn deselect_all(items: &mut Vec<SidebarItem>) {
+    fn deselect_all(items: &mut [SidebarItem]) {
         for item in items.iter_mut() {
             item.is_selected = false;
             Self::deselect_all(&mut item.children);
@@ -280,7 +275,7 @@ impl SidebarState {
     }
 
     /// Sets an item's selected state
-    fn set_item_selected(items: &mut Vec<SidebarItem>, target_id: &str, selected: bool) {
+    fn set_item_selected(items: &mut [SidebarItem], target_id: &str, selected: bool) {
         for item in items.iter_mut() {
             if item.id == target_id {
                 item.is_selected = selected;
