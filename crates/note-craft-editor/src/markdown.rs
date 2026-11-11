@@ -454,3 +454,12 @@ mod tests {
         assert!(html.contains("<blockquote>"));
     }
 }
+
+#[test]
+fn test_editor_render_image() {
+    let mut editor = MarkdownEditor::new();
+    editor.set_content("![Alt text](image.png)".to_string());
+    let html = editor.render().unwrap();
+    assert!(html.contains("<img"));
+    assert!(html.contains("src=\"image.png\""));
+}
