@@ -15,6 +15,7 @@ pub mod command_palette;
 pub mod graph_view;
 pub mod journal_view;
 pub mod keyboard;
+pub mod layout;
 pub mod outliner;
 pub mod page_ui;
 pub mod sidebar;
@@ -49,6 +50,10 @@ pub use keyboard::{
     create_default_editor_shortcuts, create_default_global_shortcuts,
     create_default_sidebar_shortcuts, Key, Modifiers, Shortcut, ShortcutBinding, ShortcutContext,
     ShortcutEvent, ShortcutManager, ShortcutManagerBuilder,
+};
+pub use layout::{
+    AppLayout, DockManager, DockPosition, LayoutConfig, LayoutDirection, LayoutEvent,
+    LayoutManager, LayoutRect, PaneConfig, PaneContent, PaneId, PaneState,
 };
 pub use outliner::{
     OutlineItem, OutlineIterator, OutlinePath, OutlinerBuilder, OutlinerConfig, OutlinerEvent,
