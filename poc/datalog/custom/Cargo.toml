@@ -1,0 +1,16 @@
+[package]
+name = "custom-poc"
+version = "0.1.0"
+edition = "2021"
+description = "PoC d'un moteur Datalog custom utilisant SQLite pour Note Craft"
+license = "MIT"
+
+[dependencies]
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "benchmark"
+harness = false
