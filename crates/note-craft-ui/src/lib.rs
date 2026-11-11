@@ -15,6 +15,7 @@ pub mod outliner;
 pub mod page_ui;
 pub mod sidebar;
 pub mod slint;
+pub mod theme;
 pub mod webview;
 
 // Ré-export des types principaux
@@ -39,8 +40,12 @@ pub use sidebar::{
     SidebarSection, SidebarService, SidebarState,
 };
 pub use slint::{
-    theme, utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
+    utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
     ThemeColorsBuilder,
+};
+pub use theme::{
+    ButtonTheme, DialogTheme, EditorTheme, InputTheme, SidebarTheme, Theme, ThemeComponentColors,
+    ThemeConfig, ThemeEvent, ThemeManager, ThemeManagerBuilder, ThemeVariant, UiThemeColors,
 };
 pub use webview::{
     DefaultWebViewHandler, JsMessage, RustMessage, WebViewConfig, WebViewError,
