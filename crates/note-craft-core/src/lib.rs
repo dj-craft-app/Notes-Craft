@@ -17,6 +17,10 @@ pub mod fs;
 pub mod block;
 pub use block::{Block, BlockContent, BlockId, BlockSystem, BlockType, TextFormatting};
 
+// Page System (Phase 1 - Étape 1.3)
+pub mod page;
+pub use page::{Page, PageId, PageMetadata, PageSystem, PageType};
+
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
 // ============================================================================
