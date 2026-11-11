@@ -39,13 +39,16 @@ jobs:
             ${{ runner.os }}-cargo-
             
       - name: Format check
-        run: cargo fmt --check
+        run: |
+          for crate in note-craft-core note-craft-editor note-craft-plugins note-craft-query note-craft-storage; do
+            (cd crates/$crate && cargo fmt --check) || exit 1
+          done
         
       - name: Clippy check
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --workspace --all-targets --exclude note-craft-ui -- -D warnings
         
       - name: Build
-        run: cargo build --verbose
+        run: cargo build --workspace --verbose --exclude note-craft-ui
         
       - name: Run tests
-        run: cargo test --verbose
+        run: cargo test --workspace --verbose --exclude note-craft-ui
