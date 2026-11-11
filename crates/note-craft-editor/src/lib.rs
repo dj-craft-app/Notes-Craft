@@ -10,6 +10,7 @@ pub mod assets;
 pub mod code_block;
 pub mod drag_drop;
 pub mod latex;
+pub mod lifecycle;
 pub mod macros;
 pub mod markdown;
 pub mod paste;
@@ -30,6 +31,10 @@ pub use drag_drop::{
     PageDragDropCallback,
 };
 pub use latex::{generate_katex_html, generate_latex_css, LatexExpression, LatexParser, LatexType};
+pub use lifecycle::{
+    EditorConfig, EditorState, LifecycleError, LifecycleEvent, LifecycleManager,
+    LifecycleManagerBuilder, Resource, SimpleResource,
+};
 pub use macros::{
     create_default_macro_manager, Macro, MacroBuilder, MacroContent, MacroError, MacroManager,
     MacroResult,
