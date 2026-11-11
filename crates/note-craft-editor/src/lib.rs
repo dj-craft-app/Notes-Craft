@@ -14,6 +14,7 @@ pub mod macros;
 pub mod markdown;
 pub mod paste;
 pub mod quick_add;
+pub mod rendering;
 
 use note_craft_core::{Node, NodeId, TypeId};
 
@@ -38,6 +39,10 @@ pub use paste::{html_paste, PasteContent, PasteError, PasteManager, PasteResult,
 pub use quick_add::{
     create_default_quick_add_manager, QuickAddError, QuickAddManager, QuickAddResult,
     QuickBlockType, QuickTemplate, QuickTemplateBuilder,
+};
+pub use rendering::{
+    render_markdown, render_markdown_cached, HtmlPostProcessor, RenderingCache, RenderingConfig,
+    RenderingConfigBuilder, RenderingError, RenderingPipeline, RenderingResult,
 };
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
