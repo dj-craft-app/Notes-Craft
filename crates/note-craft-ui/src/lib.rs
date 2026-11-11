@@ -11,6 +11,7 @@ use note_craft_core::Node;
 
 pub mod block_ui;
 pub mod command_palette;
+pub mod keyboard;
 pub mod outliner;
 pub mod page_ui;
 pub mod sidebar;
@@ -26,6 +27,11 @@ pub use block_ui::{
 pub use command_palette::{
     Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
     CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use keyboard::{
+    create_default_editor_shortcuts, create_default_global_shortcuts,
+    create_default_sidebar_shortcuts, Key, Modifiers, Shortcut, ShortcutBinding, ShortcutContext,
+    ShortcutEvent, ShortcutManager, ShortcutManagerBuilder,
 };
 pub use outliner::{
     OutlineItem, OutlineIterator, OutlinePath, OutlinerBuilder, OutlinerConfig, OutlinerEvent,
