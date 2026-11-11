@@ -1,0 +1,28 @@
+# Rust
+/target/
+*.rs.bk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Fichiers de verrouillage
+*.lock
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# Fichiers de session agent (pas les livrables .md/.json validés)
+*.session
+*.state

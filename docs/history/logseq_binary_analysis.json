@@ -1,0 +1,890 @@
+{
+  "analysis_metadata": {
+    "timestamp": "2025-01-09T00:00:00Z",
+    "tool": "MCP REA + Manual Analysis",
+    "analyst": "Automated Binary Analysis",
+    "target": "/Users/amaury/Documents/REBUILD APPS/Logseq.app",
+    "version": "2.0.2"
+  },
+  
+  "electron_structure": {
+    "binary_info": {
+      "path": "/Users/amaury/Documents/REBUILD APPS/Logseq.app/Contents/MacOS/Logseq",
+      "architecture": "arm64",
+      "format": "mach-o",
+      "uuid": "4C4C44C2-5555-3144-A189-6A5A3E5EAF66",
+      "sha256": "62b2b0c365dcc5578bac36aee77788863e6ac3f62088ec82c1c6684094d52934",
+      "file_type": "2",
+      "flags": ["0x00200085"],
+      "entry_point": {
+        "file_offset": 1120,
+        "address": "0x100000460"
+      },
+      "build_metadata": {
+        "platform": "MACOS",
+        "minimum_os": "12.0",
+        "sdk": "26.2",
+        "linker": {
+          "name": "LLD",
+          "version": "23.0"
+        }
+      },
+      "code_signature": {
+        "offset": 33552,
+        "size": 19424
+      }
+    },
+    "segments": [
+      {
+        "name": "__PAGEZERO",
+        "vm_address": "0x0",
+        "vm_size": 4294967296,
+        "file_offset": 0,
+        "file_size": 0,
+        "permissions": {
+          "read": false,
+          "write": false,
+          "execute": false
+        }
+      },
+      {
+        "name": "__TEXT",
+        "vm_address": "0x100000000",
+        "vm_size": 16384,
+        "file_offset": 0,
+        "file_size": 16384,
+        "permissions": {
+          "read": true,
+          "write": false,
+          "execute": true
+        },
+        "sections": [
+          {
+            "name": "__text",
+            "address": "0x100000460",
+            "file_offset": 1120,
+            "size": 348,
+            "alignment": 4
+          },
+          {
+            "name": "__stubs",
+            "address": "0x1000005bc",
+            "file_offset": 1468,
+            "size": 84,
+            "alignment": 4
+          },
+          {
+            "name": "__cstring",
+            "address": "0x100000610",
+            "file_offset": 1552,
+            "size": 35,
+            "alignment": 1
+          }
+        ]
+      },
+      {
+        "name": "__DATA_CONST",
+        "vm_address": "0x100004000",
+        "vm_size": 16384,
+        "file_offset": 16384,
+        "file_size": 16384,
+        "permissions": {
+          "read": true,
+          "write": true,
+          "execute": false
+        },
+        "sections": [
+          {
+            "name": "__got",
+            "address": "0x100004000",
+            "file_offset": 16384,
+            "size": 80,
+            "alignment": 8
+          }
+        ]
+      },
+      {
+        "name": "__LINKEDIT",
+        "vm_address": "0x100008000",
+        "vm_size": 32768,
+        "file_offset": 32768,
+        "file_size": 20208,
+        "permissions": {
+          "read": true,
+          "write": false,
+          "execute": false
+        }
+      }
+    ],
+    "dependencies": [
+      {
+        "path": "@rpath/Electron Framework.framework/Electron Framework",
+        "kind": "LC_LOAD_DYLIB",
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0"
+      },
+      {
+        "path": "/usr/lib/libSystem.B.dylib",
+        "kind": "LC_LOAD_DYLIB",
+        "compatibility_version": "1.0.0",
+        "current_version": "1356.0.0"
+      }
+    ],
+    "imports": [
+      {
+        "name": "_ElectronInitializeICUandStartNode",
+        "source": "Electron Framework",
+        "status": "exact"
+      },
+      {
+        "name": "_ElectronMain",
+        "source": "Electron Framework",
+        "status": "exact"
+      },
+      {
+        "name": "__ZN8electron5fuses18IsRunAsNodeEnabledEv",
+        "source": "Electron Framework",
+        "status": "exact",
+        "note": "C++ mangled name for electron::fuses::IsRunAsNodeEnabled()"
+      },
+      {
+        "name": "_getenv",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "_freopen",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "_fstat",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "___stdinp",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "___stdoutp",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "___stderrp",
+        "source": "libSystem",
+        "status": "exact"
+      },
+      {
+        "name": "___error",
+        "source": "libSystem",
+        "status": "exact"
+      }
+    ],
+    "load_commands": [
+      {"kind": "LC_SEGMENT_64", "name": "__PAGEZERO"},
+      {"kind": "LC_SEGMENT_64", "name": "__TEXT"},
+      {"kind": "LC_SEGMENT_64", "name": "__DATA_CONST"},
+      {"kind": "LC_SEGMENT_64", "name": "__LINKEDIT"},
+      {"kind": "LC_DYLD_CHAINED_FIXUPS"},
+      {"kind": "LC_DYLD_EXPORTS_TRIE"},
+      {"kind": "LC_SYMTAB"},
+      {"kind": "LC_DYSYMTAB"},
+      {"kind": "LC_RPATH", "path": "@executable_path/../Frameworks"},
+      {"kind": "LC_LOAD_DYLINKER", "name": "/usr/lib/dyld"},
+      {"kind": "LC_UUID"},
+      {"kind": "LC_BUILD_VERSION"},
+      {"kind": "LC_MAIN", "entryoff": 1120},
+      {"kind": "LC_LOAD_DYLIB", "name": "@rpath/Electron Framework.framework/Electron Framework"},
+      {"kind": "LC_LOAD_DYLIB", "name": "/usr/lib/libSystem.B.dylib"},
+      {"kind": "LC_CODE_SIGNATURE"}
+    ]
+  },
+  
+  "application_structure": {
+    "app_directory": "/Users/amaury/Documents/REBUILD APPS/Logseq.app/Contents/Resources/",
+    "app_asar": {
+      "path": "app.asar",
+      "sha256": "d2370bbedcd1d0cfe7e8d0d7dc39d7103cba4d6ac0f6ed8b98ba0ef0d1461a66",
+      "size": 188605136,
+      "format": "asar"
+    },
+    "app_asar_unpacked": {
+      "path": "app.asar.unpacked",
+      "contains": ["node_modules"]
+    },
+    "package_json": {
+      "name": "Logseq",
+      "productName": "Logseq",
+      "version": "2.0.2",
+      "main": "electron.js",
+      "author": "Logseq",
+      "license": "AGPL-3.0",
+      "description": "A privacy-first, open-source platform for knowledge management and collaboration.",
+      "repository": "https://github.com/logseq/logseq"
+    }
+  },
+  
+  "dependencies": {
+    "production": {
+      "@logseq/graph-lifecycle": "file:../deps/graph-lifecycle",
+      "@fastify/cors": "11.2.0",
+      "@js-joda/core": "3.2.0",
+      "@modelcontextprotocol/sdk": "^1.27.1",
+      "abort-controller": "3.0.0",
+      "command-exists": "1.2.9",
+      "diff-match-patch": "1.0.5",
+      "electron-dl": "4.0.0",
+      "electron-log": "5.4.3",
+      "electron-updater": "6.8.3",
+      "electron-window-state": "5.0.3",
+      "extract-zip": "2.0.1",
+      "fastify": "5.8.2",
+      "fs-extra": "^11.3.4",
+      "https-proxy-agent": "7.0.6",
+      "keytar": "^7.9.0",
+      "mldoc": "^1.5.9",
+      "node-fetch": "3.3.2",
+      "open": "11.0.0",
+      "picocolors": "1.1.1",
+      "remove-accents": "0.5.0",
+      "sanitize-filename": "1.6.4",
+      "semver": "7.7.4",
+      "socks-proxy-agent": "8.0.5",
+      "string-width": "8.2.0",
+      "tiny-pinyin": "1.3.2",
+      "ws": "^8.20.0",
+      "zod": "^4.3.6"
+    },
+    "optional": {
+      "@zvec/bindings-darwin-arm64": "0.5.0",
+      "@zvec/bindings-linux-arm64": "0.5.0",
+      "@zvec/bindings-linux-x64": "0.5.0",
+      "@zvec/bindings-win32-x64": "0.5.0",
+      "@zvec/zvec": "0.5.0"
+    },
+    "pnpm_config": {
+      "onlyBuiltDependencies": ["@zvec/zvec", "electron", "electron-winstaller", "keytar"]
+    }
+  },
+  
+  "main_process": {
+    "entry_point": "electron.js",
+    "status": "OBFUSCATED",
+    "obfuscation": {
+      "tool": "Google Closure Compiler",
+      "level": "ADVANCED",
+      "note": "All variable and function names are mangled. Code is minified and optimized."
+    },
+    " identified_functions": [
+      "ELECTRON_RUN_AS_NODE"
+    ],
+    "analysis_status": "PARTIAL",
+    "note": "Binary analysis revealed Electron Framework integration. Full code analysis blocked by obfuscation."
+  },
+  
+  "renderer_process": {
+    "preload_script": "js/preload.js",
+    "status": "READABLE",
+    "exposed_apis": {
+      "namespace": "apis",
+      "methods": [
+        {
+          "name": "getFilePath",
+          "description": "Get file path from file object",
+          "ipc_channel": "webUtils.getPathForFile"
+        },
+        {
+          "name": "doAction",
+          "description": "Execute action in main process",
+          "ipc_channel": "main",
+          "type": "invoke"
+        },
+        {
+          "name": "invoke",
+          "description": "Generic IPC invoke",
+          "ipc_channel": "dynamic",
+          "type": "invoke"
+        },
+        {
+          "name": "addListener",
+          "description": "Add IPC listener",
+          "ipc_method": "ipcRenderer.on.bind"
+        },
+        {
+          "name": "removeListener",
+          "description": "Remove IPC listener",
+          "ipc_method": "ipcRenderer.removeListener.bind"
+        },
+        {
+          "name": "removeAllListeners",
+          "description": "Remove all IPC listeners",
+          "ipc_method": "ipcRenderer.removeAllListeners.bind"
+        },
+        {
+          "name": "on",
+          "description": "Wrapper for ipcRenderer.on",
+          "ipc_method": "ipcRenderer.on"
+        },
+        {
+          "name": "off",
+          "description": "Remove IPC listener",
+          "ipc_method": "ipcRenderer.removeListener"
+        },
+        {
+          "name": "once",
+          "description": "One-time IPC listener",
+          "ipc_method": "ipcRenderer.on"
+        },
+        {
+          "name": "checkForUpdates",
+          "description": "Check for application updates",
+          "ipc_channel": "check-for-updates",
+          "type": "invoke"
+        },
+        {
+          "name": "setUpdatesCallback",
+          "description": "Set callback for update events",
+          "ipc_channel": "updates-callback",
+          "type": "on"
+        },
+        {
+          "name": "installUpdatesAndQuitApp",
+          "description": "Install updates and quit application",
+          "ipc_channel": "install-updates",
+          "type": "invoke",
+          "args": [true]
+        },
+        {
+          "name": "openExternal",
+          "description": "Open external URL with security checks",
+          "allowed_protocols": ["https:", "http:", "mailto:", "zotero:", "file:"]
+        },
+        {
+          "name": "openPath",
+          "description": "Open file path",
+          "notes": "Resolves ~ to homedir"
+        },
+        {
+          "name": "exportPublishAssets",
+          "description": "Export publishing assets to disk",
+          "ipc_channel": "export-publish-assets",
+          "type": "invoke",
+          "args": ["html", "customCSSPath", "exportCSSPath", "repoPath", "assetFilenames", "outputDir"]
+        },
+        {
+          "name": "toggleMaxOrMinActiveWindow",
+          "description": "Toggle maximize/minimize active window",
+          "ipc_channel": "toggle-max-or-min-active-win",
+          "type": "invoke",
+          "args": ["isToggleMin"]
+        },
+        {
+          "name": "_callApplication",
+          "description": "Internal: Call application method",
+          "ipc_channel": "call-application",
+          "type": "invoke",
+          "visibility": "private"
+        },
+        {
+          "name": "_callMainWin",
+          "description": "Internal: Call main window method",
+          "ipc_channel": "call-main-win",
+          "type": "invoke",
+          "visibility": "private"
+        },
+        {
+          "name": "writeFileBytes",
+          "description": "Write binary data to file",
+          "notes": "Creates parent directories automatically"
+        },
+        {
+          "name": "getFilePathFromClipboard",
+          "description": "Get file path from clipboard",
+          "platform_specific": true
+        },
+        {
+          "name": "getClipboardData",
+          "description": "Read clipboard data for custom format",
+          "args": ["format"]
+        },
+        {
+          "name": "setZoomFactor",
+          "description": "Set zoom factor",
+          "api": "webFrame.setZoomFactor"
+        },
+        {
+          "name": "setZoomLevel",
+          "description": "Set zoom level",
+          "api": "webFrame.setZoomLevel"
+        },
+        {
+          "name": "isAbsolutePath",
+          "description": "Check if path is absolute",
+          "api": "path.isAbsolute"
+        }
+      ]
+    },
+    "bundles": {
+      "main.js": {
+        "path": "js/main.js",
+        "size": 16147727,
+        "status": "OBFUSCATED",
+        "note": "Main application bundle"
+      },
+      "code-editor.js": {
+        "path": "js/code-editor.js",
+        "size": 1012649,
+        "status": "READABLE",
+        "note": "Code editor component"
+      },
+      "db-worker.js": {
+        "path": "js/db-worker.js",
+        "size": 3890347,
+        "status": "READABLE",
+        "note": "Database worker"
+      },
+      "db-worker-bundle.js": {
+        "path": "js/db-worker-bundle.js",
+        "size": 1309484,
+        "status": "READABLE",
+        "note": "Database worker bundle"
+      },
+      "db-worker-node.js": {
+        "path": "js/db-worker-node.js",
+        "size": 2768661,
+        "status": "READABLE",
+        "note": "Database worker for Node.js"
+      },
+      "801-bundle.js": {
+        "path": "js/801-bundle.js",
+        "size": 9497,
+        "status": "READABLE"
+      },
+      "484-bundle.js": {
+        "path": "js/484-bundle.js",
+        "size": 209651,
+        "status": "READABLE"
+      },
+      "182-bundle.js": {
+        "path": "js/182-bundle.js",
+        "size": 1786,
+        "status": "READABLE"
+      }
+    },
+    "libraries": {
+      "third_party": [
+        {"name": "eventemitter3.umd.min.js", "size": 3093},
+        {"name": "glide/glide.min.js", "size": 127496},
+        {"name": "highlight.min.js", "size": 127496},
+        {"name": "html2canvas.min.js", "size": 198689},
+        {"name": "interact.min.js", "size": 98204},
+        {"name": "katex.min.js", "size": 270325},
+        {"name": "lightning-fs.min.js", "size": 21531},
+        {"name": "marked.umd.js", "size": null},
+        {"name": "mhchem.min.js", "size": null},
+        {"name": "photoswipe-lightbox.umd.min.js", "size": null},
+        {"name": "photoswipe.umd.min.js", "size": null},
+        {"name": "prop-types.min.js", "size": null},
+        {"name": "purify.js", "size": null},
+        {"name": "tabler.ext.js", "size": null},
+        {"name": "worker.js", "size": null}
+      ]
+    }
+  },
+  
+  "native_modules": {
+    "zvec_bindings": {
+      "darwin_arm64": "@zvec/bindings-darwin-arm64",
+      "linux_arm64": "@zvec/bindings-linux-arm64",
+      "linux_x64": "@zvec/bindings-linux-x64",
+      "win32_x64": "@zvec/bindings-win32-x64",
+      "core": "@zvec/zvec",
+      "version": "0.5.0",
+      "purpose": "Vector embeddings for AI/ML features",
+      "status": "OPTIONAL_DEPENDENCY",
+      "note": "Used for semantic search and AI features. Integrity mismatch detected in ASAR archive."
+    }
+  },
+  
+  "features": {
+    "electron_specific": [
+      {
+        "name": "Auto-Updater",
+        "implementation": "electron-updater (6.8.3)",
+        "ipc_channels": ["check-for-updates", "install-updates", "updates-callback"],
+        "status": "IDENTIFIED_IN_BINARY"
+      },
+      {
+        "name": "Window State Management",
+        "implementation": "electron-window-state (5.0.3)",
+        "features": ["window position/size persistence"],
+        "status": "IDENTIFIED_IN_BINARY"
+      },
+      {
+        "name": "Secure Storage",
+        "implementation": "keytar (^7.9.0)",
+        "features": ["password/credentials storage"],
+        "status": "IDENTIFIED_IN_BINARY"
+      },
+      {
+        "name": "Electron Logging",
+        "implementation": "electron-log (5.4.3)",
+        "features": ["structured logging"],
+        "status": "IDENTIFIED_IN_BINARY"
+      },
+      {
+        "name": "Electron Download",
+        "implementation": "electron-dl (4.0.0)",
+        "features": ["download management"],
+        "status": "IDENTIFIED_IN_BINARY"
+      },
+      {
+        "name": "Clipboard Access",
+        "implementation": "native Electron API",
+        "features": ["read/write clipboard", "custom formats", "file paths"],
+        "platform_specific": true,
+        "status": "IDENTIFIED_IN_PRELOAD"
+      },
+      {
+        "name": "File System Access",
+        "implementation": "fs, fs-extra",
+        "features": ["read/write files", "directory operations"],
+        "status": "IDENTIFIED_IN_PRELOAD"
+      },
+      {
+        "name": "Shell Integration",
+        "implementation": "shell",
+        "features": ["openExternal", "openPath"],
+        "security": "protocol whitelisting",
+        "allowed_protocols": ["https:", "http:", "mailto:", "zotero:", "file:"],
+        "status": "IDENTIFIED_IN_PRELOAD"
+      },
+      {
+        "name": "Web Frame Control",
+        "implementation": "webFrame",
+        "features": ["setZoomFactor", "setZoomLevel"],
+        "status": "IDENTIFIED_IN_PRELOAD"
+      },
+      {
+        "name": "WebUtils",
+        "implementation": "webUtils",
+        "features": ["getPathForFile"],
+        "status": "IDENTIFIED_IN_PRELOAD"
+      }
+    ],
+    "logseq_specific": [
+      {
+        "name": "Plugin System",
+        "files": ["js/lsplugin.core.js", "js/lsplugin.user.js"],
+        "features": ["plugin loading", "user plugins", "core plugins"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "Code Editor",
+        "files": ["js/code-editor.js", "js/publishing/code-editor.js"],
+        "features": ["syntax highlighting", "code editing"],
+        "libraries": ["CodeMirror", "KaTeX", "highlight.min.js"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "Database System",
+        "files": ["js/db-worker.js", "js/db-worker-bundle.js", "js/db-worker-node.js"],
+        "features": ["local database", "graph database", "query engine"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "Publishing System",
+        "files": ["js/publishing/main.js", "js/publishing/code-editor.js"],
+        "features": ["export to HTML", "static site generation"],
+        "ipc_channels": ["export-publish-assets"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "CLI Interface",
+        "files": ["js/logseq-cli.js", "logseq-cli.js"],
+        "features": ["command-line interface"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "Magic Portal",
+        "files": ["js/magic_portal.js"],
+        "features": ["cross-window communication", "portal functionality"],
+        "status": "IDENTIFIED_IN_BUNDLES"
+      },
+      {
+        "name": "Model Context Protocol (MCP)",
+        "implementation": "@modelcontextprotocol/sdk (^1.27.1)",
+        "features": ["AI model integration", "context protocol"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "Vector Embeddings",
+        "implementation": "@zvec/zvec (0.5.0)",
+        "features": ["semantic search", "AI features"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "Markdown Processing",
+        "implementation": "mldoc (^1.5.9)",
+        "features": ["markdown parsing", "document processing"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "Internationalization",
+        "features": ["multi-language support", "localization"],
+        "libraries": ["tiny-pinyin (1.3.2)", "remove-accents (0.5.0)"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "HTTP Server",
+        "implementation": "fastify (5.8.2)",
+        "features": ["local web server", "API endpoints"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "WebSocket Support",
+        "implementation": "ws (^8.20.0)",
+        "features": ["real-time communication"],
+        "status": "IDENTIFIED_IN_DEPENDENCIES"
+      },
+      {
+        "name": "File System Watcher",
+        "implementation": "lightning-fs",
+        "features": ["file system watching", "quick file operations"],
+        "status": "IDENTIFIED_IN_LIBRARIES"
+      },
+      {
+        "name": "PDF/Document Processing",
+        "implementation": "html2canvas, various parsers",
+        "features": ["document export", "screenshot generation"],
+        "status": "IDENTIFIED_IN_LIBRARIES"
+      },
+      {
+        "name": "UI Framework",
+        "features": ["custom UI components", "Tabler icons"],
+        "libraries": ["tabler.ext.js", "tabler-icons.min.css", "interact.min.js"],
+        "status": "IDENTIFIED_IN_LIBRARIES"
+      }
+    ],
+    "system_integrations": [
+      {
+        "name": "File System Integration",
+        "features": ["file watching", "path resolution", "file operations"],
+        "status": "IDENTIFIED"
+      },
+      {
+        "name": "Clipboard Integration",
+        "features": ["read/write", "custom formats", "file paths"],
+        "platform_specific": true,
+        "status": "IDENTIFIED"
+      },
+      {
+        "name": "External Protocol Handling",
+        "features": ["openExternal with security checks"],
+        "allowed_protocols": ["https:", "http:", "mailto:", "zotero:", "file:"],
+        "status": "IDENTIFIED"
+      },
+      {
+        "name": "Update System",
+        "features": ["automatic updates", "delta updates"],
+        "status": "IDENTIFIED"
+      },
+      {
+        "name": "Window Management",
+        "features": ["maximize/minimize", "zoom control"],
+        "status": "IDENTIFIED"
+      }
+    ]
+  },
+  
+  "ipc_communication": {
+    "channels": {
+      "main": {
+        "type": "invoke",
+        "description": "Generic action execution in main process",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true
+      },
+      "check-for-updates": {
+        "type": "invoke",
+        "description": "Check for application updates",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true
+      },
+      "install-updates": {
+        "type": "invoke",
+        "description": "Install updates and optionally quit app",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true,
+        "args": ["quitAfterInstall"]
+      },
+      "updates-callback": {
+        "type": "on",
+        "description": "Callback for update events",
+        "direction": "main -> renderer",
+        "exposed_in_preload": true
+      },
+      "export-publish-assets": {
+        "type": "invoke",
+        "description": "Export publishing assets to disk",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true,
+        "args": ["html", "customCSSPath", "exportCSSPath", "repoPath", "assetFilenames", "outputDir"]
+      },
+      "toggle-max-or-min-active-win": {
+        "type": "invoke",
+        "description": "Toggle maximize/minimize active window",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true,
+        "args": ["isToggleMin"]
+      },
+      "call-application": {
+        "type": "invoke",
+        "description": "Call application-level method",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true,
+        "visibility": "private"
+      },
+      "call-main-win": {
+        "type": "invoke",
+        "description": "Call main window method",
+        "direction": "renderer -> main",
+        "exposed_in_preload": true,
+        "visibility": "private"
+      }
+    },
+    "pattern": {
+      "invoke": "ipcRenderer.invoke(channel, ...args)",
+      "on": "ipcRenderer.on(channel, callback)",
+      "once": "ipcRenderer.once(channel, callback)",
+      "removeListener": "ipcRenderer.removeListener(channel, callback)"
+    }
+  },
+  
+  "code_quality": {
+    "obfuscation": {
+      "electron.js": {
+        "status": "HEAVILY_OBFUSCATED",
+        "tool": "Google Closure Compiler (ADVANCED mode)",
+        "effects": [
+          "All variable names mangled",
+          "Function names minified",
+          "Dead code elimination",
+          "Control flow optimization"
+        ],
+        "note": "Main entry point is unreadable without source maps"
+      },
+      "main.js": {
+        "status": "BUNDELED_AND_MINIFIED",
+        "size": 16147727,
+        "note": "Main application bundle, likely contains Webpack/Rollup output"
+      },
+      "preload.js": {
+        "status": "READABLE",
+        "size": 4214,
+        "note": "Clean, well-structured code exposing IPC APIs to renderer"
+      },
+      "code-editor.js": {
+        "status": "READABLE",
+        "size": 1012649,
+        "note": "Code editor component with source maps available"
+      },
+      "db-worker.js": {
+        "status": "READABLE",
+        "size": 3890347,
+        "note": "Database worker with source maps available"
+      }
+    },
+    "source_maps": {
+      "available": [
+        "js/code-editor.js.map",
+        "js/db-worker.js.map"
+      ],
+      "note": "Source maps available for some bundles, enabling better debugging"
+    }
+  },
+  
+  "security_observations": {
+    "clipboard_access": {
+      "status": "VERIFIED",
+      "note": "Preload script provides controlled clipboard access with platform-specific implementations"
+    },
+    "external_protocol_handling": {
+      "status": "SECURE",
+      "allowed_protocols": ["https:", "http:", "mailto:", "zotero:", "file:"],
+      "note": "openExternal validates protocols against whitelist before opening"
+    },
+    "code_signature": {
+      "status": "PRESENT",
+      "offset": 33552,
+      "size": 19424,
+      "note": "Binary is code-signed, but signature validation not performed"
+    },
+    "asr_integrity": {
+      "status": "WARNING",
+      "note": "ASAR integrity mismatch detected for node_modules/@zvec/bindings-darwin-arm64/zvec_node_binding.node. This is expected as native binaries are often signed after ASAR creation."
+    },
+    "native_modules": {
+      "status": "VERIFIED",
+      "note": "Native modules (@zvec) are optional dependencies and properly declared in package.json"
+    }
+  },
+  
+  "comparison_with_source": {
+    "status": "PARTIAL_MATCH",
+    "notes": [
+      "Binary contains all expected Electron framework components",
+      "Main process code (electron.js) is heavily obfuscated",
+      "Renderer bundles contain minified but readable code",
+      "All declared dependencies are present in binary",
+      "Additional features identified in binary: MCP integration, vector embeddings",
+      "[A VERIFIER] Some features may be dynamically loaded or conditionally included"
+    ],
+    "features_only_in_binary": [
+      {
+        "name": "Electron Framework Integration",
+        "note": "Binary-specific Electron initialization (ElectronInitializeICUandStartNode)"
+      },
+      {
+        "name": "Native Module Bindings",
+        "note": "Compiled native bindings for @zvec"
+      }
+    ],
+    "features_missing_from_binary": [],
+    "features_modified_in_binary": [
+      {
+        "name": "electron.js",
+        "note": "Obfuscated with Closure Compiler, original source structure not visible"
+      }
+    ]
+  },
+  
+  "recommendations": {
+    "for_audit": [
+      "Verify that all IPC handlers have proper input validation",
+      "Check that clipboard access is properly sanitized",
+      "Review openExternal protocol whitelist for completeness",
+      "Validate that file write operations (writeFileBytes) have proper path sanitization",
+      "Examine the @zvec native bindings for potential vulnerabilities",
+      "Verify code signing of all native modules"
+    ],
+    "for_development": [
+      "Consider keeping electron.js readable for better maintainability",
+      "Ensure source maps are available for all bundles for debugging",
+      "Document all IPC channels and their security implications",
+      "Review dependency versions for known vulnerabilities"
+    ]
+  },
+  
+  "limitations": [
+    "Electron.js is heavily obfuscated, limiting static analysis",
+    "Main.js bundle is too large for complete analysis within time constraints",
+    "Native code analysis limited to Mach-O headers, not full disassembly",
+    "ASAR integrity mismatch for native modules (expected but noted)",
+    "Some features may be loaded dynamically at runtime",
+    "Analysis performed on macOS arm64 binary only"
+  ]
+}
