@@ -9,9 +9,14 @@
 
 use note_craft_core::Node;
 
+pub mod slint;
 pub mod webview;
 
 // Ré-export des types principaux
+pub use slint::{
+    theme, utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
+    ThemeColorsBuilder,
+};
 pub use webview::{
     DefaultWebViewHandler, JsMessage, RustMessage, WebViewConfig, WebViewError,
     WebViewEventHandler, WebViewManager, WebViewManagerBuilder, WebViewPool,
