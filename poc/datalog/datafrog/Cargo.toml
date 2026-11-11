@@ -11,7 +11,7 @@ datafrog = "2.0.1"
 [dev-dependencies]
 criterion = "0.5"
 
-# Benchmarks à ajouter plus tard
-# [[bench]]
-# name = "benchmark"
-# harness = false
+# Benchmarks
+[[bench]]
+name = "benchmark"
+harness = false

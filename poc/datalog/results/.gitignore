@@ -1,0 +1,7 @@
+# Ignorer les résultats de benchmark générés
+*.json
+*.html
+*.txt
+
+# Ignorer les fichiers temporaires
+*.tmp
