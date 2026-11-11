@@ -1,0 +1,622 @@
+{
+  "design_system_name": "Obsidian Dark Theme Design System",
+  "version": "1.15.0",
+  "reference": "github.com/obsidianmd/obsidian-releases",
+  "note": "Analyse basée sur Obsidian v1.15.0 - Theme sombre par défaut",
+  
+  "color_palette": {
+    "theme": "dark",
+    
+    "background": {
+      "primary": "#1C1C1C",
+      "primary_alt": "#232323",
+      "secondary": "#282828",
+      "secondary_alt": "#2e2e2e",
+      "tertiary": "#333333",
+      "quaternary": "#3f3f3f",
+      "translucent": "color-mix(in oklch, white 60%, transparent)",
+      "modal": "#1c1b22",
+      "dialog": "#1c1b22",
+      "canvas": "#1C1C1C",
+      "code_background": "#232323",
+      "form_field": "#212121",
+      "form_field_hover": "#212121"
+    },
+    
+    "text": {
+      "primary": "#fbfbfe",
+      "secondary": "#cfcfd8",
+      "normal": "#dadada",
+      "muted": "#999999",
+      "faint": "#666666",
+      "on_accent": "white",
+      "on_accent_inverted": "black",
+      "error": "#fb464c",
+      "warning": "#e9973f",
+      "success": "#44cf6e",
+      "selection": "color-mix(in oklch, #027aff 20%, transparent)",
+      "link": "#027aff",
+      "link_hover": "#80ebff"
+    },
+    
+    "accents": {
+      "primary": "#027aff",
+      "primary_hover": "#80ebff",
+      "primary_active": "#aaf2ff",
+      "secondary": "#0060df",
+      "accent_1": "hsl(257, 88%, 66%)",
+      "accent_2": "hsl(255, 90%, 72%)",
+      "focus_ring": "#0df"
+    },
+    
+    "syntax": {
+      "normal": "#dadada",
+      "comment": "#666666",
+      "faint": "#999999",
+      "function": "#e0de71",
+      "keyword": "#fa99cd",
+      "string": "#44cf6e",
+      "tag": "#fb464c",
+      "operator": "#fb464c",
+      "property": "#53dfdd",
+      "punctuation": "#999999",
+      "important": "#e9973f",
+      "value": "#a882ff"
+    },
+    
+    "callouts": {
+      "bug": "#fb464c",
+      "default": "#027aff",
+      "error": "#fb464c",
+      "example": "#a882ff",
+      "fail": "#fb464c",
+      "important": "#53dfdd",
+      "info": "#027aff",
+      "question": "#e9973f",
+      "success": "#44cf6e",
+      "summary": "#53dfdd",
+      "tip": "#53dfdd",
+      "todo": "#027aff",
+      "warning": "#e9973f",
+      "quote": "#9e9e9e"
+    },
+    
+    "borders": {
+      "primary": "#3f3f3f",
+      "secondary": "#333333",
+      "tertiary": "#555555",
+      "hover": "#555555",
+      "focus": "#555555",
+      "separator": "#52525e",
+      "error": "#fb464c",
+      "warning": "#e9973f",
+      "success": "#44cf6e"
+    },
+    
+    "color_base_scale": {
+      "00": "#1C1C1C",
+      "05": "#212121",
+      "10": "#232323",
+      "20": "#282828",
+      "25": "#2e2e2e",
+      "30": "#333333",
+      "35": "#3f3f3f",
+      "40": "#555555",
+      "50": "#666666",
+      "60": "#999999",
+      "70": "#b3b3b3",
+      "100": "#dadada"
+    },
+    
+    "brand_colors": {
+      "red": "#fb464c",
+      "orange": "#e9973f",
+      "yellow": "#e0de71",
+      "green": "#44cf6e",
+      "cyan": "#53dfdd",
+      "blue": "#027aff",
+      "purple": "#a882ff",
+      "pink": "#fa99cd"
+    }
+  },
+  
+  "typography": {
+    "font_family": {
+      "default": "ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, \"Segoe UI\", \"Google Sans Flex\", Roboto, \"Inter Variable\", \"Inter\", \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif",
+      "monospace": "ui-monospace, SFMono-Regular, \"Cascadia Mono\", \"Roboto Mono\", \"DejaVu Sans Mono\", \"Liberation Mono\", Menlo, Monaco, \"Consolas\", \"Source Code Pro\", monospace",
+      "jetbrains_mono": "\"JetBrains Mono\", \"Cascadia Mono\", \"Roboto Mono\", \"Fira Code\", monospace",
+      "interface": "var(--font-interface-override), var(--font-interface-theme), var(--font-default)",
+      "text": "var(--font-text-override), var(--font-text-theme), var(--font-default)"
+    },
+    
+    "font_sizes": {
+      "text": "16px",
+      "preferred": "16px",
+      "smallest": "0.8em",
+      "smaller": "0.875em",
+      "small": "0.933em",
+      "ui_smaller": "12px",
+      "ui_small": "13px",
+      "ui_medium": "15px",
+      "ui_large": "20px",
+      "code": "0.875em",
+      "sidebar_markdown": "calc(var(--font-preferred-size) * 0.9)"
+    },
+    
+    "headings": {
+      "h1": {
+        "size": "1.618em",
+        "weight": "700",
+        "letter_spacing": "-0.015em",
+        "line_height": "1.2",
+        "color": "inherit",
+        "font": "inherit"
+      },
+      "h2": {
+        "size": "1.462em",
+        "weight": "600",
+        "letter_spacing": "-0.011em",
+        "line_height": "1.2",
+        "color": "inherit",
+        "font": "inherit"
+      },
+      "h3": {
+        "size": "1.318em",
+        "weight": "600",
+        "letter_spacing": "-0.008em",
+        "line_height": "1.3",
+        "color": "inherit",
+        "font": "inherit"
+      },
+      "h4": {
+        "size": "1.188em",
+        "weight": "600",
+        "letter_spacing": "-0.005em",
+        "line_height": "1.4",
+        "color": "inherit",
+        "font": "inherit"
+      },
+      "h5": {
+        "size": "1.076em",
+        "weight": "600",
+        "letter_spacing": "-0.002em",
+        "line_height": "1.5",
+        "color": "inherit",
+        "font": "inherit"
+      },
+      "h6": {
+        "size": "1em",
+        "weight": "600",
+        "letter_spacing": "0em",
+        "line_height": "1.5",
+        "color": "inherit",
+        "font": "inherit"
+      }
+    },
+    
+    "font_weights": {
+      "thin": 100,
+      "extralight": 200,
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800,
+      "black": 900,
+      "default": 400
+    },
+    
+    "line_heights": {
+      "normal": "1.5",
+      "heading": "1.2-1.4",
+      "code": "1.35",
+      "bases_cards": "24px",
+      "bases_kanban": "24px"
+    },
+    
+    "letter_spacing": {
+      "h1": "-0.015em",
+      "h2": "-0.011em",
+      "h3": "-0.008em",
+      "h4": "-0.005em",
+      "h5": "-0.002em",
+      "h6": "0em",
+      "normal": "-0.01px"
+    }
+  },
+  
+  "layout": {
+    "header": {
+      "height": "40px",
+      "padding_start": "2px",
+      "padding_end": "2px",
+      "border_width": "0 0 1px 0"
+    },
+    
+    "sidebars": {
+      "left": {
+        "width": "140px",
+        "min_width": "140px",
+        "max_width": "[A VERIFIER]",
+        "background": "#1C1C1C",
+        "toggle_inner_width": {
+          "closed": "8.33%",
+          "open": "24%"
+        }
+      },
+      "right": {
+        "width": "140px",
+        "min_width": "140px",
+        "max_width": "[A VERIFIER]",
+        "background": "#1C1C1C",
+        "toggle_inner_width": {
+          "closed": "8.33%",
+          "open": "24%"
+        }
+      },
+      "drawer_width": "240px",
+      "collapse_width": "[A VERIFIER]"
+    },
+    
+    "workspace": {
+      "background": "#1C1C1C",
+      "background_translucent": "color-mix(in oklch, white 60%, transparent)",
+      "min_width": "[A VERIFIER]",
+      "file_margins": {
+        "x": "32px",
+        "y": "32px"
+      },
+      "file_line_width": "700px",
+      "file_folding_offset": "24px"
+    },
+    
+    "borders": {
+      "width": "1px",
+      "radius": {
+        "s": "4px",
+        "m": "8px",
+        "l": "12px",
+        "xl": "24px"
+      },
+      "color": "#3f3f3f",
+      "color_hover": "#555555",
+      "color_focus": "#555555"
+    },
+    
+    "spacing": {
+      "size_2_1": "2px",
+      "size_2_2": "4px",
+      "size_2_3": "6px",
+      "size_4_1": "4px",
+      "size_4_2": "8px",
+      "size_4_3": "12px",
+      "size_4_4": "16px",
+      "size_4_5": "20px",
+      "size_4_6": "24px",
+      "size_4_8": "32px",
+      "size_4_9": "36px",
+      "size_4_10": "40px",
+      "size_4_12": "48px",
+      "size_4_16": "64px",
+      "size_4_18": "72px"
+    },
+    
+    "z_index": {
+      "cover": 5,
+      "sidedock": 10,
+      "status_bar": 15,
+      "popover": 30,
+      "slides": 45,
+      "modal": 50,
+      "notice": 60,
+      "menu": 65,
+      "tooltip": 70,
+      "dragged_item": 80
+    }
+  },
+  
+  "components": {
+    "buttons": {
+      "primary": {
+        "background": "#027aff",
+        "background_hover": "#80ebff",
+        "background_active": "#aaf2ff",
+        "foreground": "#fbfbfe",
+        "border": "1px solid #027aff",
+        "border_radius": "4px",
+        "height": "32px",
+        "padding": "4px 16px",
+        "font_size": "13px",
+        "font_weight": "590",
+        "disabled": {
+          "background": "#027aff",
+          "foreground": "#fbfbfe",
+          "opacity": "0.4"
+        }
+      },
+      "secondary": {
+        "background": "rgba(21, 20, 26, 0.07)",
+        "background_hover": "rgba(21, 20, 26, 0.14)",
+        "background_active": "rgba(21, 20, 26, 0.21)",
+        "foreground": "#fbfbfe",
+        "border": "1px solid rgba(21, 20, 26, 0.07)",
+        "border_radius": "4px",
+        "height": "32px",
+        "padding": "4px 16px",
+        "font_size": "13px",
+        "font_weight": "590"
+      },
+      "icon": {
+        "size": {
+          "xs": "14px",
+          "s": "16px",
+          "m": "16px",
+          "l": "18px",
+          "xl": "32px"
+        },
+        "stroke_width": {
+          "xs": "2px",
+          "s": "2px",
+          "m": "2px",
+          "l": "1.75px",
+          "xl": "1.25px"
+        },
+        "color": "#999999",
+        "color_hover": "#999999",
+        "color_active": "#44cf6e",
+        "color_focused": "#dadada",
+        "radius": "4px",
+        "opacity": "0.85",
+        "opacity_hover": "1",
+        "opacity_active": "1"
+      },
+      "toggle": {
+        "width": "40px",
+        "height": "[A VERIFIER]",
+        "border_radius": "18px",
+        "thumb_color": "white",
+        "thumb_size": "18px",
+        "border_width": "2px",
+        "background": "[A VERIFIER]"
+      },
+      "small": {
+        "width": "34px",
+        "thumb_height": "15px",
+        "thumb_width": "15px",
+        "border_width": "2px",
+        "border_radius": "18px"
+      }
+    },
+    
+    "inputs": {
+      "height": "30px",
+      "padding": "4px 8px",
+      "border_radius": "5px",
+      "border_width": "1px",
+      "border_color": "#8f8f9d",
+      "background": "#212121",
+      "foreground": "#fbfbfe",
+      "placeholder_color": "#999999",
+      "border_color_focus": "[A VERIFIER]",
+      "font_size": "13px",
+      "font_weight": "400"
+    },
+    
+    "editor": {
+      "caret_color": "#dadada",
+      "font_family": "\"JetBrains Mono\", monospace",
+      "font_size": "15px",
+      "line_height": "1.5",
+      "background": "#1C1C1C",
+      "foreground": "#dadada",
+      "selection": "color-mix(in oklch, #027aff 20%, transparent)",
+      "highlight": {
+        "background": "rgba(180, 0, 170, 0.25)",
+        "selected_background": "rgba(0, 100, 0, 0.25)"
+      },
+      "indent_size": "4",
+      "indent_unit": "0.5625em"
+    },
+    
+    "code_blocks": {
+      "background": "#232323",
+      "border_radius": "4px",
+      "border_width": "0px",
+      "padding": "[A VERIFIER]",
+      "font_family": "\"JetBrains Mono\", \"Cascadia Mono\", monospace",
+      "font_size": "0.875em",
+      "bracket_background": "#2e2e2e"
+    },
+    
+    "links": {
+      "color": "#027aff",
+      "color_hover": "#80ebff",
+      "underline": "[A VERIFIER]",
+      "transition": "[A VERIFIER]"
+    },
+    
+    "navigation": {
+      "item": {
+        "size": "13px",
+        "padding": "4px 8px 4px 24px",
+        "color": "#999999",
+        "color_hover": "#dadada",
+        "color_active": "#dadada",
+        "color_selected": "#dadada",
+        "background_hover": "#2e2e2e",
+        "background_active": "#2e2e2e",
+        "background_selected": "color-mix(in oklch, #027aff 15%, transparent)",
+        "radius": "8px",
+        "margin_bottom": "4px",
+        "weight": "400",
+        "white_space": "pre"
+      },
+      "heading": {
+        "color": "#dadada",
+        "color_hover": "#dadada",
+        "color_collapsed": "#666666",
+        "color_collapsed_hover": "#999999",
+        "weight": "500",
+        "padding": "[A VERIFIER]"
+      },
+      "indentation_guide": {
+        "width": "1px",
+        "color": "rgba(34, 34, 34, 0.12)",
+        "color_active": "rgba(34, 34, 34, 0.30)"
+      }
+    },
+    
+    "tags": {
+      "background": "transparent",
+      "color": "#666666",
+      "color_hover": "#999999",
+      "color_active": "#999999",
+      "radius": "4px",
+      "padding": "[A VERIFIER]",
+      "weight": "600"
+    },
+    
+    "callouts": {
+      "border_width": "0px",
+      "border_opacity": "0.25",
+      "padding": "12px 12px 12px 24px",
+      "radius": "4px",
+      "blend_mode": "[A VERIFIER]",
+      "title_color": "inherit",
+      "title_padding": "0",
+      "title_size": "inherit",
+      "title_weight": "600",
+      "content_padding": "0",
+      "content_background": "transparent"
+    },
+    
+    "tabs": {
+      "height": "40px",
+      "padding": "[A VERIFIER]",
+      "background": "[A VERIFIER]",
+      "background_hover": "[A VERIFIER]",
+      "background_active": "[A VERIFIER]",
+      "color": "[A VERIFIER]",
+      "color_active": "[A VERIFIER]",
+      "border_radius": "[A VERIFIER]",
+      "container_background": "[A VERIFIER]"
+    },
+    
+    "modal": {
+      "background": "#1c1b22",
+      "border": "1px solid #1c1b22",
+      "border_radius": "4px",
+      "width": "560px",
+      "max_width": "80vw",
+      "max_height": "85vh",
+      "shadow": "0 2px 14px 0 rgba(58, 57, 68, 0.2)",
+      "header_height": "40px"
+    },
+    
+    "tooltips": {
+      "background": "#FAFAFA",
+      "color": "[A VERIFIER]",
+      "padding": "[A VERIFIER]",
+      "border_radius": "[A VERIFIER]",
+      "font_size": "[A VERIFIER]"
+    },
+    
+    "messages": {
+      "background": "#5a3100",
+      "foreground": "#fbfbfe",
+      "border": "1px solid rgba(255, 255, 255, 0.08)",
+      "icon_color": "#e49c49",
+      "border_radius": "4px",
+      "padding": "8px 8px 8px 16px"
+    },
+    
+    "graph": {
+      "background": "#1C1C1C",
+      "text": "#dadada",
+      "line": "#3f3f3f",
+      "node": "#999999",
+      "node_unresolved": "#666666",
+      "node_focused": "#44cf6e",
+      "node_tag": "#44cf6e",
+      "node_attachment": "#e0de71",
+      "controls_width": "240px",
+      "controls_radius": "4px",
+      "controls_icon_size": "16px",
+      "controls_icon_stroke": "2px"
+    }
+  },
+  
+  "animations": {
+    "durations": {
+      "none": "0ms",
+      "superfast": "70ms",
+      "fast": "140ms",
+      "moderate": "300ms",
+      "slow": "560ms"
+    },
+    
+    "easing": {
+      "smooth": "cubic-bezier(0.45, 0.05, 0.55, 0.95)",
+      "delay": "cubic-bezier(0.65, 0.05, 0.36, 1)",
+      "jumpy": "cubic-bezier(0.68, -0.55, 0.27, 1.55)",
+      "swing": "cubic-bezier(0, 0.55, 0.45, 1)",
+      "spring": "cubic-bezier(0.36, 0.7, 0, 1)"
+    },
+    
+    "transitions": {
+      "hover": {
+        "filter": "brightness(0.9)",
+        "duration": "70ms",
+        "easing": "cubic-bezier(0.45, 0.05, 0.55, 0.95)"
+      },
+      "button": {
+        "background": "140ms",
+        "border": "140ms",
+        "color": "140ms"
+      },
+      "input": {
+        "border": "140ms",
+        "box_shadow": "140ms"
+      },
+      "focus": {
+        "outline": "140ms",
+        "box_shadow": "140ms"
+      }
+    },
+    
+    "drag_and_drop": {
+      "ghost_background": "rgba(0, 0, 0, 0.85)",
+      "ghost_text_color": "#fff",
+      "item_background": "#1C1C1C",
+      "item_shadow": "0 2px 8px [A VERIFIER]",
+      "transition": "140ms"
+    },
+    
+    "interactions": {
+      "click": {
+        "active_scale": "0.95",
+        "transition": "70ms"
+      },
+      "hover": {
+        "opacity": "0.85 to 1",
+        "transition": "70ms"
+      },
+      "focus_ring": {
+        "outline": "2px solid #0df",
+        "outline_offset": "2px",
+        "transition": "140ms"
+      }
+    }
+  },
+  
+  "notes": [
+    "Obsidian utilise un système de variables CSS avec des valeurs light-dark pour gérer les thèmes clair/sombre",
+    "Les couleurs du thème sombre sont définies dans la classe .theme-dark",
+    "La typographie par défaut utilise la police système, mais JetBrains Mono peut être configurée pour le code",
+    "Les panneaux latéraux ont une largeur par défaut de 140px mais peuvent être redimensionnés",
+    "Les animations utilisent des easing functions personnalisées pour une expérience fluide",
+    "Certaines valeurs comme les largeurs maximales des sidebars nécessitent une vérification supplémentaire",
+    "Les couleurs de syntaxe suivent un schéma cohérent avec les couleurs de base du thème"
+  ]
+}

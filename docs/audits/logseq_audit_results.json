@@ -1,0 +1,1906 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "date": "2026-11-08T23:57:14.965Z",
+    "analyzer": "Logseq Codebase Analyzer",
+    "source": "/tmp/logseq (GitHub clone)",
+    "total_features": 81,
+    "verified_features": 80,
+    "unverified_features": 1
+  },
+  "statistics": {
+    "by_category": {
+      "Core": 18,
+      "Editor": 13,
+      "Query": 4,
+      "Data": 9,
+      "Sync": 1,
+      "Import-Export": 3,
+      "Plugins": 3,
+      "UI": 21,
+      "Collaboration": 5,
+      "Other": 4
+    },
+    "by_priority": {
+      "Haut": 37,
+      "Moyen": 23,
+      "Bas": 21
+    },
+    "by_complexity": {
+      "2": 6,
+      "3": 24,
+      "4": 32,
+      "5": 19
+    },
+    "categories": [
+      "Collaboration",
+      "Core",
+      "Data",
+      "Editor",
+      "Import-Export",
+      "Other",
+      "Plugins",
+      "Query",
+      "Sync",
+      "UI"
+    ]
+  },
+  "features": [
+    {
+      "id": "core_blocks",
+      "name": "Block System",
+      "description": "Système de gestion des blocs",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/block.cljs",
+        "src/main/frontend/handler/editor.cljs"
+      ],
+      "dependencies": [
+        "DataScript",
+        "Outliner"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.block"
+    },
+    {
+      "id": "core_pages",
+      "name": "Page System",
+      "description": "Gestion des pages",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/page.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "DataScript"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.page"
+    },
+    {
+      "id": "core_graph",
+      "name": "Knowledge Graph",
+      "description": "Graphe de connaissances basé sur DataScript",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/graph.cljs",
+        "src/main/frontend/db/*.cljs"
+      ],
+      "dependencies": [
+        "DataScript",
+        "Block System"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.graph"
+    },
+    {
+      "id": "core_tags",
+      "name": "Tag System",
+      "description": "Gestion des tags",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/block.cljs",
+        "src/main/frontend/util/ref.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "Parser"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.block"
+    },
+    {
+      "id": "core_history",
+      "name": "Undo/Redo & History",
+      "description": "Système d historique avec undo/redo",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/history.cljs",
+        "src/main/frontend/worker/undo_redo.cljs"
+      ],
+      "dependencies": [
+        "State Management",
+        "DB Async"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.history"
+    },
+    {
+      "id": "core_search",
+      "name": "Search System",
+      "description": "Moteur de recherche complet",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/search.cljs",
+        "src/main/frontend/search/*.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "Parser"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.search"
+    },
+    {
+      "id": "core_journal",
+      "name": "Journal System",
+      "description": "Système de journal quotidien",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/journal.cljs",
+        "src/main/frontend/components/journal.cljs"
+      ],
+      "dependencies": [
+        "Page System",
+        "Config"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.journal"
+    },
+    {
+      "id": "core_routing",
+      "name": "Routing & Navigation",
+      "description": "Système de navigation entre pages",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/route.cljs",
+        "src/main/frontend/components/left_sidebar.cljs"
+      ],
+      "dependencies": [
+        "Page System",
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.route"
+    },
+    {
+      "id": "core_repo",
+      "name": "Repository Management",
+      "description": "Gestion des dépôts/graphes",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/repo.cljs",
+        "src/main/frontend/handler/repo_config.cljs"
+      ],
+      "dependencies": [
+        "File System",
+        "Config"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.repo"
+    },
+    {
+      "id": "core_user",
+      "name": "User Management",
+      "description": "Gestion des utilisateurs",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/user.cljs",
+        "src/main/frontend/handler/user.clj"
+      ],
+      "dependencies": [
+        "Config",
+        "File System"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.user"
+    },
+    {
+      "id": "core_events",
+      "name": "Event System",
+      "description": "Système d événements globaux",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/handler/events.cljs",
+        "src/main/frontend/state.cljs"
+      ],
+      "dependencies": [
+        "State Management"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.events"
+    },
+    {
+      "id": "editor_markdown",
+      "name": "Markdown Editor",
+      "description": "Éditeur Markdown complet",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor.cljs",
+        "src/main/frontend/components/editor.cljs",
+        "src/main/frontend/format/*.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "Block System",
+        "React"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.editor"
+    },
+    {
+      "id": "editor_drag_drop",
+      "name": "Drag & Drop",
+      "description": "Système de glisser-déposer",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/dnd.cljs",
+        "src/main/frontend/components/dnd.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "DOM Manipulation"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.dnd"
+    },
+    {
+      "id": "editor_code_blocks",
+      "name": "Code Blocks",
+      "description": "Support des blocs de code",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/code.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "CodeMirror"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.code"
+    },
+    {
+      "id": "editor_latex",
+      "name": "LaTeX Support",
+      "description": "Support des formules mathématiques",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor.cljs",
+        "src/main/frontend/format/block.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "KaTeX"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.editor"
+    },
+    {
+      "id": "editor_assets",
+      "name": "Asset Management",
+      "description": "Gestion des assets",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/assets.cljs",
+        "src/main/frontend/handler/editor.cljs",
+        "src/main/frontend/components/assets.cljs"
+      ],
+      "dependencies": [
+        "File System",
+        "Storage"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.assets"
+    },
+    {
+      "id": "editor_macros",
+      "name": "Macros System",
+      "description": "Système de macros",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/components/block/macros.cljs",
+        "src/main/frontend/handler/editor.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "Date Utilities"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.components.block.macros"
+    },
+    {
+      "id": "editor_paste",
+      "name": "Advanced Paste",
+      "description": "Collage avancé",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/paste.cljs",
+        "src/main/frontend/handler/editor.cljs"
+      ],
+      "dependencies": [
+        "DOM Manipulation",
+        "Parser"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.paste"
+    },
+    {
+      "id": "editor_autopair",
+      "name": "Auto Pairing",
+      "description": "Insertion automatique de caractères appariés",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor/autopair.cljs"
+      ],
+      "dependencies": [
+        "Editor Core"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.editor.autopair"
+    },
+    {
+      "id": "editor_format",
+      "name": "Text Formatting",
+      "description": "Formattage de texte avancé",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor/format.cljs",
+        "src/main/frontend/format/*.cljs"
+      ],
+      "dependencies": [
+        "Markdown Parser",
+        "Editor Core"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.editor.format"
+    },
+    {
+      "id": "editor_quick_add",
+      "name": "Quick Add",
+      "description": "Création rapide de blocs",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor/quick_add.cljs"
+      ],
+      "dependencies": [
+        "Editor Core",
+        "Command Palette"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.editor.quick_add"
+    },
+    {
+      "id": "editor_lifecycle",
+      "name": "Editor Lifecycle",
+      "description": "Gestion du cycle de vie de l éditeur",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor/lifecycle.cljs"
+      ],
+      "dependencies": [
+        "Editor Core",
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.editor.lifecycle"
+    },
+    {
+      "id": "editor_assets_inline",
+      "name": "Inline Asset Management",
+      "description": "Gestion des assets intégrés",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/handler/editor/assets.cljs"
+      ],
+      "dependencies": [
+        "Asset Management"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.editor.assets"
+    },
+    {
+      "id": "query_datalog",
+      "name": "Datalog Query System",
+      "description": "Système de requêtes Datalog",
+      "category": "Query",
+      "files": [
+        "src/main/frontend/worker/query_dsl.cljs",
+        "src/main/frontend/db/query-dsl.cljs"
+      ],
+      "dependencies": [
+        "DataScript",
+        "Parser"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.query_dsl"
+    },
+    {
+      "id": "query_builder",
+      "name": "Query Builder UI",
+      "description": "Interface pour construire des requêtes",
+      "category": "Query",
+      "files": [
+        "src/main/frontend/handler/query/builder.cljs",
+        "src/main/frontend/components/query/*.cljs"
+      ],
+      "dependencies": [
+        "Query DSL",
+        "UI Components"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.query.builder"
+    },
+    {
+      "id": "query_advanced",
+      "name": "Advanced Query Features",
+      "description": "Fonctionnalités avancées de requêtes",
+      "category": "Query",
+      "files": [
+        "src/main/frontend/worker/query_dsl.cljs",
+        "src/main/frontend/worker/handler/query.cljs"
+      ],
+      "dependencies": [
+        "Query DSL",
+        "DataScript"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.query_dsl"
+    },
+    {
+      "id": "data_datascript",
+      "name": "DataScript Database",
+      "description": "Base de données en mémoire basée sur DataScript",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/db/*.cljs",
+        "src/main/frontend/worker/db_worker.cljs"
+      ],
+      "dependencies": [
+        "DataScript Library",
+        "Parser"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.db"
+    },
+    {
+      "id": "data_persistence",
+      "name": "Data Persistence",
+      "description": "Système de persistance des données",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/persist_db.cljs",
+        "src/main/frontend/common/idb.cljs"
+      ],
+      "dependencies": [
+        "File System",
+        "IndexedDB API"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.persist_db"
+    },
+    {
+      "id": "data_sync",
+      "name": "Data Synchronization",
+      "description": "Système de synchronisation",
+      "category": "Sync",
+      "files": [
+        "src/main/frontend/handler/db_based/sync.cljs",
+        "src/main/frontend/worker/sync/*.cljs"
+      ],
+      "dependencies": [
+        "Network",
+        "Encryption"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.db_based.sync"
+    },
+    {
+      "id": "data_import",
+      "name": "Data Import",
+      "description": "Import de données depuis divers formats",
+      "category": "Import-Export",
+      "files": [
+        "src/main/frontend/handler/file_graph_import.cljs",
+        "src/main/frontend/handler/db_based/import.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "File System"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.file_graph_import"
+    },
+    {
+      "id": "data_export",
+      "name": "Data Export",
+      "description": "Export des données vers divers formats",
+      "category": "Import-Export",
+      "files": [
+        "src/main/frontend/handler/export.cljs",
+        "src/main/frontend/worker/export.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "File System"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.export"
+    },
+    {
+      "id": "data_properties",
+      "name": "Property System",
+      "description": "Système de propriétés personnalisées",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/handler/property.cljs",
+        "src/main/frontend/handler/db_based/property.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "Parser"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.property"
+    },
+    {
+      "id": "data_backup",
+      "name": "Backup System",
+      "description": "Système de sauvegarde automatique",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/worker/db/backup.cljs"
+      ],
+      "dependencies": [
+        "File System",
+        "DB Core"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.worker.db.backup"
+    },
+    {
+      "id": "data_cache",
+      "name": "Caching System",
+      "description": "Système de cache pour les requêtes fréquentes",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/common/cache.cljs",
+        "src/main/frontend/worker/render_affected_keys.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.common.cache"
+    },
+    {
+      "id": "plugins_api",
+      "name": "Plugin API",
+      "description": "API complète pour les plugins",
+      "category": "Plugins",
+      "files": [
+        "src/main/logseq/*.cljs",
+        "src/main/frontend/handler/plugin.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "State Management"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "logseq.*, frontend.handler.plugin"
+    },
+    {
+      "id": "plugins_loading",
+      "name": "Plugin Loading System",
+      "description": "Système de chargement des plugins",
+      "category": "Plugins",
+      "files": [
+        "src/main/frontend/handler/plugin.cljs",
+        "src/main/frontend/handler/plugin_config.cljs"
+      ],
+      "dependencies": [
+        "Plugin API",
+        "File System"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.plugin"
+    },
+    {
+      "id": "plugins_marketplace",
+      "name": "Plugin Marketplace",
+      "description": "Intégration avec le marketplace de plugins",
+      "category": "Plugins",
+      "files": [
+        "src/main/frontend/handler/plugin.cljs",
+        "src/main/frontend/components/plugins.cljs"
+      ],
+      "dependencies": [
+        "Plugin Loading",
+        "Network"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": false,
+      "namespace": "frontend.handler.plugin"
+    },
+    {
+      "id": "ui_sidebar",
+      "name": "Sidebar System",
+      "description": "Système de barre latérale",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/left_sidebar.cljs",
+        "src/main/frontend/handler/ui.cljs"
+      ],
+      "dependencies": [
+        "State Management",
+        "Routing"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.components.left_sidebar"
+    },
+    {
+      "id": "ui_themes",
+      "name": "Theme System",
+      "description": "Système de thèmes",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/handler/ui.cljs",
+        "src/main/frontend/colors.cljs"
+      ],
+      "dependencies": [
+        "Config",
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.ui"
+    },
+    {
+      "id": "ui_command_palette",
+      "name": "Command Palette",
+      "description": "Palette de commandes",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/handler/command_palette.cljs",
+        "src/main/frontend/components/cmdk/*.cljs"
+      ],
+      "dependencies": [
+        "Keyboard Shortcuts",
+        "State Management"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.command_palette"
+    },
+    {
+      "id": "ui_blocks",
+      "name": "Block UI Components",
+      "description": "Composants UI pour les blocs",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/block.cljs",
+        "src/main/frontend/components/block/*.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "React"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.components.block"
+    },
+    {
+      "id": "ui_pages",
+      "name": "Page UI Components",
+      "description": "Composants UI pour les pages",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/page.cljs",
+        "src/main/frontend/components/container.cljs"
+      ],
+      "dependencies": [
+        "Page System",
+        "Block System"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.components.page"
+    },
+    {
+      "id": "ui_graph_view",
+      "name": "Graph View",
+      "description": "Visualisation du graphe",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/graph.cljs",
+        "src/main/frontend/extensions/graph/*.cljs"
+      ],
+      "dependencies": [
+        "Graph System",
+        "PIXI.js"
+      ],
+      "complexity": 5,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.components.graph"
+    },
+    {
+      "id": "ui_journal",
+      "name": "Journal View",
+      "description": "Vue dédiée pour les pages de journal",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/journal.cljs"
+      ],
+      "dependencies": [
+        "Journal System",
+        "Date Utilities"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.components.journal"
+    },
+    {
+      "id": "ui_assets_gallery",
+      "name": "Asset Gallery",
+      "description": "Galerie d assets",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/assets.cljs",
+        "src/main/frontend/handler/assets.cljs"
+      ],
+      "dependencies": [
+        "Asset Management",
+        "File System"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.components.assets"
+    },
+    {
+      "id": "ui_notifications",
+      "name": "Notification System",
+      "description": "Système de notifications",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/handler/notification.cljs",
+        "src/main/frontend/shui/*.cljs"
+      ],
+      "dependencies": [
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.notification"
+    },
+    {
+      "id": "ui_dialogs",
+      "name": "Dialog System",
+      "description": "Système de dialogues modaux",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/shui/dialog/core.cljs",
+        "src/main/frontend/shui/popup/core.cljs"
+      ],
+      "dependencies": [
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.shui.dialog"
+    },
+    {
+      "id": "ui_shortcuts",
+      "name": "Keyboard Shortcuts",
+      "description": "Système de raccourcis clavier",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/modules/shortcut/*.cljs",
+        "src/main/frontend/commands.cljs"
+      ],
+      "dependencies": [
+        "Event System",
+        "Config"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.modules.shortcut"
+    },
+    {
+      "id": "ui_onboarding",
+      "name": "Onboarding System",
+      "description": "Système d onboarding",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/components/onboarding/*.cljs"
+      ],
+      "dependencies": [
+        "UI Components",
+        "Config"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.components.onboarding"
+    },
+    {
+      "id": "ui_mobile",
+      "name": "Mobile UI",
+      "description": "Adaptations UI pour mobile",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/mobile/*.cljs"
+      ],
+      "dependencies": [
+        "UI Components"
+      ],
+      "complexity": 4,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.mobile"
+    },
+    {
+      "id": "ui_layout",
+      "name": "Layout System",
+      "description": "Système de layout flexible",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/modules/layout/*.cljs",
+        "src/main/frontend/components/container.cljs"
+      ],
+      "dependencies": [
+        "State Management"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.modules.layout"
+    },
+    {
+      "id": "ui_outliner",
+      "name": "Outliner System",
+      "description": "Système d outliner pour les structures hiérarchiques",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/modules/outliner/*.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "State Management"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.modules.outliner"
+    },
+    {
+      "id": "collab_comments",
+      "name": "Comment System",
+      "description": "Système de commentaires",
+      "category": "Collaboration",
+      "files": [
+        "src/main/frontend/handler/comments.cljs",
+        "src/main/frontend/components/block/comments.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "Sync System"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.handler.comments"
+    },
+    {
+      "id": "collab_e2ee",
+      "name": "End-to-End Encryption",
+      "description": "Chiffrement de bout en bout",
+      "category": "Collaboration",
+      "files": [
+        "src/main/frontend/handler/e2ee.cljs",
+        "src/main/frontend/common/crypt.cljs"
+      ],
+      "dependencies": [
+        "Sync System",
+        "Cryptography Library"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.handler.e2ee"
+    },
+    {
+      "id": "collab_sync_conflicts",
+      "name": "Sync Conflict Resolution",
+      "description": "Résolution des conflits de synchronisation",
+      "category": "Collaboration",
+      "files": [
+        "src/main/frontend/components/block/sync_conflict.cljs",
+        "src/main/frontend/worker/sync/apply_txs.cljs"
+      ],
+      "dependencies": [
+        "Sync System",
+        "DB Core"
+      ],
+      "complexity": 4,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.components.block.sync_conflict"
+    },
+    {
+      "id": "collab_presence",
+      "name": "Collaborative Presence",
+      "description": "Indicateurs de présence en temps réel",
+      "category": "Collaboration",
+      "files": [
+        "src/main/frontend/worker/sync/presence.cljs"
+      ],
+      "dependencies": [
+        "Sync System",
+        "WebSocket"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.worker.sync.presence"
+    },
+    {
+      "id": "collab_rtc",
+      "name": "Real-Time Collaboration",
+      "description": "Collaboration en temps réel",
+      "category": "Collaboration",
+      "files": [
+        "src/main/frontend/handler/db_based/rtc_flows.cljs",
+        "src/main/frontend/components/rtc/*.cljs"
+      ],
+      "dependencies": [
+        "Sync System",
+        "WebRTC"
+      ],
+      "complexity": 5,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.db_based.rtc_flows"
+    },
+    {
+      "id": "ext_pdf",
+      "name": "PDF Viewer",
+      "description": "Visualiseur de fichiers PDF",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/extensions/pdf/*.cljs"
+      ],
+      "dependencies": [
+        "Asset Management",
+        "PDF.js"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.extensions.pdf"
+    },
+    {
+      "id": "ext_video",
+      "name": "Video Player",
+      "description": "Lecteur vidéo intégré",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/extensions/video/*.cljs",
+        "src/main/frontend/components/block/video.cljs"
+      ],
+      "dependencies": [
+        "Asset Management",
+        "HTML5 Video API"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.extensions.video"
+    },
+    {
+      "id": "ext_handbooks",
+      "name": "Handbooks System",
+      "description": "Système de manuels et documentation",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/extensions/handbooks/*.cljs"
+      ],
+      "dependencies": [
+        "UI Components",
+        "Markdown Parser"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.extensions.handbooks"
+    },
+    {
+      "id": "ext_srs",
+      "name": "Spaced Repetition System",
+      "description": "Système de répétition espacée",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/extensions/srs/*.cljs",
+        "src/main/frontend/worker/handler/flashcard.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "Query System"
+      ],
+      "complexity": 4,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.extensions.srs"
+    },
+    {
+      "id": "worker_db",
+      "name": "Database Worker",
+      "description": "Worker dédié pour la base de données",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/worker/db/*.cljs",
+        "src/main/frontend/worker/db_worker.cljs"
+      ],
+      "dependencies": [
+        "DataScript",
+        "File System"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.db"
+    },
+    {
+      "id": "worker_threading",
+      "name": "Threading System",
+      "description": "Système de threading",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/common/thread_api.cljc",
+        "src/main/frontend/worker/shared_service.cljs"
+      ],
+      "dependencies": [
+        "Web Worker API",
+        "State Management"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.common.thread_api"
+    },
+    {
+      "id": "worker_pipeline",
+      "name": "Pipeline System",
+      "description": "Système de pipeline",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/worker/pipeline.cljs",
+        "src/main/frontend/worker/platform/*.cljs"
+      ],
+      "dependencies": [
+        "Threading System",
+        "DB Core"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.pipeline"
+    },
+    {
+      "id": "worker_render",
+      "name": "Rendering Pipeline",
+      "description": "Pipeline de rendering Markdown vers HTML",
+      "category": "Editor",
+      "files": [
+        "src/main/frontend/worker/render_affected_keys.cljs",
+        "src/main/frontend/worker/render_delta.cljs"
+      ],
+      "dependencies": [
+        "Parser",
+        "Threading System"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.render"
+    },
+    {
+      "id": "worker_migration",
+      "name": "Migration System",
+      "description": "Système de migration des données",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/worker/db/migrate.cljs",
+        "src/main/frontend/worker/db/validate.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "File System"
+      ],
+      "complexity": 4,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.worker.db.migrate"
+    },
+    {
+      "id": "worker_publish",
+      "name": "Publishing System",
+      "description": "Système de publication",
+      "category": "Import-Export",
+      "files": [
+        "src/main/frontend/publishing.cljs",
+        "src/main/frontend/worker/publish.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "File System"
+      ],
+      "complexity": 4,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.publishing"
+    },
+    {
+      "id": "worker_search",
+      "name": "Search Indexing",
+      "description": "Indexation des blocs et pages",
+      "category": "Query",
+      "files": [
+        "src/main/frontend/worker/search.cljs",
+        "src/main/frontend/worker/search_benchmark.cljs"
+      ],
+      "dependencies": [
+        "DB Core",
+        "Parser"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.worker.search"
+    },
+    {
+      "id": "util_parser",
+      "name": "Markdown Parser",
+      "description": "Parseur Markdown complet",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/format/*.cljs",
+        "src/main/frontend/format/block.cljs",
+        "deps/graph-parser/"
+      ],
+      "dependencies": [
+        "Markdown Library",
+        "DataScript"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.format, logseq.graph-parser"
+    },
+    {
+      "id": "util_state",
+      "name": "State Management",
+      "description": "Gestion d état centralisée",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/state.cljs",
+        "src/main/frontend/db/*.cljs",
+        "src/main/frontend/context/*.cljs"
+      ],
+      "dependencies": [
+        "DataScript",
+        "React",
+        "Rum"
+      ],
+      "complexity": 5,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.state, frontend.db"
+    },
+    {
+      "id": "util_fs",
+      "name": "File System Abstraction",
+      "description": "Abstraction du système de fichiers",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/fs/*.cljs",
+        "src/main/frontend/common/file/*.cljs",
+        "src/main/frontend/common/idb.cljs"
+      ],
+      "dependencies": [
+        "OPFS API",
+        "IndexedDB API",
+        "Electron FS"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.fs, frontend.common.file"
+    },
+    {
+      "id": "util_config",
+      "name": "Configuration System",
+      "description": "Système de configuration hiérarchique",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/config.cljs",
+        "src/main/frontend/handler/config.cljs",
+        "src/main/frontend/handler/repo_config.cljs"
+      ],
+      "dependencies": [
+        "File System",
+        "Parser"
+      ],
+      "complexity": 4,
+      "priority": "Haut",
+      "verified": true,
+      "namespace": "frontend.config"
+    },
+    {
+      "id": "util_date",
+      "name": "Date & Time Utilities",
+      "description": "Utilitaires pour les dates et heures",
+      "category": "Core",
+      "files": [
+        "src/main/frontend/date.cljs",
+        "src/main/frontend/handler/journal.cljs"
+      ],
+      "dependencies": [
+        "JavaScript Date",
+        "Luxon"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.date"
+    },
+    {
+      "id": "util_i18n",
+      "name": "Internationalization",
+      "description": "Système d internationalisation",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/context/i18n.cljs",
+        "src/main/resources/"
+      ],
+      "dependencies": [
+        "Translations Files",
+        "React Context"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.context.i18n"
+    },
+    {
+      "id": "util_notifications",
+      "name": "Notification Utilities",
+      "description": "Utilitaires pour les notifications",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/handler/notification.cljs",
+        "src/main/frontend/shui/*.cljs"
+      ],
+      "dependencies": [
+        "UI Components",
+        "State Management"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.notification"
+    },
+    {
+      "id": "util_profiler",
+      "name": "Performance Profiler",
+      "description": "Outil de profilage des performances",
+      "category": "Other",
+      "files": [
+        "src/main/frontend/handler/profiler.cljs",
+        "src/main/frontend/debug.cljs"
+      ],
+      "dependencies": [
+        "Performance API"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.profiler"
+    },
+    {
+      "id": "util_logging",
+      "name": "Logging System",
+      "description": "Système de logging structuré",
+      "category": "Other",
+      "files": [
+        "src/main/frontend/log.cljs"
+      ],
+      "dependencies": [
+        "Logging Library"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.log"
+    },
+    {
+      "id": "util_commands",
+      "name": "Command System",
+      "description": "Système de commandes exécutables",
+      "category": "UI",
+      "files": [
+        "src/main/frontend/commands.cljs",
+        "src/main/frontend/handler/command_palette.cljs"
+      ],
+      "dependencies": [
+        "Keyboard Shortcuts",
+        "State Management"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.commands"
+    },
+    {
+      "id": "util_diff",
+      "name": "Diff System",
+      "description": "Système de calcul des différences",
+      "category": "Data",
+      "files": [
+        "src/main/frontend/diff.cljs",
+        "src/main/frontend/worker/render_delta.cljs"
+      ],
+      "dependencies": [
+        "Block System",
+        "Parser"
+      ],
+      "complexity": 3,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.diff"
+    },
+    {
+      "id": "util_shell",
+      "name": "Shell Integration",
+      "description": "Intégration avec le shell système",
+      "category": "Other",
+      "files": [
+        "src/main/frontend/handler/shell.cljs"
+      ],
+      "dependencies": [
+        "Electron API",
+        "Shell API"
+      ],
+      "complexity": 2,
+      "priority": "Bas",
+      "verified": true,
+      "namespace": "frontend.handler.shell"
+    },
+    {
+      "id": "util_security",
+      "name": "Security Utilities",
+      "description": "Utilitaires de sécurité",
+      "category": "Other",
+      "files": [
+        "src/main/frontend/security.cljs",
+        "src/main/frontend/common/crypt.cljs"
+      ],
+      "dependencies": [
+        "Cryptography Library"
+      ],
+      "complexity": 3,
+      "priority": "Moyen",
+      "verified": true,
+      "namespace": "frontend.security"
+    }
+  ],
+  "recommendations": {
+    "mvp_features": [
+      "collab_e2ee",
+      "core_blocks",
+      "core_events",
+      "core_graph",
+      "core_history",
+      "core_pages",
+      "core_repo",
+      "core_routing",
+      "core_search",
+      "core_tags",
+      "data_datascript",
+      "data_persistence",
+      "data_properties",
+      "data_sync",
+      "editor_assets",
+      "editor_drag_drop",
+      "editor_format",
+      "editor_markdown",
+      "plugins_api",
+      "plugins_loading",
+      "query_advanced",
+      "query_datalog",
+      "ui_blocks",
+      "ui_command_palette",
+      "ui_outliner",
+      "ui_pages",
+      "ui_shortcuts",
+      "ui_sidebar",
+      "util_config",
+      "util_fs",
+      "util_parser",
+      "util_state",
+      "worker_db",
+      "worker_pipeline",
+      "worker_render",
+      "worker_search",
+      "worker_threading"
+    ],
+    "high_priority_features": [
+      "collab_comments",
+      "collab_e2ee",
+      "collab_rtc",
+      "collab_sync_conflicts",
+      "core_blocks",
+      "core_events",
+      "core_graph",
+      "core_history",
+      "core_pages",
+      "core_repo",
+      "core_routing",
+      "core_search",
+      "core_tags",
+      "data_datascript",
+      "data_export",
+      "data_import",
+      "data_persistence",
+      "data_properties",
+      "data_sync",
+      "editor_assets",
+      "editor_code_blocks",
+      "editor_drag_drop",
+      "editor_format",
+      "editor_macros",
+      "editor_markdown",
+      "editor_paste",
+      "ext_srs",
+      "plugins_api",
+      "plugins_loading",
+      "query_advanced",
+      "query_builder",
+      "query_datalog",
+      "ui_blocks",
+      "ui_command_palette",
+      "ui_graph_view",
+      "ui_layout",
+      "ui_mobile",
+      "ui_outliner",
+      "ui_pages",
+      "ui_shortcuts",
+      "ui_sidebar",
+      "util_config",
+      "util_fs",
+      "util_parser",
+      "util_state",
+      "worker_db",
+      "worker_migration",
+      "worker_pipeline",
+      "worker_publish",
+      "worker_render",
+      "worker_search",
+      "worker_threading"
+    ],
+    "complex_features": [
+      "collab_comments",
+      "collab_e2ee",
+      "collab_rtc",
+      "collab_sync_conflicts",
+      "core_blocks",
+      "core_events",
+      "core_graph",
+      "core_history",
+      "core_pages",
+      "core_repo",
+      "core_search",
+      "core_tags",
+      "data_datascript",
+      "data_export",
+      "data_import",
+      "data_persistence",
+      "data_properties",
+      "data_sync",
+      "editor_assets",
+      "editor_code_blocks",
+      "editor_drag_drop",
+      "editor_format",
+      "editor_macros",
+      "editor_markdown",
+      "editor_paste",
+      "ext_srs",
+      "plugins_api",
+      "plugins_loading",
+      "query_advanced",
+      "query_builder",
+      "query_datalog",
+      "ui_blocks",
+      "ui_command_palette",
+      "ui_graph_view",
+      "ui_layout",
+      "ui_mobile",
+      "ui_outliner",
+      "ui_pages",
+      "ui_shortcuts",
+      "ui_sidebar",
+      "util_config",
+      "util_fs",
+      "util_parser",
+      "util_state",
+      "worker_db",
+      "worker_migration",
+      "worker_pipeline",
+      "worker_publish",
+      "worker_render",
+      "worker_search",
+      "worker_threading"
+    ],
+    "dependencies_tree": {
+      "DataScript": [
+        "Block System",
+        "Page System",
+        "Knowledge Graph",
+        "Datalog Query System",
+        "Advanced Query Features",
+        "Database Worker",
+        "Markdown Parser",
+        "State Management"
+      ],
+      "Outliner": [
+        "Block System"
+      ],
+      "Block System": [
+        "Page System",
+        "Knowledge Graph",
+        "Tag System",
+        "Search System",
+        "Markdown Editor",
+        "Drag & Drop",
+        "Block UI Components",
+        "Page UI Components",
+        "Outliner System",
+        "Comment System",
+        "Diff System"
+      ],
+      "Parser": [
+        "Tag System",
+        "Search System",
+        "Markdown Editor",
+        "Code Blocks",
+        "LaTeX Support",
+        "Macros System",
+        "Advanced Paste",
+        "Datalog Query System",
+        "DataScript Database",
+        "Data Import",
+        "Property System",
+        "Rendering Pipeline",
+        "Search Indexing",
+        "Configuration System",
+        "Diff System"
+      ],
+      "State Management": [
+        "Undo/Redo & History",
+        "Routing & Navigation",
+        "Event System",
+        "Editor Lifecycle",
+        "Caching System",
+        "Plugin API",
+        "Sidebar System",
+        "Theme System",
+        "Command Palette",
+        "Notification System",
+        "Dialog System",
+        "Layout System",
+        "Outliner System",
+        "Threading System",
+        "Notification Utilities",
+        "Command System"
+      ],
+      "DB Async": [
+        "Undo/Redo & History"
+      ],
+      "Page System": [
+        "Journal System",
+        "Routing & Navigation",
+        "Page UI Components"
+      ],
+      "Config": [
+        "Journal System",
+        "Repository Management",
+        "User Management",
+        "Theme System",
+        "Keyboard Shortcuts",
+        "Onboarding System"
+      ],
+      "File System": [
+        "Repository Management",
+        "User Management",
+        "Asset Management",
+        "Data Persistence",
+        "Data Import",
+        "Data Export",
+        "Backup System",
+        "Plugin Loading System",
+        "Asset Gallery",
+        "Database Worker",
+        "Migration System",
+        "Publishing System",
+        "Configuration System"
+      ],
+      "React": [
+        "Markdown Editor",
+        "Block UI Components",
+        "State Management"
+      ],
+      "DOM Manipulation": [
+        "Drag & Drop",
+        "Advanced Paste"
+      ],
+      "CodeMirror": [
+        "Code Blocks"
+      ],
+      "KaTeX": [
+        "LaTeX Support"
+      ],
+      "Storage": [
+        "Asset Management"
+      ],
+      "Date Utilities": [
+        "Macros System",
+        "Journal View"
+      ],
+      "Editor Core": [
+        "Auto Pairing",
+        "Text Formatting",
+        "Quick Add",
+        "Editor Lifecycle"
+      ],
+      "Markdown Parser": [
+        "Text Formatting",
+        "Handbooks System"
+      ],
+      "Command Palette": [
+        "Quick Add"
+      ],
+      "Asset Management": [
+        "Inline Asset Management",
+        "Asset Gallery",
+        "PDF Viewer",
+        "Video Player"
+      ],
+      "Query DSL": [
+        "Query Builder UI",
+        "Advanced Query Features"
+      ],
+      "UI Components": [
+        "Query Builder UI",
+        "Onboarding System",
+        "Mobile UI",
+        "Handbooks System",
+        "Notification Utilities"
+      ],
+      "DataScript Library": [
+        "DataScript Database"
+      ],
+      "IndexedDB API": [
+        "Data Persistence",
+        "File System Abstraction"
+      ],
+      "Network": [
+        "Data Synchronization",
+        "Plugin Marketplace"
+      ],
+      "Encryption": [
+        "Data Synchronization"
+      ],
+      "DB Core": [
+        "Data Export",
+        "Property System",
+        "Backup System",
+        "Caching System",
+        "Plugin API",
+        "Sync Conflict Resolution",
+        "Spaced Repetition System",
+        "Pipeline System",
+        "Migration System",
+        "Publishing System",
+        "Search Indexing"
+      ],
+      "Plugin API": [
+        "Plugin Loading System"
+      ],
+      "Plugin Loading": [
+        "Plugin Marketplace"
+      ],
+      "Routing": [
+        "Sidebar System"
+      ],
+      "Keyboard Shortcuts": [
+        "Command Palette",
+        "Command System"
+      ],
+      "Graph System": [
+        "Graph View"
+      ],
+      "PIXI.js": [
+        "Graph View"
+      ],
+      "Journal System": [
+        "Journal View"
+      ],
+      "Event System": [
+        "Keyboard Shortcuts"
+      ],
+      "Sync System": [
+        "Comment System",
+        "End-to-End Encryption",
+        "Sync Conflict Resolution",
+        "Collaborative Presence",
+        "Real-Time Collaboration"
+      ],
+      "Cryptography Library": [
+        "End-to-End Encryption",
+        "Security Utilities"
+      ],
+      "WebSocket": [
+        "Collaborative Presence"
+      ],
+      "WebRTC": [
+        "Real-Time Collaboration"
+      ],
+      "PDF.js": [
+        "PDF Viewer"
+      ],
+      "HTML5 Video API": [
+        "Video Player"
+      ],
+      "Query System": [
+        "Spaced Repetition System"
+      ],
+      "Web Worker API": [
+        "Threading System"
+      ],
+      "Threading System": [
+        "Pipeline System",
+        "Rendering Pipeline"
+      ],
+      "Markdown Library": [
+        "Markdown Parser"
+      ],
+      "Rum": [
+        "State Management"
+      ],
+      "OPFS API": [
+        "File System Abstraction"
+      ],
+      "Electron FS": [
+        "File System Abstraction"
+      ],
+      "JavaScript Date": [
+        "Date & Time Utilities"
+      ],
+      "Luxon": [
+        "Date & Time Utilities"
+      ],
+      "Translations Files": [
+        "Internationalization"
+      ],
+      "React Context": [
+        "Internationalization"
+      ],
+      "Performance API": [
+        "Performance Profiler"
+      ],
+      "Logging Library": [
+        "Logging System"
+      ],
+      "Electron API": [
+        "Shell Integration"
+      ],
+      "Shell API": [
+        "Shell Integration"
+      ]
+    }
+  }
+}

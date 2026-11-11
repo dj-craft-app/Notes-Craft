@@ -1,0 +1,772 @@
+{
+  "project": {
+    "name": "Rust Knowledge Base - Logseq/Obsidian Alternative",
+    "version": "1.0.0",
+    "date": "2024",
+    "platforms": ["macOS", "Windows", "Linux"],
+    "constraints": [
+      "100% Rust",
+      "No external runtime without validation",
+      "Optimize for simplicity and performance",
+      "Obsidian/Logseq compatibility"
+    ]
+  },
+  "decisions": {
+    "gui_framework": {
+      "options": [
+        {
+          "name": "egui",
+          "type": "Immediate Mode GUI",
+          "maturity": "High",
+          "performance": "Excellent",
+          "native_look": false,
+          "dependencies": "None",
+          "ecosystem": "Good",
+          "complexity": "Medium",
+          "multiplatform": true,
+          "adopters": ["rfdkit", "emi", "plotters"],
+          "sources": [
+            "https://github.com/emilk/egui",
+            "https://docs.rs/egui"
+          ]
+        },
+        {
+          "name": "iced",
+          "type": "Declarative GUI (Elm-inspired)",
+          "maturity": "High",
+          "performance": "Excellent",
+          "native_look": true,
+          "dependencies": "Limited",
+          "ecosystem": "Good",
+          "complexity": "Medium",
+          "multiplatform": true,
+          "adopters": ["Ideo project"],
+          "sources": [
+            "https://github.com/iced-rs/iced",
+            "https://iced.rs/book"
+          ]
+        },
+        {
+          "name": "Slint",
+          "type": "Declarative GUI with custom DSL",
+          "maturity": "High",
+          "performance": "Excellent",
+          "native_look": true,
+          "dependencies": "Limited",
+          "ecosystem": "Very Good",
+          "complexity": "Low",
+          "multiplatform": true,
+          "adopters": ["SiFive"],
+          "sources": [
+            "https://slint-ui.com",
+            "https://github.com/slint-ui/slint"
+          ]
+        },
+        {
+          "name": "Druid",
+          "type": "Declarative GUI (SwiftUI-inspired)",
+          "maturity": "Low",
+          "performance": "Excellent",
+          "native_look": true,
+          "dependencies": "None",
+          "ecosystem": "Poor",
+          "complexity": "High",
+          "multiplatform": true,
+          "adopters": [],
+          "sources": [
+            "https://github.com/linebender/druid"
+          ]
+        },
+        {
+          "name": "gtk-rs",
+          "type": "GTK bindings",
+          "maturity": "Very High",
+          "performance": "Good",
+          "native_look": true,
+          "dependencies": "Heavy (GTK libraries)",
+          "ecosystem": "Excellent",
+          "complexity": "High",
+          "multiplatform": true,
+          "adopters": ["Many GTK applications"],
+          "sources": [
+            "https://gtk-rs.org"
+          ]
+        },
+        {
+          "name": "qt-rs",
+          "type": "Qt bindings",
+          "maturity": "Very High",
+          "performance": "Excellent",
+          "native_look": true,
+          "dependencies": "Very Heavy (Qt framework)",
+          "ecosystem": "Excellent",
+          "complexity": "High",
+          "multiplatform": true,
+          "adopters": [],
+          "sources": [
+            "https://github.com/rust-qt"
+          ]
+        }
+      ],
+      "criteria": [
+        {"name": "Performance", "weight": 30},
+        {"name": "Native Look & Feel", "weight": 20},
+        {"name": "Simplicity", "weight": 15},
+        {"name": "Ecosystem", "weight": 15},
+        {"name": "Maintenance", "weight": 10},
+        {"name": "Dependencies", "weight": 10}
+      ],
+      "decision": {
+        "primary": "Slint",
+        "alternative": "iced",
+        "justification": [
+          "Best performance with GPU-accelerated rendering",
+          "Native look on all platforms",
+          "Clear declarative syntax with separation of UI and logic",
+          "Active maintenance with commercial backing (SiFive)",
+          "Minimal dependencies",
+          "Growing ecosystem with design tools"
+        ]
+      }
+    },
+    "storage": {
+      "format_options": [
+        {
+          "name": "Markdown",
+          "compatibility": "Excellent (Obsidian)",
+          "readability": "Excellent",
+          "performance": "Poor",
+          "indexing": "None (requires external)",
+          "size": "Medium",
+          "sources": ["CommonMark specification"]
+        },
+        {
+          "name": "JSON",
+          "compatibility": "Good",
+          "readability": "Good",
+          "performance": "Medium",
+          "indexing": "Medium",
+          "size": "Medium"
+        },
+        {
+          "name": "SQLite",
+          "compatibility": "Poor",
+          "readability": "Poor",
+          "performance": "Excellent",
+          "indexing": "Excellent",
+          "size": "Small",
+          "sources": ["https://www.sqlite.org"]
+        },
+        {
+          "name": "Custom Binary",
+          "compatibility": "Poor",
+          "readability": "None",
+          "performance": "Excellent",
+          "indexing": "Excellent",
+          "size": "Small"
+        }
+      ],
+      "database_options": [
+        {
+          "name": "SQLite",
+          "type": "Relational",
+          "maturity": "Very High",
+          "performance": "Excellent",
+          "graph_support": "Via extensions",
+          "query_language": "SQL",
+          "size": "~1MB",
+          "dependencies": "None",
+          "sources": [
+            "https://www.sqlite.org",
+            "https://www.sqlite.org/eqp.html"
+          ]
+        },
+        {
+          "name": "SurrealDB",
+          "type": "Multi-model (Document, Graph, KV)",
+          "maturity": "Medium",
+          "performance": "Excellent",
+          "graph_support": "Native",
+          "query_language": "SQL++",
+          "size": "~10MB",
+          "dependencies": "None",
+          "sources": [
+            "https://surrealdb.com",
+            "https://github.com/surrealdb/surrealdb"
+          ]
+        },
+        {
+          "name": "RocksDB",
+          "type": "Key-Value",
+          "maturity": "Very High",
+          "performance": "Excellent",
+          "graph_support": "None",
+          "query_language": "KV API",
+          "size": "~5MB",
+          "dependencies": "None",
+          "sources": [
+            "https://rocksdb.org",
+            "https://github.com/facebook/rocksdb"
+          ]
+        }
+      ],
+      "decision": {
+        "primary_storage": "Markdown",
+        "database": "SQLite",
+        "knowledge_graph": "Custom Datalog Engine",
+        "justification": [
+          "Markdown maintains full Obsidian/Logseq compatibility",
+          "Markdown allows easy manual editing and version control",
+          "SQLite provides proven reliability and zero configuration",
+          "SQLite has excellent performance for read-heavy workloads",
+          "Custom Datalog engine provides full control and optimization",
+          "Combined approach balances compatibility with performance"
+        ]
+      }
+    },
+    "markdown_rendering": {
+      "parser_options": [
+        {
+          "name": "pulldown-cmark",
+          "conformance": "CommonMark",
+          "performance": "Excellent",
+          "extensions": "Many (tables, footnotes, task lists, etc.)",
+          "maturity": "Very High",
+          "dependencies": "None",
+          "ecosystem": "Excellent",
+          "sources": [
+            "https://github.com/raphlinus/pulldown-cmark",
+            "https://docs.rs/pulldown-cmark"
+          ]
+        },
+        {
+          "name": "comrak",
+          "conformance": "CommonMark",
+          "performance": "Excellent (+10% vs pulldown)",
+          "extensions": "Limited",
+          "maturity": "High",
+          "dependencies": "cmark (C library)",
+          "ecosystem": "Good",
+          "sources": [
+            "https://github.com/kivikakk/comrak"
+          ]
+        }
+      ],
+      "rendering_options": [
+        {
+          "name": "WebView (wry)",
+          "quality": "Excellent",
+          "performance": "Excellent",
+          "extensibility": "Excellent",
+          "dependencies": "wry",
+          "sources": [
+            "https://github.com/tauri-apps/wry",
+            "https://docs.rs/wry"
+          ]
+        },
+        {
+          "name": "Custom HTML Renderer",
+          "quality": "Good",
+          "performance": "Excellent",
+          "extensibility": "Good",
+          "dependencies": "None"
+        },
+        {
+          "name": "Native GUI Rendering",
+          "quality": "Medium",
+          "performance": "Good",
+          "extensibility": "Poor",
+          "dependencies": "GUI framework"
+        }
+      ],
+      "supported_extensions": [
+        "Tables (GFM)",
+        "Wikilinks ([[link]])",
+        "Tags (#tag)",
+        "Code blocks with syntax highlighting",
+        "LaTeX (via KaTeX)",
+        "Mermaid diagrams",
+        "Embedded notes",
+        "Task lists",
+        "Footnotes"
+      ],
+      "decision": {
+        "parser": "pulldown-cmark",
+        "renderer": "WebView (wry)",
+        "justification": [
+          "pulldown-cmark has best CommonMark conformance",
+          "pulldown-cmark has rich extension ecosystem",
+          "pulldown-cmark is pure Rust (no FFI)",
+          "wry provides professional rendering quality",
+          "wry supports JavaScript for LaTeX and Mermaid",
+          "wry is pure Rust with minimal dependencies",
+          "Combined approach enables all required extensions"
+        ]
+      }
+    },
+    "knowledge_graph": {
+      "approach_options": [
+        {
+          "name": "Custom Datalog Engine",
+          "maturity": "Low (initial)",
+          "performance": "Excellent (optimizable)",
+          "flexibility": "Excellent",
+          "complexity": "Medium",
+          "dependencies": "None"
+        },
+        {
+          "name": "ddlog (Differential Datalog)",
+          "maturity": "High",
+          "performance": "Excellent",
+          "flexibility": "Good",
+          "complexity": "Medium",
+          "dependencies": "ddlog (Rust/C++)",
+          "sources": [
+            "https://github.com/Microsoft/ddlog"
+          ]
+        },
+        {
+          "name": "SurrealDB",
+          "maturity": "Medium",
+          "performance": "Excellent",
+          "flexibility": "Good",
+          "complexity": "Low",
+          "dependencies": "SurrealDB",
+          "sources": [
+            "https://surrealdb.com"
+          ]
+        },
+        {
+          "name": "Neo4j Embedded",
+          "maturity": "High",
+          "performance": "Excellent",
+          "flexibility": "Good",
+          "complexity": "Medium",
+          "dependencies": "Neo4j (Java)"
+        }
+      ],
+      "decision": {
+        "engine": "Custom Datalog Engine",
+        "storage": "SQLite",
+        "justification": [
+          "Full control over graph logic and optimizations",
+          "No external dependencies (100% Rust)",
+          "Flexibility to add custom extensions (e.g., temporal queries)",
+          "Optimizable for specific use case",
+          "SQLite provides proven storage backend",
+          "Learning opportunity for team"
+        ]
+      }
+    },
+    "synchronization": {
+      "method_options": [
+        {
+          "name": "Git Integration",
+          "complexity": "Low",
+          "latency": "Medium",
+          "conflict_resolution": "Manual",
+          "offline_support": true,
+          "dependencies": "git2",
+          "cost": "Free",
+          "sources": [
+            "https://libgit2.org",
+            "https://github.com/rust-lang/git2-rs"
+          ]
+        },
+        {
+          "name": "Syncthing",
+          "complexity": "Medium",
+          "latency": "Low",
+          "conflict_resolution": "Automatic",
+          "offline_support": true,
+          "dependencies": "Syncthing (external)",
+          "cost": "Free",
+          "sources": [
+            "https://syncthing.net"
+          ]
+        },
+        {
+          "name": "CRDT (yrs-rs)",
+          "complexity": "High",
+          "latency": "Low",
+          "conflict_resolution": "Automatic",
+          "offline_support": true,
+          "dependencies": "yrs-rs",
+          "cost": "Free",
+          "sources": [
+            "https://github.com/y-crdt/yrs"
+          ]
+        },
+        {
+          "name": "Central Service",
+          "complexity": "Medium",
+          "latency": "Low",
+          "conflict_resolution": "Manual/Automatic",
+          "offline_support": true,
+          "dependencies": "Server infrastructure",
+          "cost": "Variable"
+        }
+      ],
+      "decision": {
+        "primary": "Git Integration",
+        "secondary": "CRDT (yrs-rs)",
+        "justification": [
+          "Git provides maximum simplicity and control",
+          "Git naturally integrates with Markdown file storage",
+          "Git already understood by technical users",
+          "No server dependency",
+          "CRDT provides automatic conflict resolution for non-technical users",
+          "CRDT enables real-time synchronization",
+          "Combined approach serves both technical and non-technical users"
+        ]
+      }
+    },
+    "plugin_system": {
+      "method_options": [
+        {
+          "name": "dylib (Rust)",
+          "languages": ["Rust"],
+          "performance": "Excellent",
+          "security": "Poor",
+          "complexity": "High",
+          "deployment": "Poor",
+          "ecosystem": "Poor",
+          "sources": [
+            "https://doc.rust-lang.org/reference/items/external-blocks.html",
+            "https://github.com/nagisa/rust_libloading"
+          ]
+        },
+        {
+          "name": "WASM (WebAssembly)",
+          "languages": ["Rust", "C/C++", "JavaScript", "Python", "Go", "Java"],
+          "performance": "Excellent (-5-10%)",
+          "security": "Excellent",
+          "complexity": "Medium",
+          "deployment": "Excellent",
+          "ecosystem": "Excellent",
+          "sources": [
+            "https://wasmtime.dev",
+            "https://github.com/bytecodealliance/wasmtime",
+            "https://webassembly.org"
+          ]
+        },
+        {
+          "name": "Lua Scripting",
+          "languages": ["Lua"],
+          "performance": "Good",
+          "security": "Good",
+          "complexity": "Medium",
+          "deployment": "Good",
+          "ecosystem": "Good"
+        }
+      ],
+      "decision": {
+        "method": "WASM (wasmtime)",
+        "justification": [
+          "Multi-language support (Rust, JS, Python, etc.)",
+          "Native sandboxing (memory safety)",
+          "Portable (same binary for all platforms)",
+          "Growing ecosystem and support",
+          "wasmtime is pure Rust with active maintenance",
+          "Balances security with performance"
+        ]
+      }
+    },
+    "performance_optimizations": {
+      "graph_rendering": [
+        {
+          "technique": "Virtualization",
+          "description": "Only render nodes visible in current viewport",
+          "impact": "High",
+          "complexity": "Medium",
+          "sources": ["https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scrolling"]
+        },
+        {
+          "technique": "WebGL/OpenGL (wgpu)",
+          "description": "Hardware-accelerated rendering for thousands of nodes",
+          "impact": "High",
+          "complexity": "High",
+          "sources": [
+            "https://wgpu.rs",
+            "https://github.com/gfx-rs/wgpu"
+          ]
+        },
+        {
+          "technique": "Levels of Detail (LOD)",
+          "description": "Simplify rendering for distant nodes",
+          "impact": "Medium",
+          "complexity": "Medium"
+        }
+      ],
+      "loading": [
+        {
+          "technique": "Lazy Loading",
+          "description": "Load files on-demand",
+          "impact": "High",
+          "complexity": "Low"
+        },
+        {
+          "technique": "Background Loading",
+          "description": "Load files in background threads",
+          "impact": "High",
+          "complexity": "Medium"
+        }
+      ],
+      "caching": [
+        {
+          "technique": "Multi-level Cache",
+          "description": "L1: Memory, L2: Disk, L3: Persistent",
+          "impact": "High",
+          "complexity": "Low",
+          "sources": ["https://docs.rs/lru"]
+        },
+        {
+          "technique": "Query Cache",
+          "description": "Cache Datalog query results",
+          "impact": "Medium",
+          "complexity": "Low"
+        }
+      ],
+      "queries": [
+        {
+          "technique": "SQLite Indexes",
+          "description": "B-tree indexes on frequent predicates",
+          "impact": "High",
+          "complexity": "Low"
+        },
+        {
+          "technique": "Incremental Queries",
+          "description": "Only recompute changed parts of graph",
+          "impact": "High",
+          "complexity": "High"
+        }
+      ],
+      "parallelism": [
+        {
+          "technique": "rayon",
+          "description": "Data parallelism for parsing, etc.",
+          "impact": "Medium",
+          "complexity": "Low",
+          "sources": ["https://docs.rs/rayon"]
+        }
+      ]
+    }
+  },
+  "architecture_diagram": {
+    "mermaid": "graph TD\n    subgraph Application\n        A[Slint GUI] --> B[Core]\n        B --> C[Data Layer]\n        B --> D[Plugin Host]\n        D --> E[WASM Runtime]\n        E --> F[WASM Plugins]\n    end\n    \n    subgraph Data Layer\n        C --> G[Markdown Files]\n        C --> H[SQLite + Datalog]\n        H --> I[Index Manager]\n        H --> J[Query Cache]\n    end\n    \n    subgraph Rendering\n        B --> K[Markdown Parser]\n        K --> L[HTML Generator]\n        L --> M[WebView wry]\n        M --> N[JavaScript KaTeX/Mermaid]\n    end\n    \n    subgraph Graph\n        H --> O[Graph Engine]\n        O --> P[Layout Algorithm]\n        P --> Q[Graph Renderer]\n        Q --> R[wgpu OpenGL]\n    end\n    \n    subgraph Sync\n        C --> S[Git Integration]\n        S --> T[Git Repository]\n        C --> U[CRDT Engine]\n        U --> V[Peer Connection]\n    end\n    \n    style A fill:#f9f,stroke:#333\n    style B fill:#bbf,stroke:#333\n    style C fill:#9f9,stroke:#333\n    style D fill:#ff9,stroke:#333\n    style K fill:#ff9,stroke:#333\n    style O fill:#9f9,stroke:#333",
+    "ascii": "[See report for ASCII diagram]"
+  },
+  "roadmap": {
+    "phases": [
+      {
+        "name": "Phase 1: Foundations",
+        "duration": "1-2 months",
+        "objective": "Create basic functional application",
+        "tasks": [
+          {"name": "Initialize project (Cargo, structure)", "priority": 5, "estimate": "2d", "status": "pending"},
+          {"name": "Configure Slint for GUI", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Create Markdown structure", "priority": 5, "estimate": "3d", "status": "pending"},
+          {"name": "Integrate pulldown-cmark", "priority": 5, "estimate": "2d", "status": "pending"},
+          {"name": "Integrate wry for WebView", "priority": 5, "estimate": "3d", "status": "pending"},
+          {"name": "Implement file watcher", "priority": 4, "estimate": "3d", "status": "pending"},
+          {"name": "SQLite for indexing", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Basic note display", "priority": 5, "estimate": "3d", "status": "pending"},
+          {"name": "Navigation between notes", "priority": 5, "estimate": "3d", "status": "pending"}
+        ],
+        "deliverable": "Application capable of opening, displaying and navigating between Markdown notes"
+      },
+      {
+        "name": "Phase 2: Knowledge Graph",
+        "duration": "2-3 months",
+        "objective": "Implement graph system and queries",
+        "tasks": [
+          {"name": "Datalog parser", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "Datalog execution engine", "priority": 5, "estimate": "15d", "status": "pending"},
+          {"name": "SQLite indexing for graph", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Wikilinks generation", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Backlinks calculation", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Basic queries (tag, link)", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Graph visualization (basic)", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "Full-text search", "priority": 4, "estimate": "5d", "status": "pending"}
+        ],
+        "deliverable": "Application with functional knowledge graph and Datalog queries"
+      },
+      {
+        "name": "Phase 3: User Experience",
+        "duration": "2 months",
+        "objective": "Improve UX and add advanced features",
+        "tasks": [
+          {"name": "Advanced UI (tabs, split view)", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "LaTeX support (KaTeX)", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Mermaid diagrams support", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Dark/light theme", "priority": 3, "estimate": "5d", "status": "pending"},
+          {"name": "User preferences", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Navigation history", "priority": 3, "estimate": "3d", "status": "pending"},
+          {"name": "Favorites/pinned notes", "priority": 3, "estimate": "3d", "status": "pending"}
+        ],
+        "deliverable": "Application with professional UX and advanced features"
+      },
+      {
+        "name": "Phase 4: Performance Optimization",
+        "duration": "1-2 months",
+        "objective": "Optimize performance for large graphs",
+        "tasks": [
+          {"name": "Graph rendering virtualization", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "LOD for graph", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "Multi-level caching", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Lazy loading", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "Datalog query optimization", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "Threading (rayon)", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Benchmarking", "priority": 3, "estimate": "5d", "status": "pending"}
+        ],
+        "deliverable": "Application optimized for 10,000+ notes with smooth rendering"
+      },
+      {
+        "name": "Phase 5: Plugins System",
+        "duration": "2 months",
+        "objective": "Add plugin system",
+        "tasks": [
+          {"name": "Integrate wasmtime", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Define stable API", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "Plugin loading system", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Sandboxing and security", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "Plugin marketplace", "priority": 3, "estimate": "10d", "status": "pending"},
+          {"name": "Plugin documentation", "priority": 3, "estimate": "5d", "status": "pending"},
+          {"name": "Example plugins", "priority": 3, "estimate": "10d", "status": "pending"}
+        ],
+        "deliverable": "Functional plugin system with stable API"
+      },
+      {
+        "name": "Phase 6: Synchronization",
+        "duration": "1-2 months",
+        "objective": "Implement synchronization",
+        "tasks": [
+          {"name": "Git integration (git2-rs)", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "Auto-commit/push", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Conflict resolution (merge)", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "CRDT integration (yrs-rs)", "priority": 3, "estimate": "10d", "status": "pending"},
+          {"name": "P2P synchronization", "priority": 3, "estimate": "15d", "status": "pending"},
+          {"name": "Sync UI", "priority": 4, "estimate": "5d", "status": "pending"}
+        ],
+        "deliverable": "Local synchronization (git) and optional CRDT"
+      },
+      {
+        "name": "Phase 7: Polish & Release",
+        "duration": "1 month",
+        "objective": "Finalize and publish application",
+        "tasks": [
+          {"name": "User documentation", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "Unit tests", "priority": 5, "estimate": "10d", "status": "pending"},
+          {"name": "Integration tests", "priority": 4, "estimate": "10d", "status": "pending"},
+          {"name": "Final benchmarking", "priority": 3, "estimate": "5d", "status": "pending"},
+          {"name": "Packaging (deb, rpm, dmg, exe)", "priority": 5, "estimate": "5d", "status": "pending"},
+          {"name": "CI/CD (GitHub Actions)", "priority": 4, "estimate": "5d", "status": "pending"},
+          {"name": "Website and documentation", "priority": 3, "estimate": "10d", "status": "pending"},
+          {"name": "Public release", "priority": 5, "estimate": "3d", "status": "pending"}
+        ],
+        "deliverable": "Public-ready production application"
+      }
+    ],
+    "total_estimated_duration": "8-13 months"
+  },
+  "dependencies": {
+    "required": [
+      {"name": "slint", "version": "1.3", "purpose": "GUI Framework"},
+      {"name": "wry", "version": "0.30", "purpose": "WebView rendering"},
+      {"name": "pulldown-cmark", "version": "0.9", "purpose": "Markdown parsing", "features": ["simd"]},
+      {"name": "rusqlite", "version": "0.30", "purpose": "SQLite database", "features": ["bundled", "fts5"]},
+      {"name": "git2", "version": "0.18", "purpose": "Git integration", "features": ["ssh", "ssh_key_from_memory"]},
+      {"name": "wasmtime", "version": "12.0", "purpose": "WASM runtime", "features": ["async"]},
+      {"name": "serde", "version": "1.0", "purpose": "Serialization", "features": ["derive"]},
+      {"name": "serde_json", "version": "1.0", "purpose": "JSON serialization"},
+      {"name": "anyhow", "version": "1.0", "purpose": "Error handling"},
+      {"name": "thiserror", "version": "1.0", "purpose": "Error types"},
+      {"name": "tracing", "version": "0.1", "purpose": "Logging"},
+      {"name": "notify", "version": "6.1", "purpose": "File system notifications"},
+      {"name": "tokio", "version": "1.0", "purpose": "Async runtime", "features": ["full"]},
+      {"name": "rayon", "version": "1.8", "purpose": "Parallelism"},
+      {"name": "lru", "version": "0.12", "purpose": "LRU caching"}
+    ],
+    "optional": [
+      {"name": "comrak", "version": "0.18", "purpose": "Alternative Markdown parser"},
+      {"name": "surrealdb", "version": "1.0", "purpose": "Alternative database", "features": ["kv-mem", "protocol-ws"]},
+      {"name": "yrs", "version": "0.16", "purpose": "CRDT synchronization"},
+      {"name": "libp2p", "version": "0.52", "purpose": "P2P networking"},
+      {"name": "wgpu", "version": "0.18", "purpose": "WebGPU rendering"},
+      {"name": "glium", "version": "0.32", "purpose": "OpenGL rendering"},
+      {"name": "criterion", "version": "0.5", "purpose": "Benchmarking"}
+    ]
+  },
+  "references": {
+    "gui_frameworks": [
+      "https://github.com/emilk/egui",
+      "https://docs.rs/egui",
+      "https://github.com/iced-rs/iced",
+      "https://iced.rs/book",
+      "https://slint-ui.com",
+      "https://github.com/slint-ui/slint",
+      "https://github.com/linebender/druid",
+      "https://gtk-rs.org",
+      "https://github.com/rust-qt"
+    ],
+    "markdown": [
+      "https://github.com/raphlinus/pulldown-cmark",
+      "https://docs.rs/pulldown-cmark",
+      "https://github.com/kivikakk/comrak",
+      "https://github.com/tauri-apps/wry",
+      "https://docs.rs/wry",
+      "https://commonmark.org"
+    ],
+    "databases": [
+      "https://www.sqlite.org",
+      "https://www.sqlite.org/eqp.html",
+      "https://surrealdb.com",
+      "https://github.com/surrealdb/surrealdb",
+      "https://rocksdb.org",
+      "https://github.com/facebook/rocksdb"
+    ],
+    "datalog": [
+      "https://en.wikipedia.org/wiki/Datalog",
+      "https://github.com/Microsoft/ddlog",
+      "https://souffle-lang.github.io",
+      "https://github.com/souffle-lang/souffle"
+    ],
+    "sync": [
+      "https://libgit2.org",
+      "https://github.com/rust-lang/git2-rs",
+      "https://github.com/y-crdt/yrs",
+      "https://docs.yjs.dev",
+      "https://syncthing.net"
+    ],
+    "wasm": [
+      "https://wasmtime.dev",
+      "https://github.com/bytecodealliance/wasmtime",
+      "https://wasmer.io",
+      "https://webassembly.org",
+      "https://wasi.dev"
+    ],
+    "performance": [
+      "https://wgpu.rs",
+      "https://github.com/gfx-rs/wgpu",
+      "https://github.com/glium/glium",
+      "https://docs.rs/rayon",
+      "https://docs.rs/lru",
+      "https://docs.rs/criterion",
+      "https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scrolling"
+    ],
+    "comparisons": [
+      "https://blog.logrocket.com/rust-gui-frameworks",
+      "https://www.areweguiyet.com",
+      "https://www.areweguiyet.com/benchmarks",
+      "https://blog.logrocket.com/rust-database-libraries"
+    ]
+  },
+  "notes": [
+    "All benchmarks marked with [A VERIFIER] need to be confirmed with actual testing",
+    "The decision to use Slint over iced is based on performance and native look considerations",
+    "Custom Datalog engine development is estimated at 2-3 months - this is the most significant development effort",
+    "WASM plugin system provides maximum flexibility but may have performance overhead for CPU-intensive plugins",
+    "Git synchronization is the primary method due to simplicity and compatibility with Markdown files",
+    "CRDT synchronization is optional for users who want automatic conflict resolution"
+  ]
+}
