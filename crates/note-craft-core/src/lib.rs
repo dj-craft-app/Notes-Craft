@@ -29,6 +29,14 @@ pub use state::{
     StateSnapshot,
 };
 
+// Configuration System (Phase 1 - Étape 1.5)
+pub mod config;
+pub use config::{
+    Config, ConfigError, ConfigEvent, ConfigEventType, ConfigFormat, ConfigLevel, ConfigListener,
+    ConfigManager, ConfigPath, ConfigPaths, ConfigValidator, ConfigValue, ValidationError,
+    ValidationRule,
+};
+
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
 // ============================================================================

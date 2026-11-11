@@ -18,10 +18,19 @@ log = { workspace = true }
 # Datalog engine - Decision actee: datafrog 2.0.1 (ADR-002, tag v0.2.0-datalog-decision)
 datafrog = { workspace = true }
 
+# Configuration formats
+serde_json = { workspace = true }
+toml = { workspace = true }
+serde_yaml = { workspace = true }
+
+# For file system operations
+pathdiff = { workspace = true }
+
 [dev-dependencies]
 # For testing
 anyhow = { workspace = true }
 serde_json = { workspace = true }
+tempfile = { workspace = true }
 
 [features]
 default = []
