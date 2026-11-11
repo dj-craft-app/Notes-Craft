@@ -1,13 +1,17 @@
 //! Note Craft Core - Types et abstractions du moteur Datalog
 //!
 //! Ce module fournit:
-//! - Les types de base pour représenter les requêtes Note Craft
+//! - Les types de base pour représenter les nœuds, liens, tags, etc.
 //! - Une abstraction du moteur Datalog (datafrog) pour isoler l'API
+//! - Une abstraction du système de fichiers (FileSystem trait)
 //! - Des tests de non-régression sur les 4 requêtes du PoC
 //!
 //! Décision: datafrog 2.0.1 retenu (voir ADR-002, tag v0.2.0-datalog-decision)
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
+
+// Abstraction du système de fichiers (Phase 1 - Étape 1.1)
+pub mod fs;
 
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
