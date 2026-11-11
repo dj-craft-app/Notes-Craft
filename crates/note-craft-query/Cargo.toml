@@ -1,0 +1,30 @@
+[package]
+name = "note-craft-query"
+version = "0.1.0"
+edition = "2021"
+authors = ["Note Craft Team"]
+description = "Query engine and Datalog integration for Note Craft"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["note-craft", "query", "datalog"]
+categories = ["data-structures", "parsing"]
+
+[dependencies]
+# Workspace dependencies
+note-craft-core = { path = "../note-craft-core" }
+serde = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+# Datalog engine
+datafrog = { workspace = true }
+
+[dev-dependencies]
+anyhow = { workspace = true }
+
+[features]
+default = []
+
+[[test]]
+name = "query_tests"
+path = "tests/query_tests.rs"

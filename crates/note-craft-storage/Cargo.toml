@@ -1,0 +1,27 @@
+[package]
+name = "note-craft-storage"
+version = "0.1.0"
+edition = "2021"
+authors = ["Note Craft Team"]
+description = "Storage layer for Note Craft using SQLite"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["note-craft", "storage", "sqlite"]
+categories = ["database", "data-structures"]
+
+[dependencies]
+# Workspace dependencies
+note-craft-core = { path = "../note-craft-core" }
+serde = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+# SQLite storage
+rusqlite = { workspace = true }
+
+[dev-dependencies]
+anyhow = { workspace = true }
+tempfile = "3.8"
+
+[features]
+default = []

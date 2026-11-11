@@ -1,0 +1,31 @@
+[package]
+name = "note-craft-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["Note Craft Team"]
+description = "Core types and engine abstraction for Note Craft"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["note-craft", "datalog", "knowledge-graph"]
+categories = ["data-structures", "parsing"]
+
+[dependencies]
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+# Datalog engine - Decision actee: datafrog 2.0.1 (ADR-002, tag v0.2.0-datalog-decision)
+datafrog = { workspace = true }
+
+[dev-dependencies]
+# For testing
+anyhow = { workspace = true }
+serde_json = { workspace = true }
+
+[features]
+default = []
+
+[[test]]
+name = "datalog_tests"
+path = "tests/datalog_tests.rs"
