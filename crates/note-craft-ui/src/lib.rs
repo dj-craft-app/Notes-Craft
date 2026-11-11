@@ -9,10 +9,15 @@
 
 use note_craft_core::Node;
 
+pub mod sidebar;
 pub mod slint;
 pub mod webview;
 
 // Ré-export des types principaux
+pub use sidebar::{
+    default_sidebar_sections, SidebarConfig, SidebarEvent, SidebarItem, SidebarItemBuilder,
+    SidebarSection, SidebarService, SidebarState,
+};
 pub use slint::{
     theme, utils, SlintAppFactory, SlintEvent, SlintInfo, SlintResourceManager, ThemeColors,
     ThemeColorsBuilder,
