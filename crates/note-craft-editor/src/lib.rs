@@ -13,6 +13,7 @@ pub mod latex;
 pub mod macros;
 pub mod markdown;
 pub mod paste;
+pub mod quick_add;
 
 use note_craft_core::{Node, NodeId, TypeId};
 
@@ -34,6 +35,10 @@ pub use macros::{
 };
 pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
 pub use paste::{html_paste, PasteContent, PasteError, PasteManager, PasteResult, PasteType};
+pub use quick_add::{
+    create_default_quick_add_manager, QuickAddError, QuickAddManager, QuickAddResult,
+    QuickBlockType, QuickTemplate, QuickTemplateBuilder,
+};
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
 ///
