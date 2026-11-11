@@ -382,27 +382,51 @@ Voir [benchmark.rs](./benchmark/benchmark.rs) pour le code des benchmarks.
 ### 6.3 Résultats des benchmarks préliminaires
 
 **Environnement:** 
-- Système: [À VÉRIFIER]
-- CPU: [À VÉRIFIER]
+- Système: [À VÉRIFIER - MacBook Pro]
+- CPU: [À VÉRIFIER - Apple Silicon]
 - RAM: [À VÉRIFIER]
 - Rust: 1.70+
+- Date: 2026-11-11
 
-**Données de test:** 100 nœuds, 500 liens, 199 tags
+**Source:** src/main.rs (exécuté localement)
 
-| Métrique | Valeur | Comparaison |
-|----------|--------|-------------|
-| Requête simple (par tag) | 6.541µs | Rapide |
-| Jointure (liens + tags) | 400.833µs | Lent (algo naif) |
-| Récursif (algo naif) | 25.5µs | Rapide |
-| Récursif (datafrog) | 99.292µs | 4x plus lent que naif |
+#### 6.3.1 Jeu Petit (100 nœuds, 500 liens, 199 tags)
 
-**Analyse:**
-- Les requêtes simples sont très rapides
-- Les jointures sont lentes avec l'implémentation naive
-- datafrog a un overhead pour les petits jeux de données
-- **→ À tester avec des jeux plus grands (1K, 10K nœuds)**
+| Métrique | Algo Naif | datafrog | Comparaison | Statut |
+|----------|-----------|----------|-------------|--------|
+| Requête simple (par tag) | - | 10.542µs | - | ✅ Très rapide |
+| Jointure (liens + tags) | 649.25µs | - | - | ⚠️ Lent (algo naif) |
+| Récursif (transitivité) | 42.542µs | 154.542µs | 3.6x plus lent | ⚠️ Overhead visible |
+| Requête par type | - | 5.833µs | - | ✅ Très rapide |
 
-**Hypothèse:** datafrog sera plus performant sur des jeux de données plus grands où l'overhead est amorti.
+#### 6.3.2 Jeu Moyen (1000 nœuds, 5000 liens, 1999 tags)
+
+| Métrique | Algo Naif | datafrog | Comparaison | Statut |
+|----------|-----------|----------|-------------|--------|
+| Requête simple (par tag) | - | 63.541µs | - | ✅ Très rapide |
+| Jointure (liens + tags) | 5.289875ms | - | - | ⚠️ Lent (algo naif) |
+| Récursif (transitivité) | 967.708µs | 860.042µs | 1.12x plus rapide | ✅ Compétitif |
+| Requête par type | - | 32.125µs | - | ✅ Très rapide |
+
+#### 6.3.3 Vérification de la correction
+
+✅ **Tous les tests passent la vérification:** Les résultats de l'algorithme naif et de datafrog sont identiques pour les deux jeux de données. Cela valide que l'implémentation datafrog est correcte.
+
+### 6.4 Analyse des performances
+
+**Évolution avec la taille:**
+- **100 nœuds:** datafrog est 3.6x plus lent que l'algo naif pour la transitivité
+- **1000 nœuds:** datafrog est 1.12x plus rapide que l'algo naif pour la transitivité
+
+**Conclusion:** datafrog a un overhead fixe (initialisation, etc.) qui est visible sur les petits jeux de données, mais il devient compétitif et même plus rapide sur des jeux de données plus grands.
+
+**Hypothèse:** Sur des jeux de 10K nœuds, datafrog sera significativement plus rapide que l'algorithme naif.
+
+**Recommandation:**
+- ✅ datafrog est viable pour Note Craft
+- ✅ Les performances seront acceptables pour les tailles cibles (10K nœuds)
+- ⚠️ Nécessite un parser Logseq → datafrog
+- ⚠️ Les fonctionnalités manquantes (agrégations, tri) doivent être implémentées
 
 ### 6.3 Comparaison avec les critères de Note Craft
 

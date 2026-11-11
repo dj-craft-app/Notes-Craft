@@ -32,50 +32,74 @@ struct Link {
 fn main() {
     println!("=== datafrog PoC pour Note Craft ===\n");
 
-    // Générer des données de test (déterministe pour reproductibilité)
-    let (nodes, tags, links, node_types) = generate_test_data(100, 500);
-    println!("Données générées: {} nœuds, {} tags, {} liens", 
-             nodes.len(), tags.len(), links.len());
+    // Tester différentes tailles de jeux de données
+    let test_cases = vec![
+        (100, 500, "Petit"),
+        (1_000, 5_000, "Moyen"),
+        // (10_000, 50_000, "Grand"), // Désactivé pour l'instant
+    ];
 
-    // Test 1: Requête simple - Trouver tous les nœuds avec un tag spécifique
-    println!("\n--- Test 1: Nœuds avec tag 'important' ---");
-    let start = Instant::now();
-    let important_nodes = find_nodes_by_tag(&tags, Tag("important".to_string()));
-    let duration = start.elapsed();
-    println!("Résultats: {} nœuds", important_nodes.len());
-    println!("Temps: {:?}", duration);
+    for (node_count, link_count, size_name) in test_cases {
+        println!("\n=== Test avec jeu {}: {} nœuds, {} liens ===", size_name, node_count, link_count);
+        
+        // Générer des données de test (déterministe pour reproductibilité)
+        let (nodes, tags, links, node_types) = generate_test_data(node_count, link_count);
+        println!("Données générées: {} nœuds, {} tags, {} liens", 
+                 nodes.len(), tags.len(), links.len());
 
-    // Test 2: Requête avec jointure - Trouver tous les nœuds liés à des nœuds tagués "important"
-    println!("\n--- Test 2: Nœuds liés à des nœuds 'important' ---");
-    let start = Instant::now();
-    let linked_to_important = find_nodes_linked_to_tagged(&links, &tags, Tag("important".to_string()));
-    let duration = start.elapsed();
-    println!("Résultats: {} nœuds", linked_to_important.len());
-    println!("Temps: {:?}", duration);
+        // Test 1: Requête simple - Trouver tous les nœuds avec un tag spécifique
+        println!("\n--- Test 1: Nœuds avec tag 'important' ---");
+        let start = Instant::now();
+        let important_nodes = find_nodes_by_tag(&tags, Tag("important".to_string()));
+        let duration = start.elapsed();
+        println!("Résultats: {} nœuds", important_nodes.len());
+        println!("Temps: {:?}", duration);
 
-    // Test 3: Requête récursive - Trouver tous les nœuds accessibles depuis node-1
-    println!("\n--- Test 3: Nœuds accessibles depuis node-1 (algorithme naif) ---");
-    let start = Instant::now();
-    let reachable = find_reachable_nodes(&links, NodeId(1));
-    let duration = start.elapsed();
-    println!("Résultats: {} nœuds accessibles", reachable.len());
-    println!("Temps: {:?}", duration);
+        // Test 2: Requête avec jointure - Trouver tous les nœuds liés à des nœuds tagués "important"
+        println!("\n--- Test 2: Nœuds liés à des nœuds 'important' ---");
+        let start = Instant::now();
+        let linked_to_important = find_nodes_linked_to_tagged(&links, &tags, Tag("important".to_string()));
+        let duration = start.elapsed();
+        println!("Résultats: {} nœuds", linked_to_important.len());
+        println!("Temps: {:?}", duration);
 
-    // Test 4: Requête par type - Trouver tous les nœuds de type "page"
-    println!("\n--- Test 4: Nœuds de type 'page' ---");
-    let start = Instant::now();
-    let pages = find_nodes_by_type(&node_types, NodeType("page".to_string()));
-    let duration = start.elapsed();
-    println!("Résultats: {} pages", pages.len());
-    println!("Temps: {:?}", duration);
+        // Test 3: Requête récursive - Trouver tous les nœuds accessibles depuis node-1
+        println!("\n--- Test 3: Nœuds accessibles depuis node-1 (algorithme naif) ---");
+        let start = Instant::now();
+        let reachable = find_reachable_nodes(&links, NodeId(1));
+        let duration = start.elapsed();
+        println!("Résultats: {} nœuds accessibles", reachable.len());
+        println!("Temps: {:?}", duration);
 
-    // Test 5: Avec datafrog - Calcul de la transitivité
-    println!("\n--- Test 5: Calcul de la transitivité avec datafrog ---");
-    let start = Instant::now();
-    let reachable_datafrog = find_reachable_with_datafrog(&links, NodeId(1));
-    let duration = start.elapsed();
-    println!("Résultats: {} nœuds accessibles", reachable_datafrog.len());
-    println!("Temps: {:?}", duration);
+        // Test 4: Requête par type - Trouver tous les nœuds de type "page"
+        println!("\n--- Test 4: Nœuds de type 'page' ---");
+        let start = Instant::now();
+        let pages = find_nodes_by_type(&node_types, NodeType("page".to_string()));
+        let duration = start.elapsed();
+        println!("Résultats: {} pages", pages.len());
+        println!("Temps: {:?}", duration);
+
+        // Test 5: Avec datafrog - Calcul de la transitivité
+        println!("\n--- Test 5: Calcul de la transitivité avec datafrog ---");
+        let start = Instant::now();
+        let reachable_datafrog = find_reachable_with_datafrog(&links, NodeId(1));
+        let duration = start.elapsed();
+        println!("Résultats: {} nœuds accessibles", reachable_datafrog.len());
+        println!("Temps: {:?}", duration);
+
+        // Vérification: Les résultats des algorithmes naif et datafrog doivent être identiques
+        // On utilise des HashSet pour comparer indépendamment de l'ordre
+        let reachable_set: HashSet<NodeId> = reachable.iter().cloned().collect();
+        let datafrog_set: HashSet<NodeId> = reachable_datafrog.iter().cloned().collect();
+        
+        if reachable_set != datafrog_set {
+            println!("⚠️  AVERTISSEMENT: Les résultats diffèrent entre algo naif et datafrog!");
+            println!("   Naif: {:?}", reachable_set);
+            println!("   Datafrog: {:?}", datafrog_set);
+        } else {
+            println!("✅ Vérification: Les résultats sont identiques (naif vs datafrog)");
+        }
+    }
 
     println!("\n=== PoC terminé avec succès ===");
 }
