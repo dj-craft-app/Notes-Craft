@@ -39,6 +39,14 @@ tokio = { version = "1.0", features = ["full"] }
 # WASM for plugins (will be added in Phase 6)
 # wasmtime = "14.0"
 
+# Configuration formats
+toml = "0.8"
+serde_yaml = "0.9"
+
+# File system utilities
+pathdiff = "0.2"
+tempfile = "3.8"
+
 # Testing
 tokio-test = "0.4"
 
