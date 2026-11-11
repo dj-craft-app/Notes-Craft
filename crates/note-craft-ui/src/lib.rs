@@ -12,6 +12,7 @@ use note_craft_core::Node;
 pub mod asset_gallery;
 pub mod block_ui;
 pub mod command_palette;
+pub mod dialog;
 pub mod graph_view;
 pub mod journal_view;
 pub mod keyboard;
@@ -36,6 +37,11 @@ pub use block_ui::{
 pub use command_palette::{
     Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
     CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use dialog::{
+    DialogButton, DialogButtonConfig, DialogConfig, DialogEvent, DialogIcon, DialogId,
+    DialogManager, DialogResult, DialogState, DialogStyle, InputConfig, InputDialogConfig,
+    InputDialogResult, InputType, PredefinedDialogs,
 };
 pub use graph_view::{
     Graph, GraphEdge, GraphNode, GraphView, GraphViewConfig, GraphViewEvent, LayoutAlgorithm,
@@ -72,8 +78,8 @@ pub use slint::{
     ThemeColorsBuilder,
 };
 pub use theme::{
-    ButtonTheme, DialogTheme, EditorTheme, InputTheme, SidebarTheme, Theme, ThemeComponentColors,
-    ThemeConfig, ThemeEvent, ThemeManager, ThemeManagerBuilder, ThemeVariant, UiThemeColors,
+    ButtonTheme, EditorTheme, InputTheme, SidebarTheme, Theme, ThemeComponentColors, ThemeConfig,
+    ThemeEvent, ThemeManager, ThemeManagerBuilder, ThemeVariant, UiThemeColors,
 };
 pub use webview::{
     DefaultWebViewHandler, JsMessage, RustMessage, WebViewConfig, WebViewError,
