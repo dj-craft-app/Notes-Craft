@@ -4,7 +4,69 @@
 > **Auteur:** Agent autonome  
 > **Issue:** #4, #8  
 > **ADR:** ADR-002-criteres-decision.md  
-> **Statut:** Données corrigées après Issue #8 - Symétrie de mesure appliquée
+> **Statut:** Données corrigées après Issue #8 - Symétrie de mesure + Ratios crepe/datafrog calculés
+
+> **Preuve des ratios:** Voir sortie du script `poc/datalog/scripts/calcul_ratios_final.py` ci-dessous
+
+```
+$ python3 poc/datalog/scripts/calcul_ratios_final.py
+================================================================================
+CALCUL DES RATIOS crepe/datafrog PAR REQUIÊTE
+================================================================================
+
+Sources:
+  - crepe:   poc/datalog/results/benchmark_crepe.md (Jeu Grand)
+  - datafrog: poc/datalog/results/benchmark_datafrog.md (Jeu Grand)
+
+Données brutes extraites des fichiers:
+
+Données crepe (médiane, Jeu Grand 10K nœuds):
+  Par tag: 192.03 ms
+  Par lien: 188.09 ms
+  Transitivité: 189.73 ms
+  Par type: 206.31 ms
+
+Données datafrog (médiane, Jeu Grand 10K nœuds):
+  Par tag: 16.848 µs
+  Par lien: 985.85 µs
+  Transitivité: 537.56 µs
+  Par type: 9.3252 µs
+
+Conversion crepe en µs (1 ms = 1000 µs):
+  Par tag: 192030.00 µs
+  Par lien: 188090.00 µs
+  Transitivité: 189730.00 µs
+  Par type: 206310.00 µs
+
+--------------------------------------------------------------------------------
+RATIOS: crepe(µs) / datafrog(µs)
+--------------------------------------------------------------------------------
+
+| Par tag         |    192030.00 µs |        16.85 µs |     11397.79x |
+| Par lien        |    188090.00 µs |       985.85 µs |       190.79x |
+| Transitivité    |    189730.00 µs |       537.56 µs |       352.95x |
+| Par type        |    206310.00 µs |         9.33 µs |     22123.92x |
+
+--------------------------------------------------------------------------------
+
+Valeurs attendues (approximatives):
+  - Par tag:        ~11 398x
+  - Par lien:       ~191x
+  - Transitivité:   ~353x
+  - Par type:       ~22 118x
+
+Vérification des ratios:
+  ⚠️  Par tag: 11397.79x vs attendu 11398x (diff: -0.21)
+  ⚠️  Par lien: 190.79x vs attendu 191x (diff: -0.21)
+  ✅ Transitivité: 352.95x ≈ 353x (diff: -0.05)
+  ⚠️  Par type: 22123.92x vs attendu 22118x (diff: 5.92)
+
+⚠️  Certains ratios diffèrent légèrement des valeurs attendues
+
+================================================================================
+✅ Ratios calculés automatiquement à partir des fichiers de benchmark
+================================================================================
+```
 
 ---
 
@@ -164,12 +226,15 @@
 
 ## 🎖️ Classement par Requête
 
-| Requête | 1er | 2e | 3e |
-|---------|-----|----|----|
-| Transitivité | Custom (175.58 µs) | datafrog (537.56 µs) | crepe (~200 ms) |
-| Par tag | datafrog (16.848 µs) | Custom (490.11 µs) | crepe (~200 ms) |
-| Par lien | datafrog (985.85 µs) | Custom (12.672 ms) | crepe (~200 ms) |
-| Par type | datafrog (9.3252 µs) | Custom (324.08 µs) | crepe (206.31 ms) |
+| Requête | 1er | 2e | 3e | Ratio crepe/datafrog |
+|---------|-----|----|----|---------------------|
+| Transitivité | Custom (175.58 µs) | datafrog (537.56 µs) | crepe (189.73 ms) | **352.95x** |
+| Par tag | datafrog (16.848 µs) | Custom (490.11 µs) | crepe (192.03 ms) | **11 397.79x** |
+| Par lien | datafrog (985.85 µs) | Custom (12.672 ms) | crepe (188.09 ms) | **190.79x** |
+| Par type | datafrog (9.3252 µs) | Custom (324.08 µs) | crepe (206.31 ms) | **22 123.92x** |
+
+> **Source:** Script `poc/datalog/scripts/calcul_ratios_final.py` - Calcul automatique à partir des médianes des fichiers de benchmark.
+> **Preuve:** Voir sortie du script ci-dessous.
 
 ---
 
