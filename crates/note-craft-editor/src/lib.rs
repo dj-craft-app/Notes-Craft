@@ -6,11 +6,15 @@
 //! - Gestion des blocs et pages
 //! - Intégration avec le système de stockage
 
+pub mod code_block;
 pub mod markdown;
 
 use note_craft_core::{Node, NodeId, TypeId};
 
 // Ré-export des types principaux
+pub use code_block::{
+    copy_javascript, generate_css, CodeBlock, CodeBlockMetadata, CodeBlockParser,
+};
 pub use markdown::{MarkdownConfig, MarkdownEditor, MarkdownError, MarkdownResult};
 
 /// Parse un document Markdown simple et retourne les nœuds extraits
