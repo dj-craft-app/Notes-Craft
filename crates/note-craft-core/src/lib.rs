@@ -37,6 +37,13 @@ pub use config::{
     ValidationRule,
 };
 
+// Repository Management (Phase 1 - Étape 1.6)
+pub mod repo;
+pub use repo::{
+    RepoConfig, RepoError, RepoEvent, RepoEventListener, RepoEventType, RepoId, RepoInfo,
+    RepoManager, RepoMetadata, RepoPaths, RepoStatus, RepoType, Repository,
+};
+
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
 // ============================================================================
