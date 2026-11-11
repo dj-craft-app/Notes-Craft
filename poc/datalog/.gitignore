@@ -1,0 +1,12 @@
+# Ignorer les fichiers de build Rust
+target/
+
+# Ignorer les fichiers temporaires
+*.rs~\
+*.tmp
+
+# Ignorer les logs
+*.log
+
+# Ignorer les résultats de benchmark (à moins qu'on veuille les versionner)
+# benchmark/results/

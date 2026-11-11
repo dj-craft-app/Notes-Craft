@@ -1,0 +1,17 @@
+[package]
+name = "datafrog-poc"
+version = "0.1.0"
+edition = "2021"
+description = "PoC d'évaluation de datafrog comme moteur Datalog pour Note Craft"
+license = "MIT"
+
+[dependencies]
+datafrog = "2.0.1"
+
+[dev-dependencies]
+criterion = "0.5"
+
+# Benchmarks à ajouter plus tard
+# [[bench]]
+# name = "benchmark"
+# harness = false

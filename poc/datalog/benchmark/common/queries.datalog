@@ -1,0 +1,214 @@
+; =============================================================================
+; Fichier: queries.datalog
+; Description: Requêtes de test Datalog pour le PoC Moteur Datalog
+; Source: Issue #4, Phase 0.13
+; Basé sur: Syntax Logseq Datalog (https://logseq.github.io/docs/datalog)
+; =============================================================================
+
+; -----------------------------------------------------------------------------
+; SECTION 1: REQUÊTES SIMPLES
+; Objective: Tester les requêtes de base (1-2 conditions)
+; Complexité: Faible
+; -----------------------------------------------------------------------------
+
+; 1.1: Trouver tous les nœuds avec un tag spécifique
+; Utilisation: Recherche par tag
+[:find ?node
+ :where [?node :tag "important"]]
+
+; 1.2: Trouver tous les nœuds liés à un nœud spécifique
+; Utilisation: Navigation dans le graphe
+[:find ?linked-node
+ :where ["node-123" :link ?linked-node]]
+
+; 1.3: Trouver tous les nœuds de type "page"
+; Utilisation: Filtrage par type
+[:find ?page
+ :where [?page :type :page]]
+
+; 1.4: Trouver tous les nœuds créés aujourd'hui
+; Utilisation: Filtrage par date
+[:find ?node
+ :where [?node :created ?date]
+        [(= ?date "2026-11-11")]]
+
+; 1.5: Trouver tous les nœuds avec un titre contenant "Rust"
+; Utilisation: Recherche textuelle
+[:find ?node
+ :where [?node :title ?title]
+        [(clojure.string/includes? ?title "Rust")]]
+
+; -----------------------------------------------------------------------------
+; SECTION 2: REQUÊTES MOYENNES
+; Objective: Tester les requêtes avec plusieurs conditions et jointures
+; Complexité: Moyenne
+; -----------------------------------------------------------------------------
+
+; 2.1: Trouver tous les nœuds liés à des pages taguées "rust"
+; Utilisation: Jointure entre nœuds et tags
+[:find ?node ?linked
+ :where [?node :link ?linked]
+        [?linked :tag "rust"]]
+
+; 2.2: Trouver tous les nœuds avec un tag et créés après une date
+; Utilisation: Conditions multiples
+[:find ?node ?tag
+ :where [?node :tag ?tag]
+        [?node :created ?date]
+        [(> ?date "2026-01-01")]]
+
+; 2.3: Trouver les 10 nœuds les plus récemment modifiés
+; Utilisation: Tri et limite
+[:find ?node ?modified
+ :where [?node :modified ?modified]
+ :order-desc ?modified
+ :limit 10]
+
+; 2.4: Trouver tous les backlinks d'un nœud
+; Utilisation: Requête inverse
+[:find ?source
+ :where [?source :link "target-node"]]
+
+; 2.5: Compter les nœuds par tag
+; Utilisation: Agrégation
+[:find ?tag (count ?node)
+ :where [?node :tag ?tag]
+ :group-by ?tag]
+
+; -----------------------------------------------------------------------------
+; SECTION 3: REQUÊTES COMPLEXES
+; Objective: Tester les requêtes avec logique avancée
+; Complexité: Élevée
+; -----------------------------------------------------------------------------
+
+; 3.1: Trouver les nœuds liés directement ou indirectement à un nœud source
+; Utilisation: Requête récursive (transitive closure)
+[:find ?node
+ :where (or [?node :link "source-node"]
+             [?node :link ?intermediate]
+             [?intermediate :link "source-node"])
+       (not (= ?node "source-node"))]
+
+; 3.2: Trouver les nœuds qui ont des liens vers des pages et des blocks
+; Utilisation: Conditions OR complexes
+[:find ?node
+ :where [?node :link ?target]
+        (or [?target :type :page]
+            [?target :type :block])]
+
+; 3.3: Trouver les tags les plus populaires (top 5)
+; Utilisation: Agrégation + tri + limite
+[:find ?tag ?count
+ :where [?node :tag ?tag]
+ :group-by ?tag
+ :order-desc ?count
+ :limit 5]
+
+; 3.4: Trouver les nœuds orphelins (sans backlinks)
+; Utilisation: Sous-requête NOT EXISTS
+[:find ?node
+ :where [?node :type ?type]
+        (not [?other :link ?node])]
+
+; 3.5: Trouver les nœuds avec des liens réciproques
+; Utilisation: Jointure auto-référencée
+[:find ?node1 ?node2
+ :where [?node1 :link ?node2]
+        [?node2 :link ?node1]
+        [(not= ?node1 ?node2)]]
+
+; -----------------------------------------------------------------------------
+; SECTION 4: REQUÊTES DE PERFORMANCE
+; Objective: Tester les performances avec des opérations coûteuses
+; Complexité: Très élevée
+; -----------------------------------------------------------------------------
+
+; 4.1: Trouver tous les chemins de longueur 2 entre nœuds
+; Utilisation: Jointure avec variable intermédiaire
+[:find ?start ?end ?intermediate
+ :where [?start :link ?intermediate]
+        [?intermediate :link ?end]
+        [(not= ?start ?end)]]
+
+; 4.2: Trouver tous les nœuds accessibles en 3 sauts maximum depuis un nœud source
+; Utilisation: Requête récursive profonde
+[:find ?node
+ :where (or [?node :link "source"]
+             [?node :link ?n1] [?n1 :link "source"]
+             [?node :link ?n1] [?n1 :link ?n2] [?n2 :link "source"]
+             [?node :link ?n1] [?n1 :link ?n2] [?n2 :link ?n3] [?n3 :link "source"])
+       (not (= ?node "source"))
+       (not [?node :link ?n1] [?n1 :link ?n2] [?n2 :link ?n3] [?n3 :link ?n4] [?n4 :link "source"])]
+
+; 4.3: Trouver la distance minimale entre deux nœuds (algorithme de plus court chemin)
+; Note: Cela nécessite une implémentation spéciale dans le moteur
+; Alternative: Utiliser une requête récursive avec comptage
+[:find ?node ?distance
+ :where [?node :link* "source-node"]
+        [(= ?distance (count ?path))]]
+
+; 4.4: Trouver toutes les paires de nœuds avec des tags communs
+; Utilisation: Jointure sur les tags
+[:find ?node1 ?node2 ?common-tag
+ :where [?node1 :tag ?common-tag]
+        [?node2 :tag ?common-tag]
+        [(not= ?node1 ?node2)]]
+
+; 4.5: Trouver les nœuds les plus connectés (degré > 10)
+; Utilisation: Agrégation + filtrage
+[:find ?node ?degree
+ :where [?node :link ?target]
+ :group-by ?node
+ :having [(> (count ?target) 10)]]
+
+; -----------------------------------------------------------------------------
+; SECTION 5: REQUÊTES POUR BENCHMARK
+; Objective: Requêtes spécifiques pour mesurer les performances
+; À utiliser avec les jeux de données de test
+; -----------------------------------------------------------------------------
+
+; 5.1: Benchmark - Requête simple (1 condition)
+; Mesure: Temps d'exécution de base
+[:find ?node
+ :where [?node :tag "benchmark"]]
+
+; 5.2: Benchmark - Requête avec jointure (2 conditions)
+; Mesure: Performance des jointures
+[:find ?node ?linked
+ :where [?node :link ?linked]
+        [?linked :tag "benchmark"]]
+
+; 5.3: Benchmark - Requête récursive (transitive closure)
+; Mesure: Performance des requêtes récursives
+[:find ?node
+ :where (or [?node :link "benchmark-root"]
+             [?node :link ?intermediate]
+             [?intermediate :link "benchmark-root"])]
+
+; 5.4: Benchmark - Agrégation
+; Mesure: Performance des agrégations
+[:find ?tag (count ?node)
+ :where [?node :tag ?tag]
+ :group-by ?tag]
+
+; 5.5: Benchmark - Requête complexe (5+ conditions)
+; Mesure: Performance des requêtes complexes
+[:find ?node ?tag ?date ?author
+ :where [?node :tag ?tag]
+        [?node :created ?date]
+        [?node :author ?author]
+        [?node :link ?linked]
+        [?linked :tag "benchmark"]
+        [(> ?date "2026-01-01")]]
+
+; =============================================================================
+; NOTES:
+; - Les requêtes utilisent la syntaxe Logseq Datalog
+; - Certains moteurs peuvent nécessiter des adaptations de syntaxe
+; - Les requêtes marquées avec (*) nécessitent un support spécifique
+;   pour les opérateurs récursifs
+; - Pour les benchmarks, utiliser des jeux de données de tailles:
+;   - Petit: 100 nœuds, 500 relations
+;   - Moyen: 1,000 nœuds, 5,000 relations
+;   - Grand: 10,000 nœuds, 50,000 relations
+; =============================================================================
