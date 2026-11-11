@@ -12,6 +12,7 @@ use note_craft_core::Node;
 pub mod block_ui;
 pub mod command_palette;
 pub mod graph_view;
+pub mod journal_view;
 pub mod keyboard;
 pub mod outliner;
 pub mod page_ui;
@@ -31,6 +32,12 @@ pub use command_palette::{
 };
 pub use graph_view::{
     Graph, GraphEdge, GraphNode, GraphView, GraphViewConfig, GraphViewEvent, LayoutAlgorithm,
+};
+pub use journal_view::{
+    get_current_date, get_days_ago, get_month_end, get_month_start, get_today, get_tomorrow,
+    get_week_end, get_week_start, get_yesterday, JournalColorScheme, JournalConfig, JournalEntry,
+    JournalEvent, JournalFilter, JournalSection, JournalSectionType, JournalSortOrder, JournalView,
+    JournalViewMode,
 };
 pub use keyboard::{
     create_default_editor_shortcuts, create_default_global_shortcuts,
