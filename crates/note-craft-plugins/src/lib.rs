@@ -1,62 +1,46 @@
 //! Note Craft Plugins - Système de plugins avec WASM
 //!
 //! Ce module fournit:
-//! - Gestion des plugins WASM
-//! - Sandboxing avec wasmtime
-//! - API pour les plugins
-
-use wasmtime::{Engine, Instance, Module, Store, Val};
+//! - Gestion des plugins WASM (À implémenter en Phase 6)
+//! - Sandboxing avec wasmtime (À implémenter en Phase 6)
+//! - API pour les plugins (À implémenter en Phase 6)
+//!
+//! Phase 0: Stub minimal pour compilation
 
 /// Structure principale du système de plugins
-pub struct PluginSystem {
-    engine: Engine,
-}
+/// À implémenter en Phase 6 avec wasmtime
+pub struct PluginSystem;
 
 impl Default for PluginSystem {
     fn default() -> Self {
-        let engine = Engine::default();
-        PluginSystem { engine }
+        PluginSystem
     }
 }
 
 impl PluginSystem {
     pub fn new() -> Self {
-        Self::default()
+        PluginSystem
     }
 
-    /// Charge un plugin WASM
-    pub fn load_plugin(&self, wasm_bytes: &[u8]) -> Result<Plugin, Box<dyn std::error::Error>> {
-        let module = Module::from_binary(&self.engine, wasm_bytes)?;
-        let mut store = Store::new(&self.engine, ());
-
-        let instance = Instance::new(&mut store, &module, &[])?;
-
-        Ok(Plugin { store, instance })
+    /// Charge un plugin WASM (À implémenter en Phase 6)
+    pub fn load_plugin(&self, _wasm_bytes: &[u8]) -> Result<Plugin, Box<dyn std::error::Error>> {
+        // Stub pour compilation
+        Ok(Plugin)
     }
 }
 
-/// Représente un plugin chargé
-pub struct Plugin {
-    store: Store<()>,
-    instance: Instance,
-}
+/// Représente un plugin chargé (À implémenter en Phase 6)
+pub struct Plugin;
 
 impl Plugin {
-    /// Appelle une fonction du plugin
+    /// Appelle une fonction du plugin (À implémenter en Phase 6)
     pub fn call(
         &mut self,
-        func_name: &str,
-        args: &[Val],
-    ) -> Result<Vec<Val>, Box<dyn std::error::Error>> {
-        let func = self
-            .instance
-            .get_func(&mut self.store, func_name)
-            .ok_or("Function not found")?;
-
-        let mut results = vec![Val::I32(0); args.len()];
-        func.call(&mut self.store, args, &mut results)?;
-
-        Ok(results)
+        _func_name: &str,
+        _args: &[u8],
+    ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+        // Stub pour compilation
+        Ok(vec![])
     }
 }
 
@@ -68,6 +52,6 @@ mod tests {
     #[test]
     fn test_plugin_system_creation() {
         let _system = PluginSystem::new();
-        // PluginSystem créé avec succès
+        // Compilation réussie
     }
 }

@@ -16,8 +16,8 @@ serde = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }
 
-# UI
-slint = { workspace = true }
+# UI (will be added in Phase 3)
+# slint = { workspace = true }
 
 [dev-dependencies]
 anyhow = { workspace = true }

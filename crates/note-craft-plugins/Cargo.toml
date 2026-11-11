@@ -16,8 +16,8 @@ serde = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }
 
-# WASM runtime
-wasmtime = { workspace = true }
+# WASM runtime (will be added in Phase 6)
+# wasmtime = { workspace = true }
 
 [dev-dependencies]
 anyhow = { workspace = true }
