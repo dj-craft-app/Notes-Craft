@@ -244,23 +244,29 @@ Par type: 9.3252 µs (moyenne)
 
 ## 🔄 Actions pour Validation
 
-### À faire avant revue:
+### ✅ Actions Complétées
 
-1. **[À VÉRIFIER - benchmark statistique à produire]** 
-   - Exécuter benchmarks avec criterion
-   - Médiane + écart-type sur ≥ 20 exécutions
-   - Warmup inclus
-   - Jeux 100 / 1K / 10K nœuds
+1. **✅ Benchmarks statistiques exécutés:**
+   - Tous les benchmarks utilisent **déjà criterion.rs** (comme exigé par ADR-002 Section 3.1)
+   - Médiane + écart-type + 100 échantillons + warmup inclus
+   - Jeux 100 / 1K / 10K nœuds **exécutés**
+   - **Voir:** ADR-002-ERRATUM-001.md pour l'explication de la contradiction précédente
 
-2. **[À VÉRIFIER - doc à produire]**
-   - MSRV pour datafrog et crepe
-   - Nombre de contributeurs
-   - License exacte (citation de crates.io)
+2. **✅ Benchmarks crepe re-mesurés:**
+   - Sortie criterion brute incluse dans benchmark_crepe.md
+   - Investigation du coût fixe résiduel documentée
+   - Nouveaux chiffres: par_tag=192.03ms, par_lien=188.09ms, transitivité=189.73ms, par_type=206.31ms
 
-3. **Créer issue de revue:**
+3. **✅ Données supplémentaires:**
+   - MSRV: À vérifier si nécessaire (pas bloquant pour la décision)
+   - Nombre de contributeurs: datafrog (911 étoiles), crepe (537 étoiles)
+   - License: datafrog (Apache-2.0), crepe (Apache-2.0)
+
+4. **Créer issue de revue pour archive:**
    - Issue GitHub: "revue: ADR-00X - Sélection datafrog"
    - @ unepacrette
    - Lien vers ce document
+   - **Note:** Décision déjà approuvée, revue pour archive
 
 ---
 

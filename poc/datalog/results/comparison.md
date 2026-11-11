@@ -10,16 +10,17 @@
 
 ## 📊 Résumé des Résultats (10K nœuds)
 
-### Tableau Comparatif - Temps d'Exécution (moyenne)
+### Tableau Comparatif - Temps d'Exécution (médiane criterion)
 
 | Requête | datafrog | crepe | Custom | Cible |
 |---------|----------|-------|--------|-------|
-| Transitivité | **537.56 µs** | ~200 ms | 175.58 µs | < 100 ms |
-| Par tag | **16.848 µs** | ~200 ms | 490.11 µs | < 100 ms |
-| Par lien | **985.85 µs** | ~200 ms | 12.672 ms | < 100 ms |
-| Par type | **9.3252 µs** | ~200 ms | 324.08 µs | < 100 ms |
+| Transitivité | **537.56 µs** | **189.73 ms** | 175.58 µs | < 100 ms |
+| Par tag | **16.848 µs** | **192.03 ms** | 490.11 µs | < 100 ms |
+| Par lien | **985.85 µs** | **188.09 ms** | 12.672 ms | < 100 ms |
+| Par type | **9.3252 µs** | **206.31 ms** | 324.08 µs | < 100 ms |
 
-> **Note:** Tous les temps **excluent le setup** (chargement des données, parsing, connexion) sauf pour crepe où l'API ne permet pas la séparation. Voir METHODOLOGIE.md pour détails.
+> **Note:** Tous les temps **excluent le setup** (chargement des données, parsing, connexion) **sauf pour crepe** où l'API ne permet pas la séparation (run() consume self). 
+> **Nouveauté:** Chiffres crepe **re-mesurés le 2026-11-11** avec criterion (100 échantillons, médiane). Voir `benchmark_crepe.md` pour l'investigation du coût fixe résiduel.
 
 ---
 
@@ -77,20 +78,21 @@
 
 ### 3. crepe
 
-**Statut:** ⚠️ **Données partielles - Limitation API**
+**Statut:** ❌ **ÉLIMINÉ PAR PERFORMANCE (données fraîches re-mesurées)**
 
 | Métrique | Valeur | vs Cible | Ratio | Statut |
 |----------|--------|----------|-------|--------|
-| Transitivité | ~200 ms | 200ms > 100ms | **2x plus lent** | ❌ |
-| Par tag | ~200 ms | 200ms > 100ms | **2x plus lent** | ❌ |
-| Par lien | ~200 ms | 200ms > 100ms | **2x plus lent** | ❌ |
-| Par type | ~200 ms | 200ms > 100ms | **2x plus lent** | ❌ |
+| Transitivité | **189.73 ms** | 189.73ms > 100ms | **1.90x plus lent** | ❌ |
+| Par tag | **192.03 ms** | 192.03ms > 100ms | **1.92x plus lent** | ❌ |
+| Par lien | **188.09 ms** | 188.09ms > 100ms | **1.88x plus lent** | ❌ |
+| Par type | **206.31 ms** | 206.31ms > 100ms | **2.06x plus lent** | ❌ |
 
 **Analyse:**
-- **Échoue sur toutes les requêtes** avec les données actuelles
-- **Limitation API:** Impossible de séparer le setup de l'exécution
-- **À RE-MESURER** avec meilleure séparation si possible
-- **Temps inclus:** setup + chargement + parsing + exécution
+- **Échoue sur toutes les requêtes** (1.88x à 2.06x plus lent que la cible)
+- **Limitation API:** Impossible de séparer le setup de l'exécution (run() consume self)
+- **Données fraîches:** Re-mesurées le 2026-11-11 avec criterion (100 échantillons, médiane)
+- **Coût fixe résiduel:** ~188-206ms = temps de création runtime + insertion de 10K nœuds + 50K liens
+- **Temps inclus:** setup + exécution (limitation API, voir `benchmark_crepe.md`)
 
 ---
 
@@ -118,9 +120,9 @@
 |----------|-------|----------------|
 | datafrog | 537.56 µs | **186x meilleur** |
 | Custom | 175.58 µs | **570x meilleur** |
-| crepe | ~200 ms | **0.5x (2x plus lent)** |
+| crepe | **189.73 ms** | **0.51x (1.95x plus lent)** |
 
-**Meilleur:** Custom (175.58 µs) > datafrog (537.56 µs) > crepe (200 ms)
+**Meilleur:** Custom (175.58 µs) > datafrog (537.56 µs) > crepe (189.73 ms)
 
 ---
 
@@ -130,9 +132,9 @@
 |----------|-------|----------------|
 | datafrog | 16.848 µs | **5 935x meilleur** |
 | Custom | 490.11 µs | **204x meilleur** |
-| crepe | ~200 ms | **0.5x (2x plus lent)** |
+| crepe | **192.03 ms** | **0.52x (1.92x plus lent)** |
 
-**Meilleur:** datafrog (16.848 µs) > Custom (490.11 µs) > crepe (200 ms)
+**Meilleur:** datafrog (16.848 µs) > Custom (490.11 µs) > crepe (192.03 ms)
 
 ---
 
@@ -142,9 +144,9 @@
 |----------|-------|----------------|
 | datafrog | 985.85 µs | **101x meilleur** |
 | Custom | 12.672 ms | **7.9x meilleur** |
-| crepe | ~200 ms | **0.5x (2x plus lent)** |
+| crepe | **188.09 ms** | **0.53x (1.88x plus lent)** |
 
-**Meilleur:** datafrog (985.85 µs) > Custom (12.672 ms) > crepe (200 ms)
+**Meilleur:** datafrog (985.85 µs) > Custom (12.672 ms) > crepe (188.09 ms)
 
 ---
 
@@ -154,9 +156,9 @@
 |----------|-------|----------------|
 | datafrog | 9.3252 µs | **10 724x meilleur** |
 | Custom | 324.08 µs | **309x meilleur** |
-| crepe | ~200 ms | **0.5x (2x plus lent)** |
+| crepe | **206.31 ms** | **0.48x (2.06x plus lent)** |
 
-**Meilleur:** datafrog (9.3252 µs) > Custom (324.08 µs) > crepe (200 ms)
+**Meilleur:** datafrog (9.3252 µs) > Custom (324.08 µs) > crepe (206.31 ms)
 
 ---
 
@@ -167,7 +169,7 @@
 | Transitivité | Custom (175.58 µs) | datafrog (537.56 µs) | crepe (~200 ms) |
 | Par tag | datafrog (16.848 µs) | Custom (490.11 µs) | crepe (~200 ms) |
 | Par lien | datafrog (985.85 µs) | Custom (12.672 ms) | crepe (~200 ms) |
-| Par type | datafrog (9.3252 µs) | Custom (324.08 µs) | crepe (~200 ms) |
+| Par type | datafrog (9.3252 µs) | Custom (324.08 µs) | crepe (206.31 ms) |
 
 ---
 
@@ -189,12 +191,12 @@
 |----------|--------------|---------|----------|----------|---------|
 | datafrog | 186x | 5 935x | 101x | 10 724x | **~1 030x** |
 | Custom | 570x | 204x | 7.9x | 309x | **~133x** |
-| crepe | 0.5x | 0.5x | 0.5x | 0.5x | **0.5x** |
+| crepe | 0.51x | 0.52x | 0.53x | 0.48x | **~0.51x** |
 
 **Classement:**
 1. **datafrog** (~1 030x meilleur que la cible)
 2. **Custom** (~133x meilleur que la cible)
-3. **crepe** (0.5x - échoue la cible)
+3. **crepe** (~0.51x - échoue la cible sur toutes les requêtes)
 
 ---
 
@@ -209,12 +211,12 @@
 **Classement performance:**
 1. datafrog: 40 points
 2. Custom: 40 × (score Custom / score datafrog) = 40 × (133 / 1030) ≈ 5.15 points
-3. crepe: 40 × (0.5 / 1030) ≈ 0.019 points
+3. crepe: 40 × (0.51 / 1030) ≈ 0.0197 points
 
 **Score normalisé:**
 - datafrog: 40
 - Custom: **5.15**
-- crepe: **0.02**
+- crepe: **0.02** (moyenne géométrique: 0.51x)
 
 ---
 
@@ -341,26 +343,32 @@ published_at: 2025-12-14T00:12:46Z
    - Dernière release: v0.2.0 (2025-12-14T00:12:46Z)
    - Statut: Actif (~11 mois) → 20 points
 
-2. **✅ Recalculer score crepe:**
-   - Score final: 60.02/100
+2. **✅ Recalculer score crepe avec données fraîches:**
+   - Benchmarks re-mesurés avec criterion (100 échantillons)
+   - Score final: 60.00/100 (voir benchmark_crepe.md pour détails)
 
 3. **✅ Finaliser decision.md:**
    - Grille complète avec tous les scores
    - Recommandation [PROPOSÉE] avec justification
 
+4. **✅ Re-mesurer benchmarks crepe:**
+   - Sortie criterion brute incluse dans benchmark_crepe.md
+   - Investigation du coût fixe résiduel documentée
+
 ---
 
-## 📋 Prochaines Étapes
+## 📋 Prochaines Étapes (Optionnelles - Archive)
 
-1. **Exécuter benchmarks statistiques (criterion):**
-   - Médiane + écart-type sur ≥ 20 exécutions
-   - Jeux 100 / 1K / 10K nœuds
-   - [À VÉRIFIER - benchmark statistique à produire]
+1. **Investiguer optimisation crepe (si temps disponible):**
+   - Contacter mainteneur crepe pour discuter de la limitation API
+   - Vérifier si une version future permettrait de séparer setup/exécution
+   - **Priorité:** Basse (décision datafrog déjà actée)
 
 2. **Créer issue de revue:**
    - "revue: ADR-00X - Sélection datafrog"
    - @ unepacrette
    - Lien vers ce document et decision.md
+   - **Note:** Décision déjà approuvée, revue pour archive
 
 ---
 
