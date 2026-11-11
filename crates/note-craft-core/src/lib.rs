@@ -13,6 +13,10 @@ use thiserror::Error;
 // Abstraction du système de fichiers (Phase 1 - Étape 1.1)
 pub mod fs;
 
+// Block System (Phase 1 - Étape 1.2)
+pub mod block;
+pub use block::{Block, BlockContent, BlockId, BlockSystem, BlockType, TextFormatting};
+
 // ============================================================================
 // TYPES PROPRES À NOTE CRAFT
 // ============================================================================
