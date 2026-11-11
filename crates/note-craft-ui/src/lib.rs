@@ -10,6 +10,7 @@
 use note_craft_core::Node;
 
 pub mod block_ui;
+pub mod command_palette;
 pub mod page_ui;
 pub mod sidebar;
 pub mod slint;
@@ -19,6 +20,10 @@ pub mod webview;
 pub use block_ui::{
     BlockRenderInfo, BlockStyleConfig, BlockUiEvent, BlockUiManager, BlockUiManagerBuilder,
     BlockUiState,
+};
+pub use command_palette::{
+    Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
+    CommandPaletteState, CommandResult, ExecutableCommand,
 };
 pub use page_ui::{
     PageConfig, PageLayoutMode, PageRenderInfo, PageSidebarItemBuilder, PageUiEvent, PageUiManager,
