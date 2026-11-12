@@ -29,6 +29,12 @@ Règles :
 3. Exécute et CITE : cargo build, cargo test, cargo clippy --all-targets -- -D warnings,
    cargo fmt --check.
 4. Un subagent ne valide jamais son propre travail : ne t'auto-évalue pas.
+5. JAMAIS de modification de fichiers sources par commande shell (heredoc cat >,
+   perl -i, sed -i, tee, echo >>) : deux incidents de ce type ont déjà vidé un
+   fichier en session. Les commandes shell servent à lire, compiler, tester.
+   Toute écriture ou modification de code passe par read_file/edit/write_file.
+   Fichier long (>500 lignes) : édite par sections ciblées, jamais de réécriture
+   globale. Après toute écriture : git diff pour vérifier l'intégrité.
 
 TON RAPPORT EST TOUJOURS AU FORMAT MARKDOWN, structuré exactement ainsi :
 
