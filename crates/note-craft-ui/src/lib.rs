@@ -12,6 +12,7 @@ use note_craft_core::Node;
 pub mod asset_gallery;
 pub mod block_ui;
 pub mod command_palette;
+pub mod design_system;
 pub mod dialog;
 pub mod graph_view;
 pub mod journal_view;
@@ -38,6 +39,9 @@ pub use block_ui::{
 pub use command_palette::{
     Command, CommandAction, CommandPaletteBuilder, CommandPaletteEvent, CommandPaletteManager,
     CommandPaletteState, CommandResult, ExecutableCommand,
+};
+pub use design_system::{
+    DesignSystemThemeColors, border_radius, colors, light_colors, spacing, typography, z_index,
 };
 pub use dialog::{
     DialogButton, DialogButtonConfig, DialogConfig, DialogEvent, DialogIcon, DialogId,
