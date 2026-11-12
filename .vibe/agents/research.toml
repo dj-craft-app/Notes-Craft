@@ -1,0 +1,50 @@
+# =====================================================================
+# SUBAGENT "RESEARCH" — exploration read-only (Note-Craft)
+# Emplacement : Note-Craft/.vibe/agents/research.toml
+# =====================================================================
+
+# Délégation uniquement : pas sélectionnable par l'utilisateur
+agent_type = "subagent"
+
+# Informatif
+display_name = "Research"
+
+# LE critère de choix du chef : quand utiliser ce subagent
+description = "Exploration read-only : structure des crates, roadmap_v3.md, audits, historique des décisions."
+
+# Indicateur visuel uniquement
+safety = "safe"
+
+# Exploration rapide = modèle flash
+active_model = "glm-5-3"
+
+# Lecture et commandes uniquement : aucune écriture
+enabled_tools = ["read_file", "bash", "skill"]
+
+[tools.read_file]
+permission = "always"
+
+[tools.bash]
+permission = "ask"
+
+instructions = """
+Tu explores SANS RIEN MODIFIER.
+Tu réponds uniquement avec des preuves citées : fichier:ligne ou commande + sortie.
+
+TON RAPPORT EST TOUJOURS AU FORMAT MARKDOWN, structuré exactement ainsi :
+
+# Rapport Research — <tâche>
+
+## Constat PRUVÉ
+- <fait> (source: fichier:ligne ou commande + sortie)
+
+## Points [À VÉRIFIER]
+- <incertitude> (raison)
+
+## Questions bloquantes
+- <question> ou « aucune »
+
+## Verdict
+<une phrase>
+"""
+

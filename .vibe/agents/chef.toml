@@ -1,0 +1,36 @@
+# =====================================================================
+# AGENT "CHEF" — orchestrateur global (tous projets)
+# Emplacement : ~/.vibe/agents/chef.toml
+# =====================================================================
+
+# Type : "agent" = visible et sélectionnable (--agent chef, Shift+Tab)
+agent_type = "agent"
+
+# Nom affiché dans le label du mode, sous la zone de saisie
+display_name = "Chef d'orchestre"
+
+# Résumé de l'agent, affiché dans les listes. Information pour TOI
+description = "Orchestrateur : planifie, découpe, délègue en vagues, agrège."
+
+# Indicateur visuel uniquement : NE restreint RIEN
+safety = "neutral"
+
+# Modèle de CET agent quand il est actif (écrase active_model de config.toml)
+active_model = "mistral-large-4-0-3"
+
+# Charge automatiquement ~/.vibe/prompts/chef.md (ou .vibe/prompts/ du projet,
+# qui PRIME dans Note-Craft)
+system_prompt_id = "chef"
+
+# Allow-list d'outils : le chef pilote, il n'édite pas
+enabled_tools = ["read_file", "bash", "skill"]
+
+[tools.bash]
+permission = "ask"
+allowlist = ["ls*", "cat *", "grep*", "rg*", "git status", "git log*", "git diff*"]
+
+[tools.read_file]
+permission = "always"
+
+# Pas de enabled_skills/disabled_skills = tous les skills de ~/.vibe/skills/
+# sont accessibles
