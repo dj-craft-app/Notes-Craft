@@ -1390,13 +1390,6 @@ mod tests {
             export_result.properties_exported
         );
 
-        // NB (dette préexistante de l'importeur, hors périmètre #102) : le
-        // parseur maison reçoit le fichier ENTIER, frontmatter inclus
-        // (importer.rs:542), donc les lignes du frontmatter ressortent aussi
-        // comme un bloc paragraphe supplémentaire côté import.
-        assert_eq!(
-            import_result.blocks_imported,
-            export_result.blocks_exported + 1
-        );
+        assert_eq!(import_result.blocks_imported, export_result.blocks_exported);
     }
 }
