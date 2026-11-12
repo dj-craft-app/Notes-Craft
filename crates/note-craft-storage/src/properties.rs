@@ -480,6 +480,7 @@ pub fn filter_by_property(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::schema;
     use note_craft_core::property::{Property, PropertyType, PropertyValue};
     use tempfile::tempdir;
 

@@ -59,6 +59,13 @@ chrono = { version = "0.4", features = ["serde"] }
 # Testing
 tokio-test = "0.4"
 
+# Parsing
+regex = "1.10"
+quick-xml = { version = "0.31", features = ["serialize"] }
+
+# UUID
+uuid = { version = "1.4", features = ["v4"] }
+
 [profile.release]
 opt-level = 3
 lto = "fat"
