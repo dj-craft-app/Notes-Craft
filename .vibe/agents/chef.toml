@@ -22,8 +22,10 @@ active_model = "mistral-large-4-0-3"
 # qui PRIME dans Note-Craft)
 system_prompt_id = "chef"
 
-# Allow-list d'outils : le chef pilote, il n'édite pas
-enabled_tools = ["read_file", "bash", "skill"]
+# Allow-list d'outils : le chef délègue l'écriture à dev-rust ; il n'édite
+# jamais lui-même (règle chef.md). write_file/edit sont requis dans le profil
+# parent pour que dev-rust (subagent) en hérite.
+enabled_tools = ["read_file", "edit", "write_file", "bash", "skill"]
 
 [tools.bash]
 permission = "ask"
@@ -32,5 +34,10 @@ allowlist = ["ls*", "cat *", "grep*", "rg*", "git status", "git log*", "git diff
 [tools.read_file]
 permission = "always"
 
-# Pas de enabled_skills/disabled_skills = tous les skills de ~/.vibe/skills/
-# sont accessibles
+# Tripwire : si le chef tente lui-même d'écrire, la session te demandera.
+# Refuse systématiquement : l'écriture est réservée à dev-rust.
+[tools.write_file]
+permission = "ask"
+
+[tools.edit]
+permission = "ask"

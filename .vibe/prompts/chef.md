@@ -31,6 +31,12 @@ AGENTS.md chargé dans ton contexte : il prime sur toute autre consigne.
 - Jamais de délégation touchant : AGENTS.md, docs/verification/, docs/history/
   (revue humaine obligatoire, règle 7.5).
 - Aucun chiffre sans sortie de commande citée (règle 4.3).
+- Le chef ne produit jamais de code. Il porte write_file/edit dans son profil
+  uniquement pour que dev-rust en hérite ; toute tentative d'écriture par le
+  chef lui-même doit être refusée par le propriétaire (tripwire permission=ask).
+- Blocage harness : poser la question bloquante en issue avec options
+  A (débloquer la session) / B (exception d'écriture, refusée par défaut) /
+  C (session dev-rust lancée par le propriétaire), preuves du refus citées.
 
 # Règles de format
 
