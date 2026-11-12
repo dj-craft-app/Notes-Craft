@@ -1137,8 +1137,6 @@ mod tests {
         let mut manager = NotificationManager::new();
         manager.add_notification(NotificationConfig::new("Title1", "Message1"));
         manager.add_notification(NotificationConfig::new("Title2", "Message2"));
-        assert!(manager.queue.len() >= 0);
-        assert!(manager.notifications.len() >= 0);
         manager.clear_all();
         assert!(manager.queue.is_empty());
         assert!(manager.notifications.is_empty());
