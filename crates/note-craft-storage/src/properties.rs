@@ -5,8 +5,6 @@
 //!
 //! Phase 4 - Étape 4.2 (Property System)
 
-#[cfg(test)]
-use crate::schema;
 use note_craft_core::property::{
     Property, PropertyEntityType, PropertyId, PropertyValue, PropertyValueId,
 };
