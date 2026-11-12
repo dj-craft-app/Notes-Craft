@@ -5,8 +5,11 @@
 //!
 //! Phase 4 - Étape 4.2 (Property System)
 
+#[cfg(test)]
 use crate::schema;
-use note_craft_core::property::{Property, PropertyEntityType, PropertyError, PropertyId, PropertyValue, PropertyValueId};
+use note_craft_core::property::{
+    Property, PropertyEntityType, PropertyId, PropertyValue, PropertyValueId,
+};
 use rusqlite::{params, Connection, Result, Row};
 use serde_json;
 
@@ -121,7 +124,7 @@ pub fn get_property(conn: &Connection, id: PropertyId) -> Result<Option<Property
          created_at, updated_at FROM properties WHERE id = ?1",
     )?;
 
-    stmt.query_row(params![id.0 as i64], |row| row_to_property(row))
+    stmt.query_row(params![id.0 as i64], row_to_property)
         .map(Some)
         .or_else(|e| {
             if e.to_string().contains("Query returned no rows") {
@@ -141,7 +144,7 @@ pub fn get_property_by_name(conn: &Connection, name: &str) -> Result<Option<Prop
          created_at, updated_at FROM properties WHERE normalized_name = ?1",
     )?;
 
-    stmt.query_row(params![&normalized], |row| row_to_property(row))
+    stmt.query_row(params![&normalized], row_to_property)
         .map(Some)
         .or_else(|e| {
             if e.to_string().contains("Query returned no rows") {
@@ -161,7 +164,7 @@ pub fn list_properties(conn: &Connection) -> Result<Vec<Property>> {
     )?;
 
     let properties: Vec<Property> = stmt
-        .query_map(params![], |row| row_to_property(row))?
+        .query_map(params![], row_to_property)?
         .filter_map(|r| r.ok())
         .collect();
 
@@ -185,7 +188,7 @@ pub fn update_property(conn: &Connection, id: PropertyId, updates: &Property) ->
             updates.is_required as i32,
             updates.description.as_deref().unwrap_or(""),
             updates.display_order as i64,
-            chrono::Utc::now().timestamp() as i64,
+            { chrono::Utc::now().timestamp() },
             id.0 as i64,
         ],
     )?;
@@ -228,8 +231,8 @@ pub fn set_property_value(
             value_to_number(value),
             value_to_boolean(value),
             value_to_string(value), // date_value peut contenir date ou datetime
-            chrono::Utc::now().timestamp() as i64,
-            chrono::Utc::now().timestamp() as i64,
+            { chrono::Utc::now().timestamp() },
+            { chrono::Utc::now().timestamp() },
         ],
         |row| row.get(0),
     )?;
@@ -250,11 +253,7 @@ pub fn get_property_value(
     )?;
 
     stmt.query_row(
-        params![
-            property_id.0 as i64,
-            entity_id as i64,
-            entity_type as i64,
-        ],
+        params![property_id.0 as i64, entity_id as i64, entity_type as i64,],
         |row| {
             let value_type_str: String = row.get(0)?;
             let string_value: Option<String> = row.get(1)?;
@@ -285,13 +284,11 @@ pub fn get_property_value(
                 note_craft_core::property::PropertyType::Select => {
                     PropertyValue::Select(string_value.unwrap_or_default())
                 }
-                note_craft_core::property::PropertyType::MultiSelect => {
-                    PropertyValue::MultiSelect(
-                        string_value
-                            .map(|s| s.split(",").map(String::from).collect())
-                            .unwrap_or_default(),
-                    )
-                }
+                note_craft_core::property::PropertyType::MultiSelect => PropertyValue::MultiSelect(
+                    string_value
+                        .map(|s| s.split(",").map(String::from).collect())
+                        .unwrap_or_default(),
+                ),
                 note_craft_core::property::PropertyType::Url => {
                     PropertyValue::Url(string_value.unwrap_or_default())
                 }
@@ -327,60 +324,55 @@ pub fn get_all_property_values(
          FROM property_values WHERE entity_id = ?1 AND entity_type = ?2",
     )?;
 
-    let rows = stmt.query_map(
-        params![entity_id as i64, entity_type as i64],
-        |row| {
-            let property_id: i64 = row.get(0)?;
-            let value_type_str: String = row.get(1)?;
-            let string_value: Option<String> = row.get(2)?;
-            let number_value: Option<f64> = row.get(3)?;
-            let boolean_value: Option<i32> = row.get(4)?;
-            let date_value: Option<String> = row.get(5)?;
+    let rows = stmt.query_map(params![entity_id as i64, entity_type as i64], |row| {
+        let property_id: i64 = row.get(0)?;
+        let value_type_str: String = row.get(1)?;
+        let string_value: Option<String> = row.get(2)?;
+        let number_value: Option<f64> = row.get(3)?;
+        let boolean_value: Option<i32> = row.get(4)?;
+        let date_value: Option<String> = row.get(5)?;
 
-            let value_type: note_craft_core::property::PropertyType = value_type_str
-                .parse()
-                .unwrap_or(note_craft_core::property::PropertyType::Text);
+        let value_type: note_craft_core::property::PropertyType = value_type_str
+            .parse()
+            .unwrap_or(note_craft_core::property::PropertyType::Text);
 
-            let value = match value_type {
-                note_craft_core::property::PropertyType::Text => {
-                    PropertyValue::Text(string_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::Number => {
-                    PropertyValue::Number(number_value.unwrap_or(0.0))
-                }
-                note_craft_core::property::PropertyType::Boolean => {
-                    PropertyValue::Boolean(boolean_value.unwrap_or(0) != 0)
-                }
-                note_craft_core::property::PropertyType::Date => {
-                    PropertyValue::Date(date_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::DateTime => {
-                    PropertyValue::DateTime(date_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::Select => {
-                    PropertyValue::Select(string_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::MultiSelect => {
-                    PropertyValue::MultiSelect(
-                        string_value
-                            .map(|s| s.split(",").map(String::from).collect())
-                            .unwrap_or_default(),
-                    )
-                }
-                note_craft_core::property::PropertyType::Url => {
-                    PropertyValue::Url(string_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::Email => {
-                    PropertyValue::Email(string_value.unwrap_or_default())
-                }
-                note_craft_core::property::PropertyType::Color => {
-                    PropertyValue::Color(string_value.unwrap_or_default())
-                }
-            };
+        let value = match value_type {
+            note_craft_core::property::PropertyType::Text => {
+                PropertyValue::Text(string_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::Number => {
+                PropertyValue::Number(number_value.unwrap_or(0.0))
+            }
+            note_craft_core::property::PropertyType::Boolean => {
+                PropertyValue::Boolean(boolean_value.unwrap_or(0) != 0)
+            }
+            note_craft_core::property::PropertyType::Date => {
+                PropertyValue::Date(date_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::DateTime => {
+                PropertyValue::DateTime(date_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::Select => {
+                PropertyValue::Select(string_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::MultiSelect => PropertyValue::MultiSelect(
+                string_value
+                    .map(|s| s.split(",").map(String::from).collect())
+                    .unwrap_or_default(),
+            ),
+            note_craft_core::property::PropertyType::Url => {
+                PropertyValue::Url(string_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::Email => {
+                PropertyValue::Email(string_value.unwrap_or_default())
+            }
+            note_craft_core::property::PropertyType::Color => {
+                PropertyValue::Color(string_value.unwrap_or_default())
+            }
+        };
 
-            Ok((PropertyId(property_id as u64), value))
-        },
-    )?;
+        Ok((PropertyId(property_id as u64), value))
+    })?;
 
     rows.collect()
 }
@@ -405,7 +397,11 @@ pub fn delete_property_value(
 }
 
 /// Supprime toutes les valeurs de propriétés pour une entité
-pub fn delete_all_property_values(conn: &Connection, entity_id: u64, entity_type: PropertyEntityType) -> Result<()> {
+pub fn delete_all_property_values(
+    conn: &Connection,
+    entity_id: u64,
+    entity_type: PropertyEntityType,
+) -> Result<()> {
     conn.execute(
         "DELETE FROM property_values WHERE entity_id = ?1 AND entity_type = ?2",
         params![entity_id as i64, entity_type as i64],

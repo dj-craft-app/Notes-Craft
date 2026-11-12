@@ -30,8 +30,10 @@ pub struct PropertyValueId(pub u64);
 /// Types de propriétés supportés par Note Craft
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
+#[derive(Default)]
 pub enum PropertyType {
     /// Texte simple
+    #[default]
     Text,
     /// Nombre (entier ou décimal)
     Number,
@@ -74,12 +76,6 @@ impl fmt::Display for PropertyType {
     }
 }
 
-impl Default for PropertyType {
-    fn default() -> Self {
-        PropertyType::Text
-    }
-}
-
 /// Convertit une chaîne en PropertyType
 impl std::str::FromStr for PropertyType {
     type Err = PropertyError;
@@ -108,6 +104,7 @@ impl std::str::FromStr for PropertyType {
 /// Valeur d'une propriété
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
+#[derive(Default)]
 pub enum PropertyValue {
     /// Valeur texte
     Text(String),
@@ -130,6 +127,7 @@ pub enum PropertyValue {
     /// Couleur
     Color(String),
     /// Pas de valeur
+    #[default]
     None,
 }
 
@@ -187,12 +185,6 @@ impl PropertyValue {
     }
 }
 
-impl Default for PropertyValue {
-    fn default() -> Self {
-        PropertyValue::None
-    }
-}
-
 // ============================================================================
 // DÉFINITION D'UNE PROPRIÉTÉ
 // ============================================================================
@@ -228,14 +220,10 @@ pub struct Property {
 
 impl Property {
     /// Crée une nouvelle propriété
-    pub fn new(
-        name: String,
-        property_type: PropertyType,
-        is_system: bool,
-    ) -> Self {
+    pub fn new(name: String, property_type: PropertyType, is_system: bool) -> Self {
         let now = chrono::Utc::now().timestamp() as u64;
         let normalized_name = Self::normalize_name(&name);
-        
+
         Self {
             id: PropertyId(0), // sera généré par le stockage
             name,
@@ -282,15 +270,16 @@ impl Property {
             (PropertyType::DateTime, PropertyValue::DateTime(_)) => true,
             (PropertyType::Date, PropertyValue::DateTime(_)) => true, // compatible
             (PropertyType::Select, PropertyValue::Select(v)) => {
-                self.options.as_ref().map_or(true, |opts| opts.contains(v))
+                self.options.as_ref().is_none_or(|opts| opts.contains(v))
             }
-            (PropertyType::MultiSelect, PropertyValue::MultiSelect(v)) => {
-                self.options.as_ref().map_or(true, |opts| {
-                    v.iter().all(|item| opts.contains(item))
-                })
-            }
+            (PropertyType::MultiSelect, PropertyValue::MultiSelect(v)) => self
+                .options
+                .as_ref()
+                .is_none_or(|opts| v.iter().all(|item| opts.contains(item))),
             (PropertyType::Url, PropertyValue::Url(_)) => true,
-            (PropertyType::Url, PropertyValue::Text(v)) => v.starts_with("http://") || v.starts_with("https://"),
+            (PropertyType::Url, PropertyValue::Text(v)) => {
+                v.starts_with("http://") || v.starts_with("https://")
+            }
             (PropertyType::Email, PropertyValue::Email(_)) => true,
             (PropertyType::Email, PropertyValue::Text(v)) => v.contains("@"),
             (PropertyType::Color, PropertyValue::Color(_)) => true,
@@ -304,9 +293,9 @@ impl Property {
     /// Vérifie si le nom de couleur est valide
     fn is_valid_color_name(name: &str) -> bool {
         let valid_colors = [
-            "red", "orange", "yellow", "green", "blue", "indigo", "violet",
-            "pink", "purple", "gray", "grey", "black", "white", "brown",
-            "cyan", "magenta", "lime", "teal", "navy", "maroon",
+            "red", "orange", "yellow", "green", "blue", "indigo", "violet", "pink", "purple",
+            "gray", "grey", "black", "white", "brown", "cyan", "magenta", "lime", "teal", "navy",
+            "maroon",
         ];
         valid_colors.contains(&name.to_lowercase().as_str())
     }
@@ -315,7 +304,7 @@ impl Property {
 impl Default for Property {
     fn default() -> Self {
         let now = chrono::Utc::now().timestamp() as u64;
-        
+
         Self {
             id: PropertyId(0),
             name: String::new(),
@@ -358,9 +347,14 @@ pub struct PropertyValueEntry {
 
 impl PropertyValueEntry {
     /// Crée une nouvelle entrée de valeur de propriété
-    pub fn new(property_id: PropertyId, entity_id: u64, entity_type: PropertyEntityType, value: PropertyValue) -> Self {
+    pub fn new(
+        property_id: PropertyId,
+        entity_id: u64,
+        entity_type: PropertyEntityType,
+        value: PropertyValue,
+    ) -> Self {
         let now = chrono::Utc::now().timestamp() as u64;
-        
+
         Self {
             id: PropertyValueId(0), // sera généré par le stockage
             property_id,
@@ -380,17 +374,13 @@ impl PropertyValueEntry {
 /// Type d'entité pour les valeurs de propriétés
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
+#[derive(Default)]
 pub enum PropertyEntityType {
     /// Page
+    #[default]
     Page = 0,
     /// Block
     Block = 1,
-}
-
-impl Default for PropertyEntityType {
-    fn default() -> Self {
-        PropertyEntityType::Page
-    }
 }
 
 // ============================================================================
@@ -495,7 +485,11 @@ impl PropertySystem {
     }
 
     /// Met à jour une propriété
-    pub fn update_property(&mut self, id: PropertyId, updates: PropertyUpdate) -> Result<(), PropertyError> {
+    pub fn update_property(
+        &mut self,
+        id: PropertyId,
+        updates: PropertyUpdate,
+    ) -> Result<(), PropertyError> {
         if let Some(property) = self.properties.get_mut(&id) {
             if let Some(name) = updates.name {
                 // Vérifier si le nouveau nom est déjà utilisé
@@ -503,7 +497,7 @@ impl PropertySystem {
                 if self
                     .properties_by_name
                     .get(&normalized)
-                    .map_or(false, |&existing_id| existing_id != id)
+                    .is_some_and(|&existing_id| existing_id != id)
                 {
                     return Err(PropertyError::AlreadyExists(name.clone()));
                 }
@@ -596,7 +590,7 @@ impl PropertySystem {
         // Ajouter au stockage
         self.property_values
             .entry(entity_id)
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(entry);
 
         Ok(())
@@ -635,7 +629,9 @@ impl PropertySystem {
     ) -> Result<(), PropertyError> {
         if let Some(values) = self.property_values.get_mut(&entity_id) {
             let index = values.iter().position(|v| {
-                v.property_id == property_id && v.entity_id == entity_id && v.entity_type == entity_type
+                v.property_id == property_id
+                    && v.entity_id == entity_id
+                    && v.entity_type == entity_type
             });
 
             if let Some(index) = index {
@@ -656,20 +652,14 @@ impl PropertySystem {
     }
 
     /// Filtre les entités par propriété
-    pub fn filter_by_property(
-        &self,
-        property_id: PropertyId,
-        filter: PropertyFilter,
-    ) -> Vec<u64> {
+    pub fn filter_by_property(&self, property_id: PropertyId, filter: PropertyFilter) -> Vec<u64> {
         let mut results = Vec::new();
 
         for (entity_id, values) in &self.property_values {
             for value in values {
-                if value.property_id == property_id {
-                    if Self::matches_filter(&value.value, &filter) {
-                        results.push(*entity_id);
-                        break;
-                    }
+                if value.property_id == property_id && Self::matches_filter(&value.value, &filter) {
+                    results.push(*entity_id);
+                    break;
                 }
             }
         }
@@ -680,8 +670,12 @@ impl PropertySystem {
     /// Vérifie si une valeur correspond au filtre
     fn matches_filter(value: &PropertyValue, filter: &PropertyFilter) -> bool {
         match filter {
-            PropertyFilter::Equals(filter_value) => &PropertyValue::as_string(value) == &PropertyValue::as_string(filter_value),
-            PropertyFilter::NotEquals(filter_value) => &PropertyValue::as_string(value) != &PropertyValue::as_string(filter_value),
+            PropertyFilter::Equals(filter_value) => {
+                PropertyValue::as_string(value) == PropertyValue::as_string(filter_value)
+            }
+            PropertyFilter::NotEquals(filter_value) => {
+                PropertyValue::as_string(value) != PropertyValue::as_string(filter_value)
+            }
             PropertyFilter::GreaterThan(filter_value) => {
                 if let (Some(a), Some(b)) = (value.as_number(), filter_value.as_number()) {
                     a > b
@@ -697,11 +691,11 @@ impl PropertySystem {
                 }
             }
             PropertyFilter::Contains(text) => {
-                PropertyValue::as_string(value).map_or(false, |v| v.contains(text))
+                PropertyValue::as_string(value).is_some_and(|v| v.contains(text))
             }
-            PropertyFilter::In(values) => {
-                values.iter().any(|v| Self::matches_filter(value, &PropertyFilter::Equals(v.clone())))
-            }
+            PropertyFilter::In(values) => values
+                .iter()
+                .any(|v| Self::matches_filter(value, &PropertyFilter::Equals(v.clone()))),
             PropertyFilter::IsEmpty => matches!(value, PropertyValue::None),
             PropertyFilter::IsNotEmpty => !matches!(value, PropertyValue::None),
         }
@@ -846,10 +840,10 @@ mod tests {
     #[test]
     fn test_property_creation() {
         let mut system = PropertySystem::new();
-        
+
         let property = Property::new("status".to_string(), PropertyType::Select, false);
         let property_id = system.create_property(property).unwrap();
-        
+
         assert_eq!(property_id.0, 1);
         assert!(system.get_property(property_id).is_some());
     }
@@ -866,10 +860,14 @@ mod tests {
         let property = Property::with_options(
             "status".to_string(),
             PropertyType::Select,
-            vec!["todo".to_string(), "in_progress".to_string(), "done".to_string()],
+            vec![
+                "todo".to_string(),
+                "in_progress".to_string(),
+                "done".to_string(),
+            ],
             false,
         );
-        
+
         assert!(property.is_valid_value(&PropertyValue::Select("todo".to_string())));
         assert!(property.is_valid_value(&PropertyValue::Select("done".to_string())));
         assert!(!property.is_valid_value(&PropertyValue::Select("invalid".to_string())));
@@ -878,23 +876,25 @@ mod tests {
     #[test]
     fn test_set_and_get_property_value() {
         let mut system = PropertySystem::new();
-        
+
         // Créer une propriété
         let property = Property::new("priority".to_string(), PropertyType::Number, false);
         let property_id = system.create_property(property).unwrap();
-        
+
         // Définir une valeur
-        system.set_property_value(
-            property_id,
-            1, // entity_id
-            PropertyEntityType::Page,
-            PropertyValue::Number(5.0),
-        ).unwrap();
-        
+        system
+            .set_property_value(
+                property_id,
+                1, // entity_id
+                PropertyEntityType::Page,
+                PropertyValue::Number(5.0),
+            )
+            .unwrap();
+
         // Récupérer la valeur
         let value = system.get_property_value(property_id, 1, PropertyEntityType::Page);
         assert!(value.is_some());
-        
+
         if let PropertyValue::Number(v) = value.unwrap() {
             assert_eq!(*v, 5.0);
         } else {
@@ -905,23 +905,44 @@ mod tests {
     #[test]
     fn test_filter_by_property() {
         let mut system = PropertySystem::new();
-        
+
         // Créer une propriété
         let property = Property::new("priority".to_string(), PropertyType::Number, false);
         let property_id = system.create_property(property).unwrap();
-        
+
         // Définir des valeurs pour différentes entités
-        system.set_property_value(property_id, 1, PropertyEntityType::Page, PropertyValue::Number(5.0)).unwrap();
-        system.set_property_value(property_id, 2, PropertyEntityType::Page, PropertyValue::Number(3.0)).unwrap();
-        system.set_property_value(property_id, 3, PropertyEntityType::Page, PropertyValue::Number(8.0)).unwrap();
-        
+        system
+            .set_property_value(
+                property_id,
+                1,
+                PropertyEntityType::Page,
+                PropertyValue::Number(5.0),
+            )
+            .unwrap();
+        system
+            .set_property_value(
+                property_id,
+                2,
+                PropertyEntityType::Page,
+                PropertyValue::Number(3.0),
+            )
+            .unwrap();
+        system
+            .set_property_value(
+                property_id,
+                3,
+                PropertyEntityType::Page,
+                PropertyValue::Number(8.0),
+            )
+            .unwrap();
+
         // Filtrer par valeur > 4
         let mut results = system.filter_by_property(
             property_id,
             PropertyFilter::GreaterThan(PropertyValue::Number(4.0)),
         );
         results.sort();
-        
+
         assert_eq!(results, vec![1, 3]);
     }
 
@@ -936,10 +957,10 @@ mod tests {
     fn test_property_value_as_string() {
         let text_value = PropertyValue::Text("hello".to_string());
         assert_eq!(text_value.as_string(), Some("hello".to_string()));
-        
+
         let number_value = PropertyValue::Number(42.0);
         assert_eq!(number_value.as_string(), Some("42".to_string()));
-        
+
         let none_value = PropertyValue::None;
         assert_eq!(none_value.as_string(), None);
     }
