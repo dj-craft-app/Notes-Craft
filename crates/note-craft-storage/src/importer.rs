@@ -538,8 +538,11 @@ impl DataImporter {
         // Créer la page
         let page_id = self.create_page(&page_name, path)?;
 
-        // Parser le contenu Markdown et créer des blocs
-        let blocks = self.parse_markdown(&content, page_id)?;
+        // Détacher le frontmatter avant le parsing du corps : sinon les
+        // délimiteurs `---` et les paires clé/valeur du frontmatter sont
+        // traités comme du texte et ressortent en blocs paragraphes parasites.
+        let body = Self::strip_frontmatter(&content);
+        let blocks = self.parse_markdown(&body, page_id)?;
 
         // Créer les blocs dans la base de données
         let mut result = ImportResult::new();
@@ -976,32 +979,55 @@ impl DataImporter {
     // EXTRACTION DES PROPRIÉTÉS (Frontmatter)
     // ============================================================================
 
-    /// Extrait les propriétés depuis le frontmatter YAML (délimité par `---`)
-    fn extract_frontmatter_properties(&self, content: &str) -> HashMap<String, PropertyValue> {
-        let mut properties = HashMap::new();
-
-        // Vérifier si le contenu commence par du frontmatter
-        let lines: Vec<&str> = content.lines().collect();
+    /// Renvoie l'indice de la ligne fermant le frontmatter : un délimiteur
+    /// `---` en première ligne suivi d'une ligne fermante `---`. Renvoie
+    /// `None` si aucun frontmatter complet n'est détecté. Sémantique
+    /// partagée par `extract_frontmatter_properties` et `strip_frontmatter`.
+    fn frontmatter_end_line(lines: &[&str]) -> Option<usize> {
         if lines.is_empty() || !lines[0].trim().starts_with("---") {
-            return properties;
+            return None;
         }
 
-        // Trouver la fin du frontmatter
         let mut end_idx = 1;
         while end_idx < lines.len() && !lines[end_idx].trim().starts_with("---") {
             end_idx += 1;
         }
 
         if end_idx >= lines.len() {
-            return properties;
+            return None;
         }
 
+        Some(end_idx)
+    }
+
+    /// Détache le frontmatter et renvoie le corps du document Markdown
+    /// (délimiteurs `---` exclus). Renvoie le contenu inchangé si aucun
+    /// frontmatter complet n'est détecté.
+    fn strip_frontmatter(content: &str) -> String {
+        let lines: Vec<&str> = content.lines().collect();
+        match Self::frontmatter_end_line(&lines) {
+            Some(end_idx) => lines[end_idx + 1..].join("\n"),
+            None => content.to_string(),
+        }
+    }
+
+    /// Extrait les propriétés depuis le frontmatter YAML (délimité par `---`)
+    fn extract_frontmatter_properties(&self, content: &str) -> HashMap<String, PropertyValue> {
+        let mut properties = HashMap::new();
+
+        // Vérifier si le contenu commence par un frontmatter complet
+        // (détection partagée avec strip_frontmatter)
+        let lines: Vec<&str> = content.lines().collect();
+        let Some(end_idx) = Self::frontmatter_end_line(&lines) else {
+            return properties;
+        };
+
         // Extraire le contenu du frontmatter
-        let frontmatter = &lines[1..end_idx].join("\n");
+        let frontmatter = lines[1..end_idx].join("\n");
 
         // Parser comme YAML (format le plus courant)
         if let Ok(serde_yaml::Value::Mapping(map)) =
-            serde_yaml::from_str::<serde_yaml::Value>(frontmatter)
+            serde_yaml::from_str::<serde_yaml::Value>(&frontmatter)
         {
             for (key, value) in map {
                 if let (Some(k), Some(v)) = (key.as_str(), value.as_str()) {
@@ -1310,6 +1336,24 @@ mod tests {
 
         assert_eq!(result.pages_imported, 1);
         assert!(result.blocks_imported > 0);
+    }
+
+    #[test]
+    fn test_import_markdown_file_frontmatter_no_parasite_block() {
+        let dir = tempdir().unwrap();
+        let mut importer = make_importer(&dir);
+
+        // Frontmatter suivi d'un seul paragraphe : le frontmatter ne doit
+        // pas ressortir en bloc paragraphe parasite à l'import.
+        let md_file = dir.path().join("frontmatter.md");
+        let content = "---\nstatus: \"active\"\n---\n\nA paragraph.";
+        fs::write(&md_file, content).unwrap();
+
+        let result = importer.import_markdown_file(&md_file).unwrap();
+
+        assert_eq!(result.pages_imported, 1);
+        assert_eq!(result.blocks_imported, 1);
+        assert_eq!(result.properties_imported, 1);
     }
 
     #[test]
