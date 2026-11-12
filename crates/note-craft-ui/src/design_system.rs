@@ -193,20 +193,20 @@ pub struct DesignSystemThemeColors {
     pub background_primary: Color,
     pub background_secondary: Color,
     pub background_tertiary: Color,
-    
+
     /// Text colors
     pub text_primary: Color,
     pub text_secondary: Color,
     pub text_muted: Color,
-    
+
     /// Accent colors
     pub accent_primary: Color,
     pub accent_hover: Color,
-    
+
     /// Border colors
     pub border_primary: Color,
     pub border_secondary: Color,
-    
+
     /// Status colors
     pub success: Color,
     pub warning: Color,
@@ -284,15 +284,30 @@ mod tests {
 
     #[test]
     fn test_colors_defined() {
-        assert_eq!(colors::BACKGROUND_PRIMARY, Color::from_argb_u8(255, 0x1C, 0x1C, 0x1C));
-        assert_eq!(colors::TEXT_PRIMARY, Color::from_argb_u8(255, 0xDA, 0xDA, 0xDA));
-        assert_eq!(colors::ACCENT_PRIMARY, Color::from_argb_u8(255, 0x02, 0x7A, 0xFF));
+        assert_eq!(
+            colors::BACKGROUND_PRIMARY,
+            Color::from_argb_u8(255, 0x1C, 0x1C, 0x1C)
+        );
+        assert_eq!(
+            colors::TEXT_PRIMARY,
+            Color::from_argb_u8(255, 0xDA, 0xDA, 0xDA)
+        );
+        assert_eq!(
+            colors::ACCENT_PRIMARY,
+            Color::from_argb_u8(255, 0x02, 0x7A, 0xFF)
+        );
     }
 
     #[test]
     fn test_light_colors_defined() {
-        assert_eq!(light_colors::BACKGROUND_PRIMARY, Color::from_argb_u8(255, 0xFF, 0xFF, 0xFF));
-        assert_eq!(light_colors::TEXT_PRIMARY, Color::from_argb_u8(255, 0x33, 0x33, 0x33));
+        assert_eq!(
+            light_colors::BACKGROUND_PRIMARY,
+            Color::from_argb_u8(255, 0xFF, 0xFF, 0xFF)
+        );
+        assert_eq!(
+            light_colors::TEXT_PRIMARY,
+            Color::from_argb_u8(255, 0x33, 0x33, 0x33)
+        );
     }
 
     #[test]

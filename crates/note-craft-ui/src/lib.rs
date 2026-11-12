@@ -41,7 +41,7 @@ pub use command_palette::{
     CommandPaletteState, CommandResult, ExecutableCommand,
 };
 pub use design_system::{
-    DesignSystemThemeColors, border_radius, colors, light_colors, spacing, typography, z_index,
+    border_radius, colors, light_colors, spacing, typography, z_index, DesignSystemThemeColors,
 };
 pub use dialog::{
     DialogButton, DialogButtonConfig, DialogConfig, DialogEvent, DialogIcon, DialogId,
