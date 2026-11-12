@@ -29,6 +29,10 @@ pub use state::{
     StateSnapshot,
 };
 
+// Property System (Phase 4 - Étape 4.2)
+pub mod property;
+pub use property::{Property, PropertyEntityType, PropertyError, PropertyFilter, PropertyId, PropertySystem, PropertyType, PropertyUpdate, PropertyValue, PropertyValueEntry, PropertyValueId, create_system_properties};
+
 // Configuration System (Phase 1 - Étape 1.5)
 pub mod config;
 pub use config::{
