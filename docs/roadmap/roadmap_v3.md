@@ -812,7 +812,7 @@ Chaque phase suit la structure suivante:
 | 4.1 | SQLite Schema (complet) | Critique | 3d | Phase 1 | rust_architecture_choices.json:180 |
 | 4.2 | Property System | Critique | 5d | Phase 1, 4.1 | logseq_audit_results.json:236 |
 | 4.3 | Data Import | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:214 |
-| 4.4 | Data Export | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:220 |
+| 4.4 | Data Export | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:584 |
 | 4.5 | Backup System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:241 |
 | 4.6 | Migration System | Moyen | 3d | Phase 1, 4.1 | rust_architecture_choices.json:220 |
 | 4.7 | Cache System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:257 |
