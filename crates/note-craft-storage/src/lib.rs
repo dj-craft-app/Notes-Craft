@@ -5,6 +5,7 @@
 //! - Requêtes SQL pour récupérer les données
 //! - Intégration avec rusqlite
 
+pub mod importer;
 pub mod properties;
 pub mod schema;
 

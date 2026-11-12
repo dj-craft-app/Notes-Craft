@@ -20,6 +20,10 @@ log = { workspace = true }
 rusqlite = { workspace = true }
 chrono = { workspace = true }
 serde_json = { workspace = true }
+regex = { workspace = true }
+serde_yaml = { workspace = true }
+uuid = { workspace = true }
+quick-xml = { workspace = true }
 
 [dev-dependencies]
 anyhow = { workspace = true }

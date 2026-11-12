@@ -5,8 +5,6 @@
 //!
 //! Phase 4 - Étape 4.2 (Property System)
 
-#[cfg(test)]
-use crate::schema;
 use note_craft_core::property::{
     Property, PropertyEntityType, PropertyId, PropertyValue, PropertyValueId,
 };
@@ -480,6 +478,7 @@ pub fn filter_by_property(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::schema;
     use note_craft_core::property::{Property, PropertyType, PropertyValue};
     use tempfile::tempdir;
 
