@@ -137,9 +137,13 @@ impl Schema {
             normalized_name TEXT NOT NULL UNIQUE,
             property_type TEXT NOT NULL DEFAULT 'text',
             default_value TEXT,
+            options TEXT,
             is_system BOOLEAN DEFAULT FALSE,
             is_required BOOLEAN DEFAULT FALSE,
-            created_at INTEGER NOT NULL
+            description TEXT,
+            display_order INTEGER DEFAULT 0,
+            created_at INTEGER NOT NULL,
+            updated_at INTEGER NOT NULL
         )"#
         .to_string()
     }
@@ -148,17 +152,18 @@ impl Schema {
     pub fn create_property_values_table() -> String {
         r#"CREATE TABLE IF NOT EXISTS property_values (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            block_id INTEGER NOT NULL,
             property_id INTEGER NOT NULL,
+            entity_id INTEGER NOT NULL,
+            entity_type INTEGER NOT NULL,
+            value_type TEXT NOT NULL,
             string_value TEXT,
             number_value REAL,
             boolean_value INTEGER,
             date_value TEXT,
             created_at INTEGER NOT NULL,
             updated_at INTEGER NOT NULL,
-            FOREIGN KEY (block_id) REFERENCES blocks(id) ON DELETE CASCADE,
             FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
-            UNIQUE(block_id, property_id)
+            UNIQUE(property_id, entity_id, entity_type)
         )"#
         .to_string()
     }
@@ -308,11 +313,14 @@ impl Schema {
             "CREATE INDEX IF NOT EXISTS idx_properties_type ON properties(property_type)".to_string(),
 
             // Property values indexes
-            "CREATE INDEX IF NOT EXISTS idx_property_values_block_id ON property_values(block_id)".to_string(),
             "CREATE INDEX IF NOT EXISTS idx_property_values_property_id ON property_values(property_id)".to_string(),
+            "CREATE INDEX IF NOT EXISTS idx_property_values_entity_id ON property_values(entity_id)".to_string(),
+            "CREATE INDEX IF NOT EXISTS idx_property_values_entity_type ON property_values(entity_type)".to_string(),
+            "CREATE INDEX IF NOT EXISTS idx_property_values_value_type ON property_values(value_type)".to_string(),
             "CREATE INDEX IF NOT EXISTS idx_property_values_string ON property_values(string_value)".to_string(),
             "CREATE INDEX IF NOT EXISTS idx_property_values_number ON property_values(number_value)".to_string(),
             "CREATE INDEX IF NOT EXISTS idx_property_values_date ON property_values(date_value)".to_string(),
+            "CREATE INDEX IF NOT EXISTS idx_property_values_entity ON property_values(entity_id, entity_type)".to_string(),
 
             // Journals indexes
             "CREATE INDEX IF NOT EXISTS idx_journals_date ON journals(date)".to_string(),

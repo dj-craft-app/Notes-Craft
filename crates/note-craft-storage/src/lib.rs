@@ -5,6 +5,7 @@
 //! - Requêtes SQL pour récupérer les données
 //! - Intégration avec rusqlite
 
+pub mod properties;
 pub mod schema;
 
 use note_craft_core::{Link, LinkId, Node, NodeId, TagId, TypeId};

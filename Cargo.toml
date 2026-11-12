@@ -53,6 +53,9 @@ base64 = "0.21"
 pathdiff = "0.2"
 tempfile = "3.8"
 
+# Date/Time
+chrono = { version = "0.4", features = ["serde"] }
+
 # Testing
 tokio-test = "0.4"
 

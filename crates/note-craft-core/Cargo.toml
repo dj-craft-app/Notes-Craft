@@ -25,6 +25,7 @@ serde_yaml = { workspace = true }
 
 # For file system operations
 pathdiff = { workspace = true }
+chrono = { workspace = true }
 
 [dev-dependencies]
 # For testing
