@@ -17,6 +17,7 @@ pub mod graph_view;
 pub mod journal_view;
 pub mod keyboard;
 pub mod layout;
+pub mod notification;
 pub mod outliner;
 pub mod page_ui;
 pub mod sidebar;
@@ -60,6 +61,11 @@ pub use keyboard::{
 pub use layout::{
     AppLayout, DockManager, DockPosition, LayoutConfig, LayoutDirection, LayoutEvent,
     LayoutManager, LayoutRect, PaneConfig, PaneContent, PaneId, PaneState,
+};
+pub use notification::{
+    NotificationBuilder, NotificationConfig, NotificationEvent, NotificationId,
+    NotificationManager, NotificationPosition, NotificationQueueConfig, NotificationSeverity,
+    NotificationState, NotificationUtils,
 };
 pub use outliner::{
     OutlineItem, OutlineIterator, OutlinePath, OutlinerBuilder, OutlinerConfig, OutlinerEvent,
