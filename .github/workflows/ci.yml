@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -52,3 +52,6 @@ jobs:
         
       - name: Run tests
         run: cargo test --workspace --verbose --exclude note-craft-ui
+     
+      - name: Verify roadmap citations
+        run: python3 scripts/verify_roadmap_citations.py
