@@ -1,13 +1,22 @@
-# Copie ici la ligne `model` exacte de ton chef.toml
-model = "<identique à chef.toml>"
-type = "agent"
+# =====================================================================
+# AGENT "AUDITEUR" — garde-fou externe du propriétaire (Note-Craft)
+# Emplacement : Note-Craft/.vibe/agents/auditeur.toml
+# =====================================================================
 
-description = """
-Auditeur externe indépendant. Reçoit le rapport final du chef, vérifie
-mécaniquement et sémantiquement chaque affirmation, et produit le
-Dossier de Décision qui se termine par l'unique question du
-propriétaire : ON ENVOIE ?
-"""
+# Type : "agent" = visible et sélectionnable (--agent auditeur)
+agent_type = "agent"
+
+display_name = "Auditeur externe"
+
+description = "Auditeur externe : reçoit la remise officielle du chef (commentaire de PR), vérifie mécaniquement et sémantiquement, produit le Dossier de Décision. Jamais spawné par le chef."
+
+safety = "neutral"
+
+# Même modèle que le chef
+active_model = "mistral-large-4-0-3"
+
+# Charge automatiquement .vibe/prompts/auditeur.md (le prompt du projet prime)
+system_prompt_id = "auditeur"
 
 enabled_tools = ["read_file", "bash", "skill"]
 
