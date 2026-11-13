@@ -57,10 +57,10 @@ Note Craft est une initiative visant a creer une alternative 100% Rust aux appli
 - Dependances: 40+ analysees [Source: logseq_audit_results.json]
 
 **Analyse Obsidian:**
-- Palette: 15+ categories, 50+ couleurs [Source: obsidian_design_system.json:12]
-- Typographie: 9 poids, 15 tailles, 4 polices [Source: obsidian_design_system.json:20]
-- Composants: 12+ types documentes [Source: obsidian_design_system.json:35]
-- Layout: Systeme grille 2px/4px base [Source: obsidian_design_system.json:40]
+- Palette: 15+ categories, 50+ couleurs [Source: obsidian_design_system.json:7]
+- Typographie: 9 poids, 15 tailles, 4 polices [Source: obsidian_design_system.json:123]
+- Composants: 12+ types documentes [Source: obsidian_design_system.json:319]
+- Layout: Systeme grille 2px/4px base [Source: obsidian_design_system.json:287]
 
 **Architecture Rust:**
 - Decisions: 7 domaines techniques [Source: rust_architecture_report.md:15-21]
@@ -113,70 +113,70 @@ Devenir la reference des applications PKM (Personal Knowledge Management) pour l
 
 **Fichiers:** logseq_audit_results.json, logseq_audit_summary.md
 **Date:** 2026-11-08
-**Statut:** 80/81 features verifiees [Source: logseq_audit_results.json:7]
+**Statut:** 80/81 features verifiees [Source: logseq_audit_results.json:8]
 
 #### Features Critiques Identifiees (MVP)
 
-**Core System (11 features):** [Source: logseq_audit_results.json:42-299]
-- Block System (complexite: 5, priorite: Haut) [Source: logseq_audit_results.json:42]
-- Page System (5, Haut) [Source: logseq_audit_results.json:55]
-- Knowledge Graph (5, Haut) [Source: logseq_audit_results.json:68]
-- Tag System (4, Haut) [Source: logseq_audit_results.json:81]
-- Undo/Redo & History (4, Haut) [Source: logseq_audit_results.json:94]
-- Search System (5, Haut) [Source: logseq_audit_results.json:107]
-- Repository Management (4, Haut) [Source: logseq_audit_results.json:132]
-- Routing & Navigation (3, Haut) [Source: logseq_audit_results.json:145]
-- Event System (4, Haut) [Source: logseq_audit_results.json:158]
-- State Management (5, Haut) [Source: logseq_audit_results.json:299]
-- Configuration System (4, Haut) [Source: logseq_audit_results.json:312]
+**Core System (11 features):** [Source: logseq_audit_results.json:50-1315]
+- Block System (complexite: 5, priorite: Haut) [Source: logseq_audit_results.json:50]
+- Page System (5, Haut) [Source: logseq_audit_results.json:68]
+- Knowledge Graph (5, Haut) [Source: logseq_audit_results.json:85]
+- Tag System (4, Haut) [Source: logseq_audit_results.json:103]
+- Undo/Redo & History (4, Haut) [Source: logseq_audit_results.json:121]
+- Search System (5, Haut) [Source: logseq_audit_results.json:139]
+- Repository Management (4, Haut) [Source: logseq_audit_results.json:193]
+- Routing & Navigation (3, Haut) [Source: logseq_audit_results.json:175]
+- Event System (4, Haut) [Source: logseq_audit_results.json:229]
+- State Management (5, Haut) [Source: logseq_audit_results.json:1275]
+- Configuration System (4, Haut) [Source: logseq_audit_results.json:1315]
 
-**Data Layer (6 features):** [Source: logseq_audit_results.json:191-277]
-- DataScript Database (5, Haut) [Source: logseq_audit_results.json:191]
-- Data Persistence (4, Haut) [Source: logseq_audit_results.json:204]
-- Property System (4, Haut) [Source: logseq_audit_results.json:236]
-- File System Abstraction (4, Haut) [Source: logseq_audit_results.json:273]
-- Database Worker (5, Haut) [Source: logseq_audit_results.json:291]
-- Pipeline System (4, Haut) [Source: logseq_audit_results.json:342]
+**Data Layer (6 features):** [Source: logseq_audit_results.json:512-1295]
+- DataScript Database (5, Haut) [Source: logseq_audit_results.json:512]
+- Data Persistence (4, Haut) [Source: logseq_audit_results.json:530]
+- Property System (4, Haut) [Source: logseq_audit_results.json:602]
+- File System Abstraction (4, Haut) [Source: logseq_audit_results.json:1295]
+- Database Worker (5, Haut) [Source: logseq_audit_results.json:1130]
+- Pipeline System (4, Haut) [Source: logseq_audit_results.json:1166]
 
-**Editor (5 features):** [Source: logseq_audit_results.json:169-222]
-- Markdown Editor (5, Haut) [Source: logseq_audit_results.json:169]
-- Drag & Drop (4, Haut) [Source: logseq_audit_results.json:182]
-- Asset Management (4, Haut) [Source: logseq_audit_results.json:197]
-- Text Formatting (4, Haut) [Source: logseq_audit_results.json:222]
-- Rendering Pipeline (5, Haut) [Source: logseq_audit_results.json:335]
+**Editor (5 features):** [Source: logseq_audit_results.json:246-1184]
+- Markdown Editor (5, Haut) [Source: logseq_audit_results.json:246]
+- Drag & Drop (4, Haut) [Source: logseq_audit_results.json:266]
+- Asset Management (4, Haut) [Source: logseq_audit_results.json:319]
+- Text Formatting (4, Haut) [Source: logseq_audit_results.json:390]
+- Rendering Pipeline (5, Haut) [Source: logseq_audit_results.json:1184]
 
-**UI (5 features):** [Source: logseq_audit_results.json:255-286]
-- Block UI Components (5, Haut) [Source: logseq_audit_results.json:255]
-- Command Palette (4, Haut) [Source: logseq_audit_results.json:268]
-- Outliner System (5, Haut) [Source: logseq_audit_results.json:380]
-- Page UI Components (4, Haut) [Source: logseq_audit_results.json:277]
-- Sidebar System (4, Haut) [Source: logseq_audit_results.json:389]
+**UI (5 features):** [Source: logseq_audit_results.json:709-954]
+- Block UI Components (5, Haut) [Source: logseq_audit_results.json:763]
+- Command Palette (4, Haut) [Source: logseq_audit_results.json:745]
+- Outliner System (5, Haut) [Source: logseq_audit_results.json:954]
+- Page UI Components (4, Haut) [Source: logseq_audit_results.json:781]
+- Sidebar System (4, Haut) [Source: logseq_audit_results.json:709]
 
-**Query System (3 features):** [Source: logseq_audit_results.json:210-239]
-- Datalog Query System (5, Haut) [Source: logseq_audit_results.json:210]
-- Advanced Query Features (5, Haut) [Source: logseq_audit_results.json:225]
-- Search Indexing (4, Haut) [Source: logseq_audit_results.json:371]
+**Query System (3 features):** [Source: logseq_audit_results.json:458-1238]
+- Datalog Query System (5, Haut) [Source: logseq_audit_results.json:458]
+- Advanced Query Features (5, Haut) [Source: logseq_audit_results.json:494]
+- Search Indexing (4, Haut) [Source: logseq_audit_results.json:1238]
 
-**Sync (1 feature):** [Source: logseq_audit_results.json:307]
-- Data Synchronization (5, Haut) [Source: logseq_audit_results.json:217]
+**Sync (1 feature):** [Source: logseq_audit_results.json:548]
+- Data Synchronization (5, Haut) [Source: logseq_audit_results.json:548]
 
-**Plugins (2 features):** [Source: logseq_audit_results.json:342-371]
-- Plugin API (5, Haut) [Source: logseq_audit_results.json:307]
-- Plugin Loading System (4, Haut) [Source: logseq_audit_results.json:318]
+**Plugins (2 features):** [Source: logseq_audit_results.json:655-673]
+- Plugin API (5, Haut) [Source: logseq_audit_results.json:655]
+- Plugin Loading System (4, Haut) [Source: logseq_audit_results.json:673]
 
-**Threading (2 features):** [Source: logseq_audit_results.json:380-389]
-- Threading System (4, Haut) [Source: logseq_audit_results.json:358]
-- Worker DB (5, Haut) [Source: logseq_audit_results.json:327]
+**Threading (2 features):** [Source: logseq_audit_results.json:1130-1148]
+- Threading System (4, Haut) [Source: logseq_audit_results.json:1148]
+- Worker DB (5, Haut) [Source: logseq_audit_results.json:1130]
 
 #### Dependencies Analyse
 
 Les dependances critiques identifiees (utilisees par 5+ features):
-- State Management: 16 features [Source: logseq_audit_results.json:1500]
-- Parser: 15 features [Source: logseq_audit_results.json:1510]
-- File System: 13 features [Source: logseq_audit_results.json:1520]
-- Block System: 11 features [Source: logseq_audit_results.json:1530]
-- DB Core: 11 features [Source: logseq_audit_results.json:1540]
-- DataScript: 8 features [Source: logseq_audit_results.json:1550]
+- State Management: 16 features [Source: logseq_audit_results.json:1682]
+- Parser: 15 features [Source: logseq_audit_results.json:1665]
+- File System: 13 features [Source: logseq_audit_results.json:1716]
+- Block System: 11 features [Source: logseq_audit_results.json:1652]
+- DB Core: 11 features [Source: logseq_audit_results.json:1797]
+- DataScript: 8 features [Source: logseq_audit_results.json:1639]
 
 ### 3.2 Sources Obsidian (CHERCHEUR_UI_UX)
 
@@ -188,16 +188,16 @@ Les dependances critiques identifiees (utilisees par 5+ features):
 
 | Nom | Code HEX | Usage | Source |
 |-----|----------|-------|--------|
-| background-primary | #1C1C1C | Fond principal | obsidian_design_system.json:12 |
-| background-secondary | #282828 | Panneaux lateraux | obsidian_design_system.json:15 |
-| background-tertiary | #333333 | Fond tertiaire | obsidian_design_system.json:18 |
-| background-quaternary | #3f3f3f | Bordures | obsidian_design_system.json:21 |
-| text-primary | #dadada | Texte principal | obsidian_design_system.json:25 |
-| text-secondary | #999999 | Texte secondaire | obsidian_design_system.json:28 |
+| background-primary | #1C1C1C | Fond principal | obsidian_design_system.json:11 |
+| background-secondary | #282828 | Panneaux lateraux | obsidian_design_system.json:13 |
+| background-tertiary | #333333 | Fond tertiaire | obsidian_design_system.json:15 |
+| background-quaternary | #3f3f3f | Bordures | obsidian_design_system.json:16 |
+| text-primary | #dadada | Texte principal | obsidian_design_system.json:29 |
+| text-secondary | #999999 | Texte secondaire | obsidian_design_system.json:30 |
 | text-muted | #666666 | Texte atténué | obsidian_design_system.json:31 |
-| accent-primary | #027aff | Liens, elements interactifs | obsidian_design_system.json:38 |
-| accent-hover | #80ebff | Survol | obsidian_design_system.json:41 |
-| accent-active | #aaf2ff | Etat actif | obsidian_design_system.json:44 |
+| accent-primary | #027aff | Liens, elements interactifs | obsidian_design_system.json:43 |
+| accent-hover | #80ebff | Survol | obsidian_design_system.json:44 |
+| accent-active | #aaf2ff | Etat actif | obsidian_design_system.json:45 |
 
 #### Echelle de Couleurs
 
@@ -216,22 +216,22 @@ color-base-70: #b3b3b3
 color-base-100: #dadada (Texte clair)
 ```
 
-*Source: obsidian_design_system.json:48-65*
+*Source: obsidian_design_system.json:96-108*
 
 #### Couleurs de Syntaxe
 
 | Element | Code HEX | Usage | Source |
 |---------|----------|-------|--------|
-| normal | #dadada | Texte normal | obsidian_design_system.json:51 |
+| normal | #dadada | Texte normal | obsidian_design_system.json:53 |
 | comment | #666666 | Commentaires | obsidian_design_system.json:54 |
-| function | #e0de71 | Fonctions | obsidian_design_system.json:60 |
-| keyword | #fa99cd | Mots-cles | obsidian_design_system.json:63 |
-| string | #44cf6e | Chaines | obsidian_design_system.json:66 |
-| tag | #fb464c | Balises | obsidian_design_system.json:69 |
-| property | #53dfdd | Proprietes | obsidian_design_system.json:75 |
-| operator | #fb464c | Operateurs | obsidian_design_system.json:72 |
+| function | #e0de71 | Fonctions | obsidian_design_system.json:56 |
+| keyword | #fa99cd | Mots-cles | obsidian_design_system.json:57 |
+| string | #44cf6e | Chaines | obsidian_design_system.json:58 |
+| tag | #fb464c | Balises | obsidian_design_system.json:59 |
+| property | #53dfdd | Proprietes | obsidian_design_system.json:61 |
+| operator | #fb464c | Operateurs | obsidian_design_system.json:60 |
 
-*Source: obsidian_design_system.json:48-85*
+*Source: obsidian_design_system.json:52-64*
 
 #### Typographie
 
@@ -250,21 +250,21 @@ H5: 1.076em, weight: 600, line-height: 1.5, letter-spacing: -0.002em
 H6: 1em, weight: 600, line-height: 1.5, letter-spacing: 0em
 ```
 
-*Source: obsidian_design_system.json:156-260*
+*Source: obsidian_design_system.json:146-193*
 
 #### Layout
 
 **Sidebars:**
 - Width: 140px (redimensionnable)
 - Background: #1C1C1C
-- Toggle: 8.33% (ferme) -> 24% (ouvert) [Source: obsidian_design_system.json:200]
+- Toggle: 8.33% (ferme) -> 24% (ouvert) [Source: obsidian_design_system.json:243]
 
 **Workspace:**
 - Background: #1C1C1C
 - Marges: 32px (x et y)
 - Largeur ligne: 700px
 
-*Source: obsidian_design_system.json:264-315*
+*Source: obsidian_design_system.json:229-315*
 
 ### 3.3 Architecture Technique Rust (ARCHITECTE_RUST)
 
@@ -275,13 +275,13 @@ H6: 1em, weight: 600, line-height: 1.5, letter-spacing: 0em
 
 | Domaine | Decision | Alternative | Justification | Source |
 |---------|----------|-------------|---------------|--------|
-| GUI Framework | Slint | iced | Performance GPU, native look, faible complexite | rust_architecture_choices.json:90 |
-| Stockage | Markdown + SQLite | JSON, Binary | Compatibilite, performance, fiabilite | rust_architecture_choices.json:180 |
-| Datalog Engine | Custom | ddlog, crepe, Souffle bindings | Controle total, 100% Rust, flexibilite | rust_architecture_choices.json:270 |
-| Markdown Parser | pulldown-cmark | comrak | Conformite CommonMark, pur Rust | rust_architecture_choices.json:360 |
-| Markdown Renderer | wry (WebView) | HTML Custom | Qualite professionnelle, support JS | rust_architecture_choices.json:390 |
-| Synchronisation | Git (primaire) | CRDT, Syncthing | Simplicite, integration naturelle | rust_architecture_choices.json:480 |
-| Plugins | WASM (wasmtime) | dylib, Lua | Multi-langage, securite, portabilite | rust_architecture_choices.json:570 |
+| GUI Framework | Slint | iced | Performance GPU, native look, faible complexite | rust_architecture_choices.json:120 |
+| Stockage | Markdown + SQLite | JSON, Binary | Compatibilite, performance, fiabilite | rust_architecture_choices.json:214 |
+| Datalog Engine | Custom | ddlog, crepe, Souffle bindings | Controle total, 100% Rust, flexibilite | rust_architecture_choices.json:349 |
+| Markdown Parser | pulldown-cmark | comrak | Conformite CommonMark, pur Rust | rust_architecture_choices.json:294 |
+| Markdown Renderer | wry (WebView) | HTML Custom | Qualite professionnelle, support JS | rust_architecture_choices.json:295 |
+| Synchronisation | Git (primaire) | CRDT, Syncthing | Simplicite, integration naturelle | rust_architecture_choices.json:411 |
+| Plugins | WASM (wasmtime) | dylib, Lua | Multi-langage, securite, portabilite | rust_architecture_choices.json:464 |
 
 #### Diagramme d'Architecture
 
@@ -330,7 +330,7 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** Slint (DSL declaratif)
 **Alternatives:** iced, egui, Druid, gtk-rs, qt-rs
-**Source:** rust_architecture_choices.json:90-140
+**Source:** rust_architecture_choices.json:15-128
 
 #### Criteres d'Evaluation
 
@@ -345,11 +345,11 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 | **Total** | **100%** | **4.4** | **4.0** | **3.8** | **3.5** | **3.3** | **3.5** |
 
 **Justification:**
-- Performance: Rendu GPU-accelere (OpenGL/Vulkan/Metal) [Source: rust_architecture_choices.json:105]
-- Native Look: Integration parfaite avec chaque OS [Source: rust_architecture_choices.json:108]
-- DSL clair: Separation UI/logique, maintenabilite amelioree [Source: rust_architecture_choices.json:111]
-- Support commercial: Developpe par SiFive [Source: rust_architecture_choices.json:114]
-- Outils: Slint Designer pour creation visuelle [Source: rust_architecture_choices.json:117]
+- Performance: Rendu GPU-accelere (OpenGL/Vulkan/Metal) [Source: rust_architecture_choices.json:123]
+- Native Look: Integration parfaite avec chaque OS [Source: rust_architecture_choices.json:124]
+- DSL clair: Separation UI/logique, maintenabilite amelioree [Source: rust_architecture_choices.json:125]
+- Support commercial: Developpe par SiFive [Source: rust_architecture_choices.json:126]
+- Outils: Slint Designer pour creation visuelle [Source: rust_architecture_choices.json:128]
 
 **Sources:** https://slint-ui.com, https://github.com/slint-ui/slint
 
@@ -379,23 +379,23 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** Markdown (fichiers) + SQLite (indexation) + Moteur Datalog Custom
 **Alternatives:** JSON, Binaire Custom, RocksDB, [PoC Phase 0.13: crepe, Souffle, custom SQLite]
-**Source:** rust_architecture_choices.json:180-260
+**Source:** rust_architecture_choices.json:132-223
 
 **Justification Markdown:**
-- Compatibilite 100% avec Obsidian/Logseq [Source: rust_architecture_choices.json:185]
-- Lisibilite humaine, edition manuelle possible [Source: rust_architecture_choices.json:188]
-- Standard etabli avec ecosysteme riche [Source: rust_architecture_choices.json:191]
+- Compatibilite 100% avec Obsidian/Logseq [Source: rust_architecture_choices.json:218]
+- Lisibilite humaine, edition manuelle possible [Source: rust_architecture_choices.json:219]
+- Standard etabli avec ecosysteme riche [Source: rust_architecture_choices.json:141]
 
 **Justification SQLite:**
-- Maturite exceptionnelle (20+ ans en production) [Source: rust_architecture_choices.json:210]
-- Zero configuration [Source: rust_architecture_choices.json:213]
-- Transactions ACID [Source: rust_architecture_choices.json:216]
+- Maturite exceptionnelle (20+ ans en production) [Source: rust_architecture_choices.json:173]
+- Zero configuration [Source: rust_architecture_choices.json:220]
+- Transactions ACID [Source: rust_architecture_choices.json:180]
 - Performances: ~1M lecture/sec, ~100K ecriture/sec [Source: https://www.sqlite.org/eqp.html]
 
 **Justification Moteur Datalog Custom:**
-- Controle total sur la logique du graphe [Source: rust_architecture_choices.json:250]
-- Pas de dependance externe (100% Rust) [Source: rust_architecture_choices.json:253]
-- Flexibilite pour extensions specifiques [Source: rust_architecture_choices.json:256]
+- Controle total sur la logique du graphe [Source: rust_architecture_choices.json:352]
+- Pas de dependance externe (100% Rust) [Source: rust_architecture_choices.json:353]
+- Flexibilite pour extensions specifiques [Source: rust_architecture_choices.json:354]
 
 **Schema SQLite:** [A VERIFIER - Schema complet dans l'annexe]
 
@@ -405,18 +405,18 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** pulldown-cmark (parser) + wry (renderer WebView)
 **Alternatives:** comrak (parser), HTML Custom (renderer)
-**Source:** rust_architecture_choices.json:360-420
+**Source:** rust_architecture_choices.json:227-303
 
 **Justification pulldown-cmark:**
-- Meilleure conformite CommonMark [Source: rust_architecture_choices.json:365]
-- Ecosysteme riche d'extensions [Source: rust_architecture_choices.json:368]
-- Pur Rust (pas de FFI) [Source: rust_architecture_choices.json:371]
-- Performances: ~1-2 MB/sec [Source: rust_architecture_choices.json:374]
+- Meilleure conformite CommonMark [Source: rust_architecture_choices.json:297]
+- Ecosysteme riche d'extensions [Source: rust_architecture_choices.json:298]
+- Pur Rust (pas de FFI) [Source: rust_architecture_choices.json:299]
+- Performances: ~1-2 MB/sec [Source: rust_architecture_choices.json:232]
 
 **Justification wry:**
-- Qualite de rendu professionnelle [Source: rust_architecture_choices.json:377]
-- Support multiplateforme: WKWebView, WebView2, WebKitGTK [Source: rust_architecture_choices.json:380]
-- Support JavaScript pour LaTeX (KaTeX), diagrammes (Mermaid) [Source: rust_architecture_choices.json:383]
+- Qualite de rendu professionnelle [Source: rust_architecture_choices.json:300]
+- Support multiplateforme: WKWebView, WebView2, WebKitGTK [Source: rust_architecture_choices.json:257]
+- Support JavaScript pour LaTeX (KaTeX), diagrammes (Mermaid) [Source: rust_architecture_choices.json:301]
 
 **Extensions supportees:**
 - Tables (GFM), Wikilinks, Tags, Code blocks, LaTeX, Mermaid, Embedded notes, Task lists, Footnotes
@@ -427,13 +427,13 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** Moteur Datalog Custom en Rust
 **Alternatives:** ddlog (Microsoft), crepe, Souffle bindings, custom SQLite. [FAI-001: PoC Phase 0.13]
-**Source:** rust_architecture_choices.json:270-350
+**Source:** rust_architecture_choices.json:307-357
 
 **Justification:**
-- Controle total sur la logique [Source: rust_architecture_choices.json:275]
-- 100% Rust, pas de dependance externe [Source: rust_architecture_choices.json:278]
-- Flexibilite pour extensions specifiques [Source: rust_architecture_choices.json:281]
-- Opportunite d'apprentissage [Source: rust_architecture_choices.json:284]
+- Controle total sur la logique [Source: rust_architecture_choices.json:352]
+- 100% Rust, pas de dependance externe [Source: rust_architecture_choices.json:353]
+- Flexibilite pour extensions specifiques [Source: rust_architecture_choices.json:354]
+- Opportunite d'apprentissage [Source: rust_architecture_choices.json:357]
 
 **Fonctionnalites du moteur:**
 - Parsing de regles Datalog
@@ -452,19 +452,19 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** Git (git2-rs) comme methode primaire, CRDT (yrs-rs) comme option avancée
 **Alternatives:** Syncthing, Service Central
-**Source:** rust_architecture_choices.json:480-560
+**Source:** rust_architecture_choices.json:361-420
 
 **Justification Git:**
-- Simplicite maximale [Source: rust_architecture_choices.json:485]
-- Integration naturelle avec Markdown [Source: rust_architecture_choices.json:488]
-- Controle de version integre [Source: rust_architecture_choices.json:491]
-- Zero serveur, zero cout [Source: rust_architecture_choices.json:494]
+- Simplicite maximale [Source: rust_architecture_choices.json:414]
+- Integration naturelle avec Markdown [Source: rust_architecture_choices.json:415]
+- Controle de version integre [Source: rust_architecture_choices.json:364]
+- Zero serveur, zero cout [Source: rust_architecture_choices.json:417]
 
 **Justification CRDT:**
-- Gestion automatique des conflits [Source: rust_architecture_choices.json:497]
-- Synchronisation en temps reel [Source: rust_architecture_choices.json:500]
-- Offline-first [Source: rust_architecture_choices.json:503]
-- P2P [Source: rust_architecture_choices.json:506]
+- Gestion automatique des conflits [Source: rust_architecture_choices.json:418]
+- Synchronisation en temps reel [Source: rust_architecture_choices.json:419]
+- Offline-first [Source: rust_architecture_choices.json:393]
+- P2P [Source: rust_architecture_choices.json:694]
 
 **Decision finale:** Git (primaire) + CRDT (optionnel)
 
@@ -472,14 +472,14 @@ Cette section detaille chaque decision technique majeure avec justifications, so
 
 **Decision:** WASM avec wasmtime comme runtime
 **Alternatives:** dylib (Rust), Lua Scripting
-**Source:** rust_architecture_choices.json:570-650
+**Source:** rust_architecture_choices.json:424-471
 
 **Justification:**
-- Multi-langage: Rust, JavaScript, Python, Go, etc. [Source: rust_architecture_choices.json:575]
-- Securite: Sandboxing natif [Source: rust_architecture_choices.json:578]
-- Portabilite: Un plugin fonctionne sur toutes les plateformes [Source: rust_architecture_choices.json:581]
-- Ecosysteme croissant [Source: rust_architecture_choices.json:584]
-- Runtime wasmtime: pur Rust, bien maintenu [Source: rust_architecture_choices.json:587]
+- Multi-langage: Rust, JavaScript, Python, Go, etc. [Source: rust_architecture_choices.json:466]
+- Securite: Sandboxing natif [Source: rust_architecture_choices.json:467]
+- Portabilite: Un plugin fonctionne sur toutes les plateformes [Source: rust_architecture_choices.json:468]
+- Ecosysteme croissant [Source: rust_architecture_choices.json:469]
+- Runtime wasmtime: pur Rust, bien maintenu [Source: rust_architecture_choices.json:470]
 
 **Architecture:**
 ```
@@ -496,7 +496,7 @@ Application (Host) <-> WASM Runtime (wasmtime) <-> Plugins (WASM modules)
 ### 4.7 Optimisations de Performance
 
 **Strategie:** Optimisation multi-niveaux pour 10,000+ noeuds
-**Source:** rust_architecture_choices.json:660-750
+**Source:** rust_architecture_choices.json:475-550
 
 **Domaines d'optimisation:**
 - Rendu graphe: Virtualisation, WebGL (wgpu), LOD
@@ -524,14 +524,14 @@ Application (Host) <-> WASM Runtime (wasmtime) <-> Plugins (WASM modules)
 
 | Nom | Variable CSS | Valeur HEX | Usage | Source |
 |-----|--------------|------------|-------|--------|
-| background-primary | --nc-background-primary | #1C1C1C | Fond principal | obsidian_design_system.json:12 |
-| background-secondary | --nc-background-secondary | #282828 | Panneaux lateraux | obsidian_design_system.json:15 |
-| background-tertiary | --nc-background-tertiary | #333333 | Fond tertiaire | obsidian_design_system.json:18 |
-| text-primary | --nc-text-primary | #dadada | Texte principal | obsidian_design_system.json:25 |
-| text-secondary | --nc-text-secondary | #999999 | Texte secondaire | obsidian_design_system.json:28 |
+| background-primary | --nc-background-primary | #1C1C1C | Fond principal | obsidian_design_system.json:11 |
+| background-secondary | --nc-background-secondary | #282828 | Panneaux lateraux | obsidian_design_system.json:13 |
+| background-tertiary | --nc-background-tertiary | #333333 | Fond tertiaire | obsidian_design_system.json:15 |
+| text-primary | --nc-text-primary | #dadada | Texte principal | obsidian_design_system.json:29 |
+| text-secondary | --nc-text-secondary | #999999 | Texte secondaire | obsidian_design_system.json:30 |
 | text-muted | --nc-text-muted | #666666 | Texte atténué | obsidian_design_system.json:31 |
-| accent-primary | --nc-accent-primary | #027aff | Liens | obsidian_design_system.json:38 |
-| accent-hover | --nc-accent-hover | #80ebff | Survol | obsidian_design_system.json:41 |
+| accent-primary | --nc-accent-primary | #027aff | Liens | obsidian_design_system.json:43 |
+| accent-hover | --nc-accent-hover | #80ebff | Survol | obsidian_design_system.json:44 |
 
 ### 5.2 Typographie
 
@@ -569,16 +569,16 @@ H6: 1em, weight: 600, line-height: 1.5
 - Padding: 4px 16px
 - Border radius: 4px
 - Font size: 13px
-- Font weight: 590 [Source: obsidian_design_system.json:20]
+- Font weight: 590 [Source: obsidian_design_system.json:331]
 
 **Inputs:**
 - Hauteur: 30px
 - Padding: 4px 8px
 - Border radius: 5px
-- Background: #212121 [Source: obsidian_design_system.json:12]
+- Background: #212121 [Source: obsidian_design_system.json:398]
 
 **Code blocks:**
-- Background: #232323 [Source: obsidian_design_system.json:12]
+- Background: #232323 [Source: obsidian_design_system.json:423]
 - Border radius: 4px
 - Font family: JetBrains Mono
 
@@ -591,8 +591,8 @@ H6: 1em, weight: 600, line-height: 1.5
 - Slow: 560ms
 
 **Easing:**
-- Smooth: cubic-bezier(0.45, 0.05, 0.55, 0.95) [Source: obsidian_design_system.json:40]
-- Spring: cubic-bezier(0.36, 0.7, 0, 1) [Source: obsidian_design_system.json:40]
+- Smooth: cubic-bezier(0.45, 0.05, 0.55, 0.95) [Source: obsidian_design_system.json:560]
+- Spring: cubic-bezier(0.36, 0.7, 0, 1) [Source: obsidian_design_system.json:564]
 
 ### 5.6 Graphe de Connaissances
 
@@ -600,7 +600,7 @@ H6: 1em, weight: 600, line-height: 1.5
 - Background: #1C1C1C
 - Text: #dadada
 - Line: #3f3f3f
-- Node: #999999 [Source: obsidian_design_system.json:12]
+- Node: #999999 [Source: obsidian_design_system.json:538]
 - Node focused: #44cf6e
 - Node tag: #44cf6e
 - Node attachment: #e0de71
@@ -636,12 +636,12 @@ Chaque phase suit la structure suivante:
 | 0.1 | Creer depot Git (GitHub) | Critique | 1h | Aucune | Conformite aux standards Rust [Source: https://doc.rust-lang.org/book/] |
 | 0.2 | Configurer Cargo workspace | Critique | 2h | 0.1 | rust_architecture_report.md:60 |
 | 0.3 | Definir structure du projet | Critique | 4h | 0.2 | rust_architecture_report.md:70 |
-| 0.4 | Configurer Slint | Critique | 1d | 0.3 | rust_architecture_choices.json:90 |
-| 0.5 | Configurer wry | Critique | 1d | 0.3 | rust_architecture_choices.json:360 |
-| 0.6 | Configurer pulldown-cmark | Critique | 1d | 0.3 | rust_architecture_choices.json:360 |
-| 0.7 | Configurer SQLite (rusqlite) | Critique | 1d | 0.3 | rust_architecture_choices.json:180 |
-| 0.8 | Configurer wasmtime | Moyen | 1d | 0.3 | rust_architecture_choices.json:570 |
-| 0.9 | Configurer tokio | Moyen | 1d | 0.3 | rust_architecture_choices.json:700 |
+| 0.4 | Configurer Slint | Critique | 1d | 0.3 | rust_architecture_choices.json:50 |
+| 0.5 | Configurer wry | Critique | 1d | 0.3 | rust_architecture_choices.json:257 |
+| 0.6 | Configurer pulldown-cmark | Critique | 1d | 0.3 | rust_architecture_choices.json:230 |
+| 0.7 | Configurer SQLite (rusqlite) | Critique | 1d | 0.3 | rust_architecture_choices.json:677 |
+| 0.8 | Configurer wasmtime | Moyen | 1d | 0.3 | rust_architecture_choices.json:679 |
+| 0.9 | Configurer tokio | Moyen | 1d | 0.3 | rust_architecture_choices.json:686 |
 | 0.10 | Configurer CI/CD (GitHub Actions) | Critique | 1d | 0.1 | rust_architecture_report.md:800 |
 | 0.11 | Configurer systeme de build | Critique | 1d | 0.2 | Conformite aux standards Rust [Source: https://doc.rust-lang.org/book/] |
 | 0.12 | Creer documentation initiale | Moyen | 2d | 0.1 | Aucune |
@@ -673,7 +673,7 @@ Chaque phase suit la structure suivante:
 |----------|------|------|------|--------|
 | crepe | Moteur Datalog Rust natif | 100% Rust, performant | Jeune projet, maturite a verifier | https://github.com/crepe-rs/crepe |
 | Souffle bindings | Bindings Rust pour Souffle | Mature, standard Datalog | Dependances C++, integration complexe | https://souffle-lang.github.io |
-| Custom sur SQLite | Implementation custom | Controle total, integration facile | Effort de developpement important | rust_architecture_choices.json:270 |
+| Custom sur SQLite | Implementation custom | Controle total, integration facile | Effort de developpement important | rust_architecture_choices.json:349 |
 
 ##### Critere d'acceptation
 
@@ -695,19 +695,19 @@ Chaque phase suit la structure suivante:
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
 | 1.1 | File System Abstraction | Critique | 3d | Phase 0 | logseq_audit_results.json |
-| 1.2 | Block System (structure) | Critique | 5d | Phase 0, 1.1 | logseq_audit_results.json:42 |
-| 1.3 | Page System | Critique | 5d | 1.2 | logseq_audit_results.json:55 |
-| 1.4 | State Management | Critique | 5d | Phase 0, 1.1 | logseq_audit_results.json:299 |
-| 1.5 | Configuration System | Critique | 3d | 1.1 | logseq_audit_results.json:312 |
-| 1.6 | Repository Management | Critique | 3d | 1.1, 1.2 | logseq_audit_results.json:132 |
-| 1.7 | Markdown Parser (basique) | Critique | 3d | 1.1 | rust_architecture_choices.json:360 |
-| 1.8 | SQLite Integration | Critique | 3d | 1.1 | rust_architecture_choices.json:180 |
-| 1.9 | Data Persistence | Critique | 3d | 1.1, 1.8 | logseq_audit_results.json:204 |
-| 1.10 | Knowledge Graph (structure) | Critique | 5d | 1.2, 1.3 | logseq_audit_results.json:68 |
-| 1.11 | Tag System | Moyen | 3d | 1.2, 1.7 | logseq_audit_results.json:81 |
-| 1.12 | Routing & Navigation | Moyen | 3d | 1.3, 1.6 | logseq_audit_results.json:145 |
-| 1.13 | Event System | Moyen | 3d | Phase 0, 1.4 | logseq_audit_results.json:158 |
-| 1.14 | History/Undo | Moyen | 3d | 1.4 | logseq_audit_results.json:94 |
+| 1.2 | Block System (structure) | Critique | 5d | Phase 0, 1.1 | logseq_audit_results.json:50 |
+| 1.3 | Page System | Critique | 5d | 1.2 | logseq_audit_results.json:68 |
+| 1.4 | State Management | Critique | 5d | Phase 0, 1.1 | logseq_audit_results.json:1275 |
+| 1.5 | Configuration System | Critique | 3d | 1.1 | logseq_audit_results.json:1315 |
+| 1.6 | Repository Management | Critique | 3d | 1.1, 1.2 | logseq_audit_results.json:193 |
+| 1.7 | Markdown Parser (basique) | Critique | 3d | 1.1 | rust_architecture_choices.json:230 |
+| 1.8 | SQLite Integration | Critique | 3d | 1.1 | rust_architecture_choices.json:171 |
+| 1.9 | Data Persistence | Critique | 3d | 1.1, 1.8 | logseq_audit_results.json:530 |
+| 1.10 | Knowledge Graph (structure) | Critique | 5d | 1.2, 1.3 | logseq_audit_results.json:85 |
+| 1.11 | Tag System | Moyen | 3d | 1.2, 1.7 | logseq_audit_results.json:103 |
+| 1.12 | Routing & Navigation | Moyen | 3d | 1.3, 1.6 | logseq_audit_results.json:175 |
+| 1.13 | Event System | Moyen | 3d | Phase 0, 1.4 | logseq_audit_results.json:229 |
+| 1.14 | History/Undo | Moyen | 3d | 1.4 | logseq_audit_results.json:121 |
 
 #### Critere d'acceptation
 
@@ -732,18 +732,18 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 2.1 | Markdown Editor (complet) | Critique | 5d | Phase 1 | logseq_audit_results.json:169 |
-| 2.2 | Text Formatting | Critique | 3d | 2.1 | logseq_audit_results.json:222 |
-| 2.3 | Code Blocks | Moyen | 3d | 2.1 | logseq_audit_results.json:185 |
-| 2.4 | LaTeX Support (KaTeX) | Moyen | 3d | 2.1 | rust_architecture_choices.json:383 |
-| 2.5 | Asset Management | Critique | 5d | Phase 1, 2.1 | logseq_audit_results.json:197 |
-| 2.6 | Drag & Drop | Critique | 5d | Phase 1, 2.1 | logseq_audit_results.json:182 |
-| 2.7 | Advanced Paste | Moyen | 3d | 2.1 | logseq_audit_results.json:219 |
-| 2.8 | Macros System | Moyen | 3d | 2.1 | logseq_audit_results.json:192 |
-| 2.9 | Quick Add | Moyen | 2d | 2.1 | logseq_audit_results.json:244 |
-| 2.10 | Rendering Pipeline | Critique | 5d | 2.1 | logseq_audit_results.json:335 |
-| 2.11 | Editor Lifecycle | Moyen | 2d | 2.1 | logseq_audit_results.json:252 |
-| 2.12 | wry Integration | Critique | 3d | Phase 0, 2.10 | rust_architecture_choices.json:380 |
+| 2.1 | Markdown Editor (complet) | Critique | 5d | Phase 1 | logseq_audit_results.json:246 |
+| 2.2 | Text Formatting | Critique | 3d | 2.1 | logseq_audit_results.json:390 |
+| 2.3 | Code Blocks | Moyen | 3d | 2.1 | logseq_audit_results.json:284 |
+| 2.4 | LaTeX Support (KaTeX) | Moyen | 3d | 2.1 | rust_architecture_choices.json:600 |
+| 2.5 | Asset Management | Critique | 5d | Phase 1, 2.1 | logseq_audit_results.json:319 |
+| 2.6 | Drag & Drop | Critique | 5d | Phase 1, 2.1 | logseq_audit_results.json:266 |
+| 2.7 | Advanced Paste | Moyen | 3d | 2.1 | logseq_audit_results.json:356 |
+| 2.8 | Macros System | Moyen | 3d | 2.1 | logseq_audit_results.json:338 |
+| 2.9 | Quick Add | Moyen | 2d | 2.1 | logseq_audit_results.json:408 |
+| 2.10 | Rendering Pipeline | Critique | 5d | 2.1 | logseq_audit_results.json:1184 |
+| 2.11 | Editor Lifecycle | Moyen | 2d | 2.1 | logseq_audit_results.json:425 |
+| 2.12 | wry Integration | Critique | 3d | Phase 0, 2.10 | rust_architecture_choices.json:570 |
 
 #### Critere d'acceptation
 
@@ -770,19 +770,19 @@ Chaque phase suit la structure suivante:
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
 | 3.1 | Slint UI (structure) | Critique | 5d | Phase 0 | note_craft_design_system.md:1 |
-| 3.2 | Sidebar System | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:389 |
-| 3.3 | Block UI Components | Critique | 7d | Phase 1, 3.1 | logseq_audit_results.json:255 |
-| 3.4 | Page UI Components | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:277 |
-| 3.5 | Command Palette | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:268 |
-| 3.6 | Outliner System | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:380 |
-| 3.7 | Theme System | Moyen | 5d | Phase 0, 3.1 | logseq_audit_results.json:286 |
-| 3.8 | Keyboard Shortcuts | Moyen | 3d | Phase 1, 3.5 | logseq_audit_results.json:283 |
-| 3.9 | Graph View (basique) | Moyen | 5d | Phase 1, 3.1 | logseq_audit_results.json:261 |
-| 3.10 | Journal View | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:140 |
-| 3.11 | Asset Gallery | Moyen | 3d | Phase 2, 3.1 | logseq_audit_results.json:274 |
-| 3.12 | Layout System | Moyen | 5d | Phase 1, 3.1 | logseq_audit_results.json:290 |
-| 3.13 | Dialog System | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:397 |
-| 3.14 | Notification System | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:271 |
+| 3.2 | Sidebar System | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:709 |
+| 3.3 | Block UI Components | Critique | 7d | Phase 1, 3.1 | logseq_audit_results.json:763 |
+| 3.4 | Page UI Components | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:781 |
+| 3.5 | Command Palette | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:745 |
+| 3.6 | Outliner System | Critique | 5d | Phase 1, 3.1 | logseq_audit_results.json:954 |
+| 3.7 | Theme System | Moyen | 5d | Phase 0, 3.1 | logseq_audit_results.json:727 |
+| 3.8 | Keyboard Shortcuts | Moyen | 3d | Phase 1, 3.5 | logseq_audit_results.json:886 |
+| 3.9 | Graph View (basique) | Moyen | 5d | Phase 1, 3.1 | logseq_audit_results.json:799 |
+| 3.10 | Journal View | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:817 |
+| 3.11 | Asset Gallery | Moyen | 3d | Phase 2, 3.1 | logseq_audit_results.json:834 |
+| 3.12 | Layout System | Moyen | 5d | Phase 1, 3.1 | logseq_audit_results.json:937 |
+| 3.13 | Dialog System | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:869 |
+| 3.14 | Notification System | Moyen | 3d | Phase 1, 3.1 | logseq_audit_results.json:852 |
 | 3.15 | Appliquer Design System | Critique | 5d | 3.1 | note_craft_design_system.md |
 
 #### Critere d'acceptation
@@ -809,18 +809,18 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 4.1 | SQLite Schema (complet) | Critique | 3d | Phase 1 | rust_architecture_choices.json:180 |
-| 4.2 | Property System | Critique | 5d | Phase 1, 4.1 | logseq_audit_results.json:236 |
-| 4.3 | Data Import | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:214 |
+| 4.1 | SQLite Schema (complet) | Critique | 3d | Phase 1 | rust_architecture_choices.json:171 |
+| 4.2 | Property System | Critique | 5d | Phase 1, 4.1 | logseq_audit_results.json:602 |
+| 4.3 | Data Import | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:566 |
 | 4.4 | Data Export | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:584 |
-| 4.5 | Backup System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:241 |
-| 4.6 | Migration System | Moyen | 3d | Phase 1, 4.1 | rust_architecture_choices.json:220 |
-| 4.7 | Cache System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:257 |
-| 4.8 | Diff System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:437 |
-| 4.9 | File Watcher | Critique | 3d | Phase 1 | rust_architecture_choices.json:700 |
-| 4.10 | Search Indexing | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:371 |
-| 4.11 | Optimiser SQLite (indexes) | Moyen | 3d | 4.1 | rust_architecture_choices.json:210 |
-| 4.12 | FTS5 (Full-Text Search) | Moyen | 3d | 4.1, 4.11 | rust_architecture_choices.json:216 |
+| 4.5 | Backup System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:620 |
+| 4.6 | Migration System | Moyen | 3d | Phase 1, 4.1 | rust_architecture_choices.json:171 |
+| 4.7 | Cache System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:637 |
+| 4.8 | Diff System | Moyen | 3d | Phase 1, 4.1 | logseq_audit_results.json:1439 |
+| 4.9 | File Watcher | Critique | 3d | Phase 1 | rust_architecture_choices.json:571 |
+| 4.10 | Search Indexing | Moyen | 5d | Phase 1, 4.1 | logseq_audit_results.json:1238 |
+| 4.11 | Optimiser SQLite (indexes) | Moyen | 3d | 4.1 | rust_architecture_choices.json:532 |
+| 4.12 | FTS5 (Full-Text Search) | Moyen | 3d | 4.1, 4.11 | rust_architecture_choices.json:677 |
 
 #### Critere d'acceptation
 
@@ -848,15 +848,15 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 5.1 | Datalog Parser | Critique | 10d | Phase 1 | rust_architecture_choices.json:270 |
-| 5.2 | Datalog Execution Engine | Critique | 15d | 5.1 | rust_architecture_choices.json:270 |
+| 5.1 | Datalog Parser | Critique | 10d | Phase 1 | rust_architecture_choices.json:583 |
+| 5.2 | Datalog Execution Engine | Critique | 15d | 5.1 | rust_architecture_choices.json:584 |
 | 5.4 | Wikilinks Generation | Critique | 5d | Phase 1, 5.1 | rust_architecture_report.md:200 |
 | 5.5 | Backlinks Calculation | Critique | 5d | Phase 1, 5.4 | rust_architecture_report.md:203 |
-| 5.6 | Basic Queries (tag, link) | Critique | 5d | 5.1, 5.2 | logseq_audit_results.json:210 |
-| 5.7 | Advanced Query Features | Moyen | 5d | 5.2 | logseq_audit_results.json:225 |
-| 5.8 | Query Builder UI | Moyen | 5d | Phase 3, 5.6 | logseq_audit_results.json:239 |
-| 5.9 | Query Cache | Moyen | 3d | 5.2 | rust_architecture_choices.json:670 |
-| 5.10 | Incremental Queries | Moyen | 5d | 5.2 | rust_architecture_choices.json:670 |
+| 5.6 | Basic Queries (tag, link) | Critique | 5d | 5.1, 5.2 | logseq_audit_results.json:458 |
+| 5.7 | Advanced Query Features | Moyen | 5d | 5.2 | logseq_audit_results.json:494 |
+| 5.8 | Query Builder UI | Moyen | 5d | Phase 3, 5.6 | logseq_audit_results.json:476 |
+| 5.9 | Query Cache | Moyen | 3d | 5.2 | rust_architecture_choices.json:524 |
+| 5.10 | Incremental Queries | Moyen | 5d | 5.2 | rust_architecture_choices.json:538 |
 
 #### Critere d'acceptation
 
@@ -884,7 +884,7 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 5.3 | SQLite Indexing for Graph | Critique | 5d | Phase 4, 5.1 | rust_architecture_choices.json:210 |
+| 5.3 | SQLite Indexing for Graph | Critique | 5d | Phase 4, 5.1 | rust_architecture_choices.json:585 |
 
 #### Critere d'acceptation
 
@@ -904,13 +904,13 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 6.1 | Integrer wasmtime | Critique | 5d | Phase 0 | rust_architecture_choices.json:570 |
-| 6.2 | Definir API stable | Critique | 10d | 6.1 | rust_architecture_choices.json:590 |
-| 6.3 | Plugin Loading System | Critique | 5d | 6.1, 6.2 | logseq_audit_results.json:318 |
-| 6.4 | Sandboxing et Securite | Critique | 10d | 6.1 | rust_architecture_choices.json:570 |
-| 6.5 | Plugin Capabilities System | Moyen | 5d | 6.2 | rust_architecture_choices.json:590 |
-| 6.6 | Plugin Configuration | Moyen | 3d | 6.2 | rust_architecture_choices.json:590 |
-| 6.7 | Plugin Marketplace (basique) | Bas | 5d | 6.3 | logseq_audit_results.json:325 |
+| 6.1 | Integrer wasmtime | Critique | 5d | Phase 0 | rust_architecture_choices.json:629 |
+| 6.2 | Definir API stable | Critique | 10d | 6.1 | rust_architecture_choices.json:630 |
+| 6.3 | Plugin Loading System | Critique | 5d | 6.1, 6.2 | logseq_audit_results.json:673 |
+| 6.4 | Sandboxing et Securite | Critique | 10d | 6.1 | rust_architecture_choices.json:632 |
+| 6.5 | Plugin Capabilities System | Moyen | 5d | 6.2 | rust_architecture_choices.json:463 |
+| 6.6 | Plugin Configuration | Moyen | 3d | 6.2 | rust_architecture_choices.json:463 |
+| 6.7 | Plugin Marketplace (basique) | Bas | 5d | 6.3 | logseq_audit_results.json:691 |
 | 6.8 | Plugin Documentation | Moyen | 5d | 6.2 | Aucune |
 | 6.9 | Exemples de Plugins | Moyen | 10d | 6.2 | Aucune |
 
@@ -948,11 +948,11 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 7.1 | Git Integration (git2-rs) | Critique | 5d | Phase 1 | rust_architecture_choices.json:480 |
+| 7.1 | Git Integration (git2-rs) | Critique | 5d | Phase 1 | rust_architecture_choices.json:644 |
 | 7.2 | Auto-commit/push | Moyen | 5d | 7.1 | rust_architecture_report.md:400 |
 | 7.3 | Conflict Resolution (merge) | Moyen | 10d | 7.1 | rust_architecture_report.md:403 |
-| 7.4 | CRDT Integration (yrs-rs) | Moyen | 10d | Phase 1 | rust_architecture_choices.json:480 |
-| 7.5 | P2P Synchronization | Bas | 15d | 7.4 | rust_architecture_choices.json:480 |
+| 7.4 | CRDT Integration (yrs-rs) | Moyen | 10d | Phase 1 | rust_architecture_choices.json:647 |
+| 7.5 | P2P Synchronization | Bas | 15d | 7.4 | rust_architecture_choices.json:648 |
 | 7.6 | Sync UI | Moyen | 5d | Phase 3, 7.1 | Phase 3 |
 | 7.7 | Import Obsidian | Moyen | 5d | Phase 4 | Phase 4 |
 | 7.8 | Import Logseq | Moyen | 5d | Phase 4 | Phase 4 |
@@ -984,13 +984,13 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 8.1 | Performance Optimization | Critique | 10d | Toutes | rust_architecture_choices.json:660 |
-| 8.2 | Graph Rendering Virtualization | Critique | 10d | Phase 3, Phase 5 | rust_architecture_choices.json:660 |
-| 8.3 | LOD for Graph | Moyen | 10d | 8.2 | rust_architecture_choices.json:660 |
-| 8.4 | Multi-level Caching | Critique | 5d | Phase 4 | rust_architecture_choices.json:660 |
-| 8.5 | Lazy Loading | Critique | 10d | Phase 2 | rust_architecture_choices.json:660 |
-| 8.6 | Datalog Query Optimization | Moyen | 10d | Phase 5 | rust_architecture_choices.json:660 |
-| 8.7 | Threading (rayon) | Moyen | 5d | Toutes | rust_architecture_choices.json:660 |
+| 8.1 | Performance Optimization | Critique | 10d | Toutes | rust_architecture_choices.json:475 |
+| 8.2 | Graph Rendering Virtualization | Critique | 10d | Phase 3, Phase 5 | rust_architecture_choices.json:614 |
+| 8.3 | LOD for Graph | Moyen | 10d | 8.2 | rust_architecture_choices.json:615 |
+| 8.4 | Multi-level Caching | Critique | 5d | Phase 4 | rust_architecture_choices.json:616 |
+| 8.5 | Lazy Loading | Critique | 10d | Phase 2 | rust_architecture_choices.json:617 |
+| 8.6 | Datalog Query Optimization | Moyen | 10d | Phase 5 | rust_architecture_choices.json:618 |
+| 8.7 | Threading (rayon) | Moyen | 5d | Toutes | rust_architecture_choices.json:619 |
 | 8.8 | Final Benchmarking | Moyen | 5d | Toutes | Toutes |
 | 8.9 | User Documentation | Critique | 10d | Toutes | Toutes |
 | 8.10 | Unit Tests | Critique | 10d | Toutes | Toutes |
@@ -1023,12 +1023,12 @@ Chaque phase suit la structure suivante:
 
 | ID | Risque | Probabilite | Impact | Mitigation | Source |
 |----|--------|-------------|--------|------------|--------|
-| R1 | Complexite Moteur Datalog | Elevée | Elevé | Planification realiste, PoC avant | rust_architecture_choices.json:270 |
-| R2 | Performances Graph Rendering | Moyenne | Elevé | Optimisations progressives | rust_architecture_choices.json:660 |
-| R3 | Integration Slint | Faible | Moyen | PoC, fallback iced | rust_architecture_choices.json:90 |
+| R1 | Complexite Moteur Datalog | Elevée | Elevé | Planification realiste, PoC avant | rust_architecture_choices.json:310 |
+| R2 | Performances Graph Rendering | Moyenne | Elevé | Optimisations progressives | rust_architecture_choices.json:476 |
+| R3 | Integration Slint | Faible | Moyen | PoC, fallback iced | rust_architecture_choices.json:120 |
 | R4 | Compatibilite Markdown | Moyenne | Moyen | Tests exhaustifs | logseq_audit_summary.md:100 |
-| R5 | Securite WASM | Faible | Elevé | Sandboxing strict | rust_architecture_choices.json:570 |
-| R6 | Migration Donnees | Moyenne | Moyen | Systeme backup/migration teste | logseq_audit_results.json:437 |
+| R5 | Securite WASM | Faible | Elevé | Sandboxing strict | rust_architecture_choices.json:443 |
+| R6 | Migration Donnees | Moyenne | Moyen | Systeme backup/migration teste | logseq_audit_results.json:1202 |
 
 ### Risques Organisationnels
 
@@ -1064,16 +1064,16 @@ Chaque phase suit la structure suivante:
 
 | ID | Etape | Priorite | Estimation | Dependances | Source |
 |----|-------|----------|------------|-------------|--------|
-| 9.1 | CRDT Implementation (yrs-rs) | Critique | 10d | Phase 0, Phase 4 | rust_architecture_choices.json:700 |
-| 9.2 | Conflict Resolution | Critique | 5d | 9.1 | rust_architecture_choices.json:720 |
-| 9.3 | Presence Indicators | Moyen | 5d | 9.1 | logseq_audit_results.json:400 |
-| 9.4 | Real-time Cursor Sync | Moyen | 3d | 9.1 | logseq_audit_results.json:405 |
-| 9.5 | Collaborative Editing | Critique | 10d | 9.1, 9.2 | logseq_audit_results.json:410 |
-| 9.6 | Change History | Moyen | 5d | 9.1 | logseq_audit_results.json:415 |
-| 9.7 | Network Protocol (WebSocket) | Critique | 5d | Phase 0 | rust_architecture_choices.json:750 |
-| 9.8 | Peer Discovery | Moyen | 3d | 9.7 | rust_architecture_choices.json:760 |
-| 9.9 | Sync Status UI | Moyen | 3d | Phase 3, 9.1 | logseq_audit_results.json:420 |
-| 9.10 | Offline Sync Queue | Critique | 5d | 9.1 | rust_architecture_choices.json:770 |
+| 9.1 | CRDT Implementation (yrs-rs) | Critique | 10d | Phase 0, Phase 4 | rust_architecture_choices.json:693 |
+| 9.2 | Conflict Resolution | Critique | 5d | 9.1 | rust_architecture_choices.json:646 |
+| 9.3 | Presence Indicators | Moyen | 5d | 9.1 | logseq_audit_results.json:1025 |
+| 9.4 | Real-time Cursor Sync | Moyen | 3d | 9.1 | logseq_audit_results.json:1042 |
+| 9.5 | Collaborative Editing | Critique | 10d | 9.1, 9.2 | logseq_audit_results.json:1042 |
+| 9.6 | Change History | Moyen | 5d | 9.1 | logseq_audit_results.json:121 |
+| 9.7 | Network Protocol (WebSocket) | Critique | 5d | Phase 0 | rust_architecture_choices.json:694 |
+| 9.8 | Peer Discovery | Moyen | 3d | 9.7 | rust_architecture_choices.json:694 |
+| 9.9 | Sync Status UI | Moyen | 3d | Phase 3, 9.1 | logseq_audit_results.json:548 |
+| 9.10 | Offline Sync Queue | Critique | 5d | 9.1 | rust_architecture_choices.json:393 |
 
 #### Critere d'acceptation
 
@@ -1104,20 +1104,20 @@ par les phases actuelles et devront etre evaluees pour v2.0:
 
 | ID | Feature | Categorie | Priorite Logseq | Complexite | Decision Note Craft | Source |
 |----|---------|-----------|-----------------|------------|---------------------|--------|
-| F-01 | User Management | Core | Haut | 4 | A evaluer - Auth locale | logseq_audit_results.json:167 |
-| F-02 | Markdown Parser | Core | Haut | 5 | Couvert par pulldown-cmark | logseq_audit_results.json:729 |
-| F-03 | State Management | Core | Moyen | 3 | A evaluer - Rust patterns | logseq_audit_results.json:802 |
-| F-04 | File System Abstraction | Data | Moyen | 3 | A evaluer | logseq_audit_results.json:830 |
-| F-05 | Configuration System | Core | Moyen | 3 | A evaluer | logseq_audit_results.json:843 |
-| F-06 | Date & Time Utilities | Core | Bas | 2 | A evaluer | logseq_audit_results.json:856 |
-| F-07 | Internationalization | UI | Bas | 3 | Hors scope MVP | logseq_audit_results.json:869 |
-| F-08 | Notification Utilities | UI | Bas | 2 | Partiel (Phase 3.14) | logseq_audit_results.json:882 |
-| F-09 | Performance Profiler | Other | Bas | 2 | A evaluer | logseq_audit_results.json:895 |
-| F-10 | Logging System | Other | Bas | 2 | A evaluer | logseq_audit_results.json:908 |
-| F-11 | Command System | UI | Moyen | 3 | Partiel (Phase 3.5) | logseq_audit_results.json:921 |
-| F-12 | Diff System | Data | Moyen | 3 | A evaluer | logseq_audit_results.json:934 |
-| F-13 | Shell Integration | Other | Bas | 2 | Hors scope desktop | logseq_audit_results.json:947 |
-| F-14 | Security Utilities | Other | Moyen | 3 | A evaluer | logseq_audit_results.json:960 |
+| F-01 | User Management | Core | Haut | 4 | A evaluer - Auth locale | logseq_audit_results.json:211 |
+| F-02 | Markdown Parser | Core | Haut | 5 | Couvert par pulldown-cmark | logseq_audit_results.json:1256 |
+| F-03 | State Management | Core | Moyen | 3 | A evaluer - Rust patterns | logseq_audit_results.json:1275 |
+| F-04 | File System Abstraction | Data | Moyen | 3 | A evaluer | logseq_audit_results.json:1295 |
+| F-05 | Configuration System | Core | Moyen | 3 | A evaluer | logseq_audit_results.json:1315 |
+| F-06 | Date & Time Utilities | Core | Bas | 2 | A evaluer | logseq_audit_results.json:1334 |
+| F-07 | Internationalization | UI | Bas | 3 | Hors scope MVP | logseq_audit_results.json:1352 |
+| F-08 | Notification Utilities | UI | Bas | 2 | Partiel (Phase 3.14) | logseq_audit_results.json:1370 |
+| F-09 | Performance Profiler | Other | Bas | 2 | A evaluer | logseq_audit_results.json:1388 |
+| F-10 | Logging System | Other | Bas | 2 | A evaluer | logseq_audit_results.json:1405 |
+| F-11 | Command System | UI | Moyen | 3 | Partiel (Phase 3.5) | logseq_audit_results.json:1421 |
+| F-12 | Diff System | Data | Moyen | 3 | A evaluer | logseq_audit_results.json:1439 |
+| F-13 | Shell Integration | Other | Bas | 2 | Hors scope desktop | logseq_audit_results.json:1457 |
+| F-14 | Security Utilities | Other | Moyen | 3 | A evaluer | logseq_audit_results.json:1474 |
 
 #### Statistiques COM-002
 
@@ -1150,8 +1150,8 @@ par les phases actuelles et devront etre evaluees pour v2.0:
 ### 8.2 Sources Obsidian
 
 3. **obsidian_design_system.json** - Design system complet
-   - Palette de couleurs (50+ couleurs) [Source: obsidian_design_system.json:12]
-   - Typographie (9 poids, 15 tailles) [Source: obsidian_design_system.json:20]
+   - Palette de couleurs (50+ couleurs) [Source: obsidian_design_system.json:7]
+   - Typographie (9 poids, 15 tailles) [Source: obsidian_design_system.json:123]
    - Layout (sidebars, workspace, etc.)
    - Composants UI (boutons, inputs, etc.)
    - Animations et interactions
