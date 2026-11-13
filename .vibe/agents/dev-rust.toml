@@ -14,7 +14,7 @@ description = "Implémente du code Rust dans une crate du workspace : écrit, mo
 safety = "neutral"
 
 # Code avancé
-active_model = "glm-5-3"
+active_model = "zai-glm-5-3"
 
 enabled_tools = ["read_file", "edit", "write_file", "bash", "skill"]
 
