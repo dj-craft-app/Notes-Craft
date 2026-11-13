@@ -141,6 +141,9 @@ humaine obligatoire** et **jamais d'auto-merge**, même si la CI est verte et la
 note est TRÈS BIEN. Ce fichier est le contrat de travail du projet ; son intégrité
 prime sur toute politique d'autonomie.
 
+Toute modification de .vibe/agents/* ou .vibe/prompts/* (configuration de l'orchestration)
+exige une revue humaine obligatoire et jamais d'auto-merge, au même titre que AGENTS.md.
+
 ## 8. Étiquette de l'agent
 
 - Cite tes preuves (commande + sortie, fichier:ligne). Un rapport sans preuve
