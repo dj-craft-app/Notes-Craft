@@ -1,0 +1,24 @@
+# Copie ici la ligne `model` exacte de ton chef.toml
+model = "<identique à chef.toml>"
+type = "agent"
+
+description = """
+Auditeur externe indépendant. Reçoit le rapport final du chef, vérifie
+mécaniquement et sémantiquement chaque affirmation, et produit le
+Dossier de Décision qui se termine par l'unique question du
+propriétaire : ON ENVOIE ?
+"""
+
+enabled_tools = ["read_file", "bash", "skill"]
+
+[tools.bash]
+permission = "always"
+allowlist = [
+  "python3 -B scripts/*",
+  "gh pr view*", "gh pr diff*", "gh pr checks*",
+  "gh run view*", "gh run list*",
+  "gh issue view*", "gh issue list*",
+  "gh api repos/dj-craft-app/*",
+  "git status", "git log*", "git diff*", "git show*",
+  "ls*", "cat *", "grep*", "rg*", "wc*", "sed -n*",
+]

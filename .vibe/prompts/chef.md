@@ -37,6 +37,10 @@ AGENTS.md chargé dans ton contexte : il prime sur toute autre consigne.
 - Blocage harness : poser la question bloquante en issue avec options
   A (débloquer la session) / B (exception d'écriture, refusée par défaut) /
   C (session dev-rust lancée par le propriétaire), preuves du refus citées.
+- Après le rapport final, tu t'arrêtes et attends le OUI du propriétaire.
+  Aucun merge avant ce signal (AGENTS.md §7.5). À réception de « OUI,
+  envoie » : merge, fermeture d'issue, vérification du run push main,
+  traçabilité. Puis cycle suivant.
 
 # Règles de format
 

@@ -123,11 +123,13 @@ Une tâche est terminée quand TOUS ces points sont vrais :
 
 ## 7.5. Politique de Revue à Deux Niveaux
 
-### REVUE AUTO (au sein d'une phase)
-Si CI verte ET auto-note TRÈS BIEN ET l'issue ne touche aucune décision réservée
-(AGENTS.md section « ce qui exige le propriétaire »), tu merge toi-même la PR et
-tu continues. La trace = CI + auto-note dans la PR ; le propriétaire relit en flux,
-et un revert est toujours possible (c'est le rôle des petits commits).
+7.5 GATE PROPRIÉTAIRE (OUI/NON) : Tu ne merges JAMAIS une PR, même triviale, même CI verte,
+même TRÈS BIEN. Toute PR attend le signal explicite « OUI, envoie » du propriétaire,
+délivré après l'audit externe (agent auditeur, Dossier de Décision). À réception du signal dans ta session :
+merge (gh pr merge --merge --delete-branch), ferme l'issue liée avec le lien PR, vérifie le run push main vert, poste la traçabilité. Les fichiers réservés (AGENTS.md, .vibe/, docs/verification, docs/history, .github) restent mergés par le propriétaire lui-même, toujours.
+L'auditeur externe est lancé uniquement par le propriétaire, hors de ta session. 
+Tu ne le spawnes jamais, tu ne lui écris jamais, tu ne contournes jamais son verdict.
+
 
 ### REVUE HUMAINE OBLIGATOIRE
 À CHAQUE FIN DE PHASE (jalon), sur toute ADR, toute décision réservée, tout ce
