@@ -1,0 +1,33 @@
+# =====================================================================
+# AGENT "AUDITEUR" — garde-fou externe du propriétaire (Note-Craft)
+# Emplacement : Note-Craft/.vibe/agents/auditeur.toml
+# =====================================================================
+
+# Type : "agent" = visible et sélectionnable (--agent auditeur)
+agent_type = "agent"
+
+display_name = "Auditeur externe"
+
+description = "Auditeur externe : reçoit la remise officielle du chef (commentaire de PR), vérifie mécaniquement et sémantiquement, produit le Dossier de Décision. Jamais spawné par le chef."
+
+safety = "neutral"
+
+# Même modèle que le chef
+active_model = "mistral-large-4-0-3"
+
+# Charge automatiquement .vibe/prompts/auditeur.md (le prompt du projet prime)
+system_prompt_id = "auditeur"
+
+enabled_tools = ["read_file", "bash", "skill"]
+
+[tools.bash]
+permission = "always"
+allowlist = [
+  "python3 -B scripts/*",
+  "gh pr view*", "gh pr diff*", "gh pr checks*",
+  "gh run view*", "gh run list*",
+  "gh issue view*", "gh issue list*",
+  "gh api repos/dj-craft-app/*",
+  "git status", "git log*", "git diff*", "git show*",
+  "ls*", "cat *", "grep*", "rg*", "wc*", "sed -n*",
+]
