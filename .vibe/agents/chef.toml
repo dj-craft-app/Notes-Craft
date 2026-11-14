@@ -16,7 +16,7 @@ description = "Orchestrateur : planifie, découpe, délègue en vagues, agrège.
 safety = "neutral"
 
 # Modèle de CET agent quand il est actif (écrase active_model de config.toml)
-active_model = "mistral-large-4-0-3"
+active_model = "zai-glm-5-3"
 
 # Charge automatiquement ~/.vibe/prompts/chef.md (ou .vibe/prompts/ du projet,
 # qui PRIME dans Note-Craft)

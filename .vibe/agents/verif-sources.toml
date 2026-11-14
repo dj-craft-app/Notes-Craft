@@ -14,7 +14,7 @@ description = "Vérification passe 1 : chaque affirmation du livrable est-elle s
 safety = "safe"
 
 # La vérification exige du raisonnement
-active_model = "mistral-large-4-0-3"
+active_model = "zai-glm-5-3"
 
 # Le vérificateur ne MODIFIE JAMAIS le livrable
 enabled_tools = ["read_file", "bash", "skill"]

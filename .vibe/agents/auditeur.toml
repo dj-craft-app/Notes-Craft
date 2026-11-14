@@ -13,7 +13,7 @@ description = "Auditeur externe : reçoit la remise officielle du chef (commenta
 safety = "neutral"
 
 # Même modèle que le chef
-active_model = "mistral-large-4-0-3"
+active_model = "zai-glm-5-3"
 
 # Charge automatiquement .vibe/prompts/auditeur.md (le prompt du projet prime)
 system_prompt_id = "auditeur"

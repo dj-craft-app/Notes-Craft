@@ -16,7 +16,7 @@ description = "Exploration read-only : structure des crates, roadmap_v3.md, audi
 safety = "safe"
 
 # Exploration rapide = modèle flash
-active_model = "glm-5-3"
+active_model = "zai-glm-5-3"
 
 # Lecture et commandes uniquement : aucune écriture
 enabled_tools = ["read_file", "bash", "skill"]
