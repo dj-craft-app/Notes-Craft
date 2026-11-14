@@ -44,7 +44,7 @@ use thiserror::Error;
 // ERREURS
 // ============================================================================
 
-/// Erreurs du système de migration (miroir de `BackupError`, backup.rs:27).
+/// Erreurs du système de migration (miroir de `BackupError`, backup.rs:54).
 #[derive(Error, Debug)]
 pub enum MigrationError {
     #[error("Erreur de stockage: {0}")]
@@ -155,7 +155,7 @@ pub struct MigrationReport {
 
 /// Gestionnaire de migrations pour une base SQLite.
 ///
-/// Suit le pattern de `BackupManager` (backup.rs:127) : construit avec le
+/// Suit le pattern de `BackupManager` (backup.rs:132) : construit avec le
 /// chemin de la base (pour le backup pré-migration) et une configuration.
 pub struct MigrationManager {
     /// Chemin du fichier de base de données (pour le backup pré-migration).
@@ -201,6 +201,17 @@ impl MigrationManager {
     ///    rollback de CETTE migration uniquement, erreur renvoyée, les
     ///    migrations précédentes restent appliquées (chaque étape est
     ///    un point de reprise sûr).
+    ///
+    /// Base PLUS RÉCENTE que le registre : si `user_version` dépasse la
+    /// dernière version du registre (base ouverte par un binaire plus
+    /// récent, puis rétrogradée), aucune migration n'est en attente →
+    /// no-op idempotent, `to_version == from_version`, aucun backup.
+    /// Le système ne tente JAMAIS de « rétrograder » le schéma.
+    ///
+    /// Concurrence : la gestion de `busy_timeout` (et des verrous SQLite)
+    /// est à la charge de l'appelant (cf. `Schema::initialize_database`,
+    /// schema.rs:494, qui règle `busy_timeout=5000`). Ce module ne modifie
+    /// aucun PRAGMA de concurrence.
     pub fn migrate(
         &self,
         conn: &Connection,
@@ -284,11 +295,20 @@ impl MigrationManager {
             .unwrap_or(false);
         if has_log {
             let now = chrono::Utc::now().timestamp();
-            let _ = tx.execute(
+            // La trace est secondaire : on ne fait pas échouer une migration
+            // saine pour un échec d'écriture de journal, mais on ne le
+            // tait PAS (règle « aucune erreur silencieuse »).
+            if let Err(e) = tx.execute(
                 "INSERT OR REPLACE INTO migration_log (version, name, applied_at)
                  VALUES (?1, ?2, ?3)",
                 rusqlite::params![migration.version, migration.name, now],
-            );
+            ) {
+                log::warn!(
+                    "note-craft-storage: trace migration_log échouée pour v{} ({}): {e}",
+                    migration.version,
+                    migration.name
+                );
+            }
         }
 
         tx.commit().map_err(|e| MigrationError::MigrationFailed {
@@ -624,6 +644,35 @@ mod tests {
         assert!(result.is_err(), "backup échoué → migration abortée");
         // Aucune migration appliquée : version inchangée, base vide.
         assert_eq!(manager.current_version(&conn).unwrap(), 0);
+    }
+
+    // --- Base plus récente que le registre : no-op, jamais de rétrogradage
+
+    #[test]
+    fn test_newer_db_is_noop() {
+        let (_dir, conn) = empty_conn();
+        let manager = MigrationManager::new(
+            Path::new("unused.db"),
+            BackupConfig {
+                enabled: false,
+                ..BackupConfig::default()
+            },
+        );
+
+        // Simule une base ouverte par un binaire plus récent (v99) puis
+        // rétrogradée : user_version dépasse le registre (v1/v2).
+        conn.pragma_update(None, "user_version", 99).unwrap();
+        assert_eq!(manager.current_version(&conn).unwrap(), 99);
+
+        let report = manager.migrate_default(&conn).unwrap();
+
+        // No-op : rien d'appliqué, version inchangée (jamais de downgrade),
+        // aucun backup créé.
+        assert!(report.applied.is_empty());
+        assert_eq!(report.from_version, 99);
+        assert_eq!(report.to_version, 99);
+        assert!(report.backup.is_none());
+        assert_eq!(manager.current_version(&conn).unwrap(), 99);
     }
 
     // --- Critère 4 : validation détecte une incohérence
