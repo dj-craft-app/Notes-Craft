@@ -8,6 +8,7 @@
 pub mod backup;
 pub mod exporter;
 pub mod importer;
+pub mod migrations;
 pub mod properties;
 pub mod schema;
 
