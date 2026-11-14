@@ -210,7 +210,7 @@ impl MigrationManager {
     ///
     /// Concurrence : la gestion de `busy_timeout` (et des verrous SQLite)
     /// est à la charge de l'appelant (cf. `Schema::initialize_database`,
-    /// schema.rs:494, qui règle `busy_timeout=5000`). Ce module ne modifie
+    /// schema.rs:506, qui règle `busy_timeout=5000`). Ce module ne modifie
     /// aucun PRAGMA de concurrence.
     pub fn migrate(
         &self,
