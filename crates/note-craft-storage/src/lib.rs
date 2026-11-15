@@ -6,6 +6,7 @@
 //! - Intégration avec rusqlite
 
 pub mod backup;
+pub mod cache;
 pub mod exporter;
 pub mod importer;
 pub mod migrations;
